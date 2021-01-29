@@ -13,6 +13,7 @@ import ISA.Team54.drugOrdering.model.Offer;
 
 @Entity
 public class Suplier extends User{
+	
 	@OneToMany(mappedBy="suplier",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Offer> offer;
 	
@@ -20,8 +21,9 @@ public class Suplier extends User{
 		super();
 	}
 
-	public Suplier(List<Offer> offer) {
-		super();
+	public Suplier(long id, Email email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, List<Offer> offer) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.offer = offer;
 	}
 
@@ -32,6 +34,8 @@ public class Suplier extends User{
 	public void setOffer(List<Offer> offer) {
 		this.offer = offer;
 	}
+
+	
 	
 	
 	
