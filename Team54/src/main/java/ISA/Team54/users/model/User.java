@@ -22,20 +22,27 @@ public abstract class User {
 	@SequenceGenerator(name = "mySeqGen1", sequenceName = "mySeq1",initialValue = 1,allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen1")
 	private long id;
+	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Email email;
+	
 	@Column(unique = false,nullable = true)
 	private String password;
+	
 	@Column(unique = false,nullable = true)
 	private String name;
+	
 	@Column(unique = false,nullable = true)
 	private String surname;
 	@Column(unique = false,nullable = true)
 	private String address;
+	
 	@Column(unique = false,nullable = true)
 	private String city;
+	
 	@Column(unique = false,nullable = true)
 	private String country;
+	
 	@Column(unique = false,nullable = true)
 	private String phoneNumber;	
 	
