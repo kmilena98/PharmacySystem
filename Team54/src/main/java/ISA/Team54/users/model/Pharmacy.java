@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import ISA.Team54.drugAndRecipe.model.Drug;
+import ISA.Team54.Examination.model.Examination;
 
 @Entity
 public class Pharmacy {
@@ -29,4 +29,6 @@ public class Pharmacy {
 	 @JoinTable(name = "dermatologistsInPharmacy",joinColumns= @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "dermatologist_id",referencedColumnName= "id"))
 	 public List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
 	
+	 @OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 private List<Examination> examinations = new ArrayList<Examination>();
 }

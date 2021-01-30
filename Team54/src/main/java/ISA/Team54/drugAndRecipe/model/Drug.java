@@ -13,8 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import ISA.Team54.Examination.model.Examination;
 
 @Entity
 public class Drug {
@@ -32,7 +33,8 @@ public class Drug {
 	 * @ManyToMany(mappedBy="drugsInPharmacy") public List<ERecipe>
 	 * eRecipesInPharmacy = new ArrayList<ERecipe>();
 	 */
-	 
+	@ManyToMany(mappedBy="drugs")
+	private List<Examination> examinations = new ArrayList<Examination>();
 	@ManyToMany(mappedBy="drugs")
 	private List<ERecipe> erecipes = new ArrayList<ERecipe>();
 	

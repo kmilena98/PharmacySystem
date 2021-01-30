@@ -29,9 +29,9 @@ public class Patient extends User{
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ERecipe> eRecipes = new ArrayList<ERecipe>();
 	
-	 @ManyToMany
-	 @JoinTable(name = "patientDrugAllergies",joinColumns= @JoinColumn(name = "patient_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "drugAllergyId_id",referencedColumnName= "id"))
-	 public List<DrugAllergy> drugAllergies = new ArrayList<DrugAllergy>();
+	@ManyToMany
+	@JoinTable(name = "patientDrugAllergies",joinColumns= @JoinColumn(name = "patient_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "drugAllergyId_id",referencedColumnName= "id"))
+	public List<DrugAllergy> drugAllergies = new ArrayList<DrugAllergy>();
 	
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Complaint> complaints;
