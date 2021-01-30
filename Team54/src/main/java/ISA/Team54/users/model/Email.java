@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import exceptions.ValidationExeption;
+import ISA.Team54.exceptions.ValidationExeption;
 @Entity
 public class Email {
 	
