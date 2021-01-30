@@ -1,1 +1,1 @@
-insert into email(email) values ('gmail');
+insert into drug(name) values ('Aspirin');

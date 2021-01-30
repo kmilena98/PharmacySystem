@@ -28,16 +28,22 @@ public abstract class User {
 	
 	@Column(unique = false, nullable = false)
 	private String password;
+	
 	@Column(unique = false, nullable = false)
 	private String name;
-	@Column(unique = false, nullable = false)
+	
+	@Column(unique = false,nullable = false)
 	private String surname;
+	
 	@Column(unique = false,nullable = true)
 	private String address;
+	
 	@Column(unique = false,nullable = true)
 	private String city;
+	
 	@Column(unique = false,nullable = true)
 	private String country;
+	
 	@Column(unique = false,nullable = true)
 	private String phoneNumber;	
 	
