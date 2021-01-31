@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
-import ISA.Team54.vacationAndWorkingTime.model.WorkSchedule;
+import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 
 @Entity
 public class Dermatologist extends User{
@@ -22,8 +22,8 @@ public class Dermatologist extends User{
 	@Column(unique = false,nullable = true)
 	private double rating;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<WorkSchedule> workSchedules;
+	@OneToMany(mappedBy="dermatologist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<DermatologistWorkSchedule> workSchedules;
 	
 	@ManyToMany(mappedBy="dermatologists")
 	private List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
@@ -32,13 +32,14 @@ public class Dermatologist extends User{
 	private List<VacationRequest> vacationRequests;
 	
 	
+	
 	public Dermatologist() {
 		super();
 	}
 
 	public Dermatologist(long id, Email email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, double price, double rating,
-			List<WorkSchedule> workSchedule, List<Pharmacy> pharmacy) {
+			List<DermatologistWorkSchedule> workSchedule, List<Pharmacy> pharmacy) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.price = price;
 		this.rating = rating;
@@ -62,11 +63,11 @@ public class Dermatologist extends User{
 		this.rating = rating;
 	}
 
-	public List<WorkSchedule> getWorkSchedule() {
+	public List<DermatologistWorkSchedule> getWorkSchedule() {
 		return workSchedules;
 	}
 
-	public void setWorkSchedule(List<WorkSchedule> workSchedule) {
+	public void setWorkSchedule(List<DermatologistWorkSchedule> workSchedule) {
 		this.workSchedules = workSchedule;
 	}
 

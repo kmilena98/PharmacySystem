@@ -24,9 +24,9 @@ public class Drug {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private String name;
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private String code;
 	@Column(unique = false,nullable = true)
 	private int loyalityPoints;

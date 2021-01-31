@@ -13,13 +13,13 @@ public class Rating {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private Long objectId;
 	
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private double rating;
 	
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private RatingObject objectType;
 
 	public Rating() {

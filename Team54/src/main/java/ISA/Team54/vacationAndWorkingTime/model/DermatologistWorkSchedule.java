@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.users.model.Dermatologist;
 @Entity
-public class WorkSchedule {
+public class DermatologistWorkSchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -16,11 +18,14 @@ public class WorkSchedule {
 	@Embedded
 	private DateRange timePeriod;
 	
-	public WorkSchedule() {
+	@OneToOne()
+	private Dermatologist dermatologist;
+	
+	public DermatologistWorkSchedule() {
 		super();
 	}
 
-	public WorkSchedule(Long id,DateRange timePeriod) {
+	public DermatologistWorkSchedule(Long id,DateRange timePeriod) {
 		super();
 		this.id = id;
 		this.timePeriod = timePeriod;

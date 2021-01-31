@@ -18,7 +18,7 @@ public class DrugDeficitQuery {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private LocalDateTime dateAndTime;
 	
 	//veza sa apotekom, dodati u pharmcay kada se spoji 

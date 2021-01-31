@@ -4,13 +4,15 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
-import ISA.Team54.vacationAndWorkingTime.model.WorkSchedule;
 
 @Entity
 public class Pharmacist extends User{
@@ -20,8 +22,8 @@ public class Pharmacist extends User{
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Pharmacy pharmacy;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private WorkSchedule workSchedule;
+	@Embedded
+	private DateRange workSchedule;
 	
 	@OneToMany(mappedBy="pharmacist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<VacationRequest> vacationRequest;
@@ -31,7 +33,7 @@ public class Pharmacist extends User{
 	}
 
 	public Pharmacist(long id, Email email, String password, String name, String surname, String address, String city,
-			String country, String phoneNumber, double rating, Pharmacy pharmacy,WorkSchedule workSchedules) {
+			String country, String phoneNumber, double rating, Pharmacy pharmacy,DateRange workSchedules) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.rating = rating;
 		this.pharmacy = pharmacy;
@@ -54,11 +56,11 @@ public class Pharmacist extends User{
 		this.pharmacy = pharmacy;
 	}
 
-	public WorkSchedule getWorkSchedule() {
+	public DateRange getWorkSchedule() {
 		return workSchedule;
 	}
 
-	public void setWorkSchedule(WorkSchedule workSchedule) {
+	public void setWorkSchedule(DateRange workSchedule) {
 		this.workSchedule = workSchedule;
 	}
 	

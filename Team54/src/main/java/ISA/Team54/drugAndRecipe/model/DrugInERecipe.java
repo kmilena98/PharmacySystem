@@ -9,7 +9,7 @@ public class DrugInERecipe {
 	@EmbeddedId
 	private DrugInERecipeId id;
 	
-	@Column(unique = false, nullable = true)
+	@Column(unique = false, nullable = false)
 	private int quantityInERecipe;
 		
 }

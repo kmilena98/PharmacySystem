@@ -35,16 +35,16 @@ public class Examination {
 	 private int price;
 	 
 	 //duration in minutes
-	 @Column(unique = false,nullable = true)
+	 @Column(unique = false,nullable = false)
 	 private int therapyDuration;
 	 
 	 @Column(unique = false,nullable = false)
 	 private ExaminationType type;
 	 
-	 @Column(unique = false,nullable = true)
+	 @Column(unique = false,nullable = false)
 	 private ExaminationStatus status;
 	 
-	 @Column(unique = false,nullable = true)
+	 @Column(unique = false,nullable = false)
 	 private int emplyeedId; 
 	 
 	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
