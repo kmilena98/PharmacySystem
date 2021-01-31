@@ -1,0 +1,1 @@
+insert into drug(name) values ('Aspirin');
