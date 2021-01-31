@@ -32,7 +32,7 @@ public class Pharmacist extends User{
 		super();
 	}
 
-	public Pharmacist(long id, Email email, String password, String name, String surname, String address, String city,
+	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, double rating, Pharmacy pharmacy,DateRange workSchedules) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.rating = rating;
@@ -62,6 +62,36 @@ public class Pharmacist extends User{
 
 	public void setWorkSchedule(DateRange workSchedule) {
 		this.workSchedule = workSchedule;
+	}
+	
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return this.enabled;
 	}
 	
 }

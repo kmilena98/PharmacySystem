@@ -1,57 +1,79 @@
 package ISA.Team54.users.model;
 
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
-import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-
+import ISA.Team54.security.Authority;
 
 @Entity
 @Inheritance(strategy = TABLE_PER_CLASS)
-public abstract class User {
+public abstract class User implements UserDetails{
 	@Id
 	@SequenceGenerator(name = "mySeqGen1", sequenceName = "mySeq1",initialValue = 1,allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen1")
-	private long id;
-	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Email email;
+	protected long id;
 	
 	@Column(unique = false, nullable = false)
-	private String password;
+	protected String email;
 	
 	@Column(unique = false, nullable = false)
-	private String name;
+	protected String password;
+	
+	@Column(unique = false, nullable = false)
+	protected String name;
 	
 	@Column(unique = false,nullable = false)
-	private String surname;
+	protected String surname;
 	
 	@Column(unique = false,nullable = true)
-	private String address;
+	protected String address;
 	
 	@Column(unique = false,nullable = true)
-	private String city;
+	protected String city;
 	
 	@Column(unique = false,nullable = true)
-	private String country;
+	protected String country;
 	
 	@Column(unique = false,nullable = true)
-	private String phoneNumber;	
+	protected String phoneNumber;	
+	
+	@Column(name = "enabled")
+	protected boolean enabled;
+	
+	@Column(name = "last_password_reset_date")
+	protected Timestamp lastPasswordResetDate;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
 	
 	public User() {
 		super();
 	}
 
-	public User(long id, Email email, String password, String name, String surname, String address, String city,
+	public User(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber) {
 		super();
 		this.id = id;
@@ -75,11 +97,15 @@ public abstract class User {
 		this.id = id;
 	}
 
-	public Email getEmail() {
+	public String getEmail2() {
+		return email;
+	}
+	
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(Email email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -88,7 +114,9 @@ public abstract class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+        Timestamp now = new Timestamp(new Date().getTime());
+        this.setLastPasswordResetDate(now);
+        this.password = password;
 	}
 
 	public String getName() {
@@ -137,6 +165,31 @@ public abstract class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+   public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+	
+    public Timestamp getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+    
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 	

@@ -50,10 +50,12 @@ public class Patient extends User{
 		
 	
 
-	public Patient(int penaltyPoints, int loyaltyPoints, List<ERecipe> eRecipes, List<DrugAllergy> drugAllergies,
+	public Patient(long id, String email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, int penaltyPoints, int loyaltyPoints, List<ERecipe> eRecipes, List<DrugAllergy> drugAllergies,
 			List<Complaint> complaints, List<DrugReservation> drugReservations, List<Pharmacy> pharmacys,
 			List<Examination> examinations) {
-		super();
+		super(id, email,  password, name, surname, address, city,
+				country, phoneNumber);
 		this.penaltyPoints = penaltyPoints;
 		this.loyaltyPoints = loyaltyPoints;
 		this.eRecipes = eRecipes;
@@ -146,5 +148,36 @@ public class Patient extends User{
 	public void setExamiantions(List<Examination> examiantions) {
 		this.examinations = examiantions;
 	}
+	
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return this.enabled;
+	}
+	
 	
 }
