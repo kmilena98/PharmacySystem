@@ -8,11 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import ISA.Team54.users.model.Pharmacy;
 
 @Entity
 public class DrugInPharmacy {
@@ -22,7 +21,8 @@ public class DrugInPharmacy {
 	@Column(unique = false, nullable = true)
 	private int quantity;
 	
-	
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Pharmacy pharmacy;
 	
 	@OneToMany(mappedBy = "reservedDrug", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DrugReservation> drugReservations = new ArrayList<DrugReservation>();

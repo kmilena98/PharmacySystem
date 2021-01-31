@@ -31,11 +31,7 @@ public class DrugSpecification {
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 	
 	@Column(unique = false,nullable = true)
-	private int suggestedDose;
-	
-	@OneToMany(mappedBy="drugSpecification",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	public List<Drug> drugs = new ArrayList<Drug>();
-	
+	private int suggestedDose;	
 	
 	public DrugSpecification() {
 		super();

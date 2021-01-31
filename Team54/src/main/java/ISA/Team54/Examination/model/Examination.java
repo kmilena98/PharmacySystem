@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class Examination {
 	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	 private Patient patient;
 	 
-	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
+	 @Embedded
 	 private Term term;
 	 
 	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	

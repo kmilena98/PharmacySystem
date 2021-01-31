@@ -1,14 +1,8 @@
 package ISA.Team54.vacationAndWorkingTime.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+import ISA.Team54.sharedModel.DateRange;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Pharmacist;
 import ISA.Team54.vacationAndWorkingTime.enums.VacationRequestStatus;
@@ -19,16 +13,16 @@ public class VacationRequest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne(mappedBy = "vacationRequest", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@Embedded
 	private DateRange timePeriod;
 	
 	@Column(unique = false,nullable = true)
 	private VacationRequestStatus status;
 	
-	@OneToOne(mappedBy = "vacationRequest", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Dermatologist dermatologist;
 	
-	@OneToOne(mappedBy = "vacationRequest", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Pharmacist pharmacist;
 
 	public VacationRequest() {

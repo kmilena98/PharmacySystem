@@ -29,21 +29,17 @@ public class Patient extends User{
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ERecipe> eRecipes = new ArrayList<ERecipe>();
 	
-	@ManyToMany
-	@JoinTable(name = "patientDrugAllergies",joinColumns= @JoinColumn(name = "patient_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "drugAllergyId_id",referencedColumnName= "id"))
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<DrugAllergy> drugAllergies = new ArrayList<DrugAllergy>();
 	
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Complaint> complaints;
 	
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
-	private List<DrugReservation> drugReservations;
+	private List<DrugReservation> drugReservations;	
 	
-	
-	/*
-	 * @OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch =
-	 * FetchType.LAZY) private List<Pharmacy> pharmacys;
-	 */
+	@ManyToMany(mappedBy= "subscribedPatients")
+	private List<Pharmacy> prescriptionsPharmacies;
 	
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Examination> examinations;

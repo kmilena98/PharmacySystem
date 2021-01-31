@@ -1,16 +1,20 @@
 package ISA.Team54.drugOrdering.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
+import ISA.Team54.drugAndRecipe.model.Drug;
+
+@Entity
 public class DrugInOrder {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@EmbeddedId
+	private DrugInOrderId id;
 	
-	//private Drug drug;
-	
+	@Column(unique = false,nullable = true)
 	private int quantity;
 	
-	private DrugsOrder order;
+	
 }

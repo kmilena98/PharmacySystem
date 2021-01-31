@@ -20,22 +20,22 @@ public class Pharmacist extends User{
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Pharmacy pharmacy;
 	
-	@OneToMany(mappedBy="pharmacist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<WorkSchedule> workSchedules;
-	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private VacationRequest vacationRequest;
+	private WorkSchedule workSchedule;
+	
+	@OneToMany(mappedBy="pharmacist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<VacationRequest> vacationRequest;
 	
 	public Pharmacist() {
 		super();
 	}
 
 	public Pharmacist(long id, Email email, String password, String name, String surname, String address, String city,
-			String country, String phoneNumber, double rating, Pharmacy pharmacy, List<WorkSchedule> workSchedules) {
+			String country, String phoneNumber, double rating, Pharmacy pharmacy,WorkSchedule workSchedules) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.rating = rating;
 		this.pharmacy = pharmacy;
-		this.workSchedules = workSchedules;
+		this.workSchedule = workSchedules;
 	}
 
 	public double getRating() {
@@ -54,14 +54,12 @@ public class Pharmacist extends User{
 		this.pharmacy = pharmacy;
 	}
 
-	public List<WorkSchedule> getWorkSchedule() {
-		return workSchedules;
+	public WorkSchedule getWorkSchedule() {
+		return workSchedule;
 	}
 
-	public void setWorkSchedule(List<WorkSchedule> workSchedule) {
-		this.workSchedules = workSchedule;
+	public void setWorkSchedule(WorkSchedule workSchedule) {
+		this.workSchedule = workSchedule;
 	}
-	
-	
 	
 }

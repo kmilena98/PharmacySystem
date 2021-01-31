@@ -17,6 +17,8 @@ import javax.persistence.OneToOne;
 
 import ISA.Team54.Examination.model.Examination;
 
+
+
 @Entity
 public class Drug {
 	@Id
@@ -29,27 +31,15 @@ public class Drug {
 	@Column(unique = false,nullable = true)
 	private int loyalityPoints;
 	
-	/*
-	 * @ManyToMany(mappedBy="drugsInPharmacy") public List<ERecipe>
-	 * eRecipesInPharmacy = new ArrayList<ERecipe>();
-	 */
 	@ManyToMany(mappedBy="drugs")
 	private List<Examination> examinations = new ArrayList<Examination>();
+	
 	@ManyToMany(mappedBy="drugs")
 	private List<ERecipe> erecipes = new ArrayList<ERecipe>();
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private DrugSpecification drugSpecification;
 	
-	 @ManyToMany
-	 @JoinTable(name = "allergiesInDrug",joinColumns= @JoinColumn(name = "drug_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "alergy_id",referencedColumnName= "id"))
-	 public List<Drug> allergies = new ArrayList<Drug>();
-	 
-	// drugiInStorage
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY) private
-	 * List<DrugInPharmacy> drugsInPharmacy = new ArrayList<DrugInPharmacy>();
-	 */
 	public Drug() {
 		super();
 	}

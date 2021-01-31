@@ -32,16 +32,6 @@ public class ERecipe {
 	 public List<Drug> drugs = new ArrayList<Drug>();
 	 
 	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	 private Patient patient;
-	 
-		/*
-		 * @ManyToMany
-		 * 
-		 * @JoinTable(name = "pharmacyDrugsInERecipe",joinColumns= @JoinColumn(name =
-		 * "erecipe_id", referencedColumnName = "id"),inverseJoinColumns
-		 * = @JoinColumn(name = "drugInPharmacy_id",referencedColumnName=
-		 * "drugInPharmacyId")) public List<DrugInPharmacy> drugsInPharmacy = new
-		 * ArrayList<DrugInPharmacy>();
-		 */
+	 private Patient patient; 
 
 }

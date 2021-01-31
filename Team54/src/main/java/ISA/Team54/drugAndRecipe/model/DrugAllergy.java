@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import ISA.Team54.users.model.Patient;
 
@@ -17,10 +18,46 @@ public class DrugAllergy {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@ManyToMany(mappedBy="allergies")
-	private List<Drug> drugs = new ArrayList<Drug>();
+	@OneToOne()
+	private Drug drugs;
 	
-	@ManyToMany(mappedBy="drugAllergies")
-	private List<Patient> alergicPatients = new ArrayList<Patient>();
+	@OneToOne()
+	private Patient patient;
+
+	public DrugAllergy() {
+		super();
+	}
+
+	public DrugAllergy(long id, Drug drugs, Patient patient) {
+		super();
+		this.id = id;
+		this.drugs = drugs;
+		this.patient = patient;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Drug getDrugs() {
+		return drugs;
+	}
+
+	public void setDrugs(Drug drugs) {
+		this.drugs = drugs;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
 	
 }

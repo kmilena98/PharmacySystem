@@ -17,7 +17,7 @@ public class DrugsOrder {
 	private long id;
 	
 	@Column
-	private Date dealine;
+	private Date deadline;
 	
 	@OneToMany(mappedBy="order", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Offer> offers;
@@ -27,5 +27,61 @@ public class DrugsOrder {
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private PharmacyAdministrator administrator;
+
+	public DrugsOrder() {
+		super();
+	}
+
+	public DrugsOrder(long id, Date deadline, List<Offer> offers, OrderStatus status,
+			PharmacyAdministrator administrator) {
+		super();
+		this.id = id;
+		this.deadline = deadline;
+		this.offers = offers;
+		this.status = status;
+		this.administrator = administrator;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+
+	public List<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+	public PharmacyAdministrator getAdministrator() {
+		return administrator;
+	}
+
+	public void setAdministrator(PharmacyAdministrator administrator) {
+		this.administrator = administrator;
+	}
+	
+	
 
 }

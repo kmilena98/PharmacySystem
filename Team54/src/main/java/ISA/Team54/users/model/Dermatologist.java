@@ -22,14 +22,14 @@ public class Dermatologist extends User{
 	@Column(unique = false,nullable = true)
 	private double rating;
 	
-	@OneToMany(mappedBy="dermatologist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<WorkSchedule> workSchedules;
 	
 	@ManyToMany(mappedBy="dermatologists")
 	private List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private VacationRequest vacationRequest;
+	@OneToMany(mappedBy = "dermatologist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<VacationRequest> vacationRequests;
 	
 	
 	public Dermatologist() {

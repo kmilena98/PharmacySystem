@@ -1,13 +1,8 @@
 package ISA.Team54.users.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
+import ISA.Team54.users.enums.ComplaintType;
 
 @Entity
 public class Complaint {
@@ -15,8 +10,14 @@ public class Complaint {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = false,nullable = true)
+	@Column(unique = false,nullable = false)
 	private String text;
+	
+	@Column(unique = false,nullable = false)
+	private int objectId;
+	
+	@Enumerated
+	private ComplaintType type;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Patient patient;
@@ -55,7 +56,4 @@ public class Complaint {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
-	
-	
 }

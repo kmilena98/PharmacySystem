@@ -2,5 +2,6 @@ package ISA.Team54.rating.enums;
 
 public enum RatingObject {
 	Pharmacy,
-	Employee
+	Dermatologist,
+	Pharmacist
 }
