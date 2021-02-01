@@ -1,9 +1,6 @@
 package ISA.Team54.users.controller;
 
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.interfaces.UserService;
 
@@ -37,7 +33,18 @@ public class UserController {
 	public User loadById(@PathVariable Long userId) {
 		return this.userService.findById(userId);
 	}
-
+	
+	@GetMapping("userByName/{name}")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<User> loadByName(@PathVariable String name){
+		return this.userService.findByName(name);
+	}
+	
+	@GetMapping("userBySurname/{surname}")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<User> loadBySurname(@PathVariable String name){
+		return this.userService.findByName(name);
+	}
 	/*
 	@GetMapping("/user/all")
 	@PreAuthorize("hasRole('ADMIN')")
