@@ -26,9 +26,9 @@ import ISA.Team54.exceptions.ResourceConflictException;
 import ISA.Team54.security.TokenUtils;
 import ISA.Team54.security.UserTokenState;
 import ISA.Team54.security.auth.JwtAuthenticationRequestDTO;
+import ISA.Team54.users.dto.UserRequestDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
-import ISA.Team54.users.model.UserRequestDTO;
 import ISA.Team54.users.service.implementations.CustomUserDetailsService;
 import ISA.Team54.users.service.interfaces.UserService;
 
@@ -77,7 +77,7 @@ public class AuthenticationController {
 /*	@PostMapping("/signup")
 	public ResponseEntity<User> addUser(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
-		User existUser = this.userService.findByUsername(userRequest.getUsername());
+		User existUser = this.userService.findByEmail(userRequest.getUsername());
 		if (existUser != null) {
 			throw new ResourceConflictException(userRequest.getId(), "Username already exists");
 		}

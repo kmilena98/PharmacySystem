@@ -2,13 +2,10 @@ package ISA.Team54.users.model;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
-import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +21,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import ISA.Team54.security.Authority;
+
+
 
 @Entity
 @Inheritance(strategy = TABLE_PER_CLASS)

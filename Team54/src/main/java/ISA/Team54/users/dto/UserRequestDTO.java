@@ -1,11 +1,10 @@
-package ISA.Team54.users.model;
+package ISA.Team54.users.dto;
 
 import javax.persistence.Column;
 
 public class UserRequestDTO {
-	private Long id;
 
-	private String username;
+	private String email;
 
 	private String password;
 
@@ -21,12 +20,12 @@ public class UserRequestDTO {
 	
 	private String phoneNumber;	
 
-	public String getUsername() {
-		return username;
+	public String getEamil() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -52,15 +51,7 @@ public class UserRequestDTO {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getAddress() {
 		return address;
 	}
