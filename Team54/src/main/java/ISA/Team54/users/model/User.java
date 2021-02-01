@@ -57,6 +57,9 @@ public abstract class User implements UserDetails{
 	@Column(unique = false,nullable = true)
 	protected String phoneNumber;	
 	
+	@Column(unique = false,nullable = true)
+	protected boolean confirmed = false;	
+	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -186,5 +189,14 @@ public abstract class User implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}		
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}	
+	
 }
