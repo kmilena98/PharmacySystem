@@ -28,6 +28,6 @@ public class PatientController {
 	@GetMapping("patientBySurname/{surname}")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<User> loadBySurname(@PathVariable String surname){
-		return this.patientService.findByName(surname);
+		return this.patientService.findBySurname(surname);
 	}
 }

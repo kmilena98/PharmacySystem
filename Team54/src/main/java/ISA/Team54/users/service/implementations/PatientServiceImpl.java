@@ -21,7 +21,7 @@ public class PatientServiceImpl implements PatientService {
 	}	
 	
 	public List<User> findBySurname(String surname) throws AccessDeniedException {
-		List<User> result = patientRepository.findByName(surname);
+		List<User> result = patientRepository.findBySurname(surname);
 		return result;		
 	}	
 

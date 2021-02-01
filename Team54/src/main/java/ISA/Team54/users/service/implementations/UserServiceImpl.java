@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	}	
 	
 	public List<User> findBySurname(String surname) throws AccessDeniedException {
-		List<User> result = userRepository.findByName(surname);
+		List<User> result = userRepository.findBySurname(surname);
 		return result;		
 	}	
 	
