@@ -2,10 +2,11 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">ISA Projekat</a>
+                <a class="navbar-brand" href="#">Apoteka Isabela</a>
             </div>        
             <SupplierHeader v-if="userRole == 'ROLE_SUPPLIER'" />
             <PatientHeader v-else-if="userRole == 'ROLE_PATIENT'" />
+            <UnregisteredHeader v-else-if="userRole == 'ROLE_UNREGISTERED'" />
         </div>
     </nav>
 </template>
@@ -13,6 +14,7 @@
 <script>
 import PatientHeader from "@/views/header/PatientHeader.vue";
 import SupplierHeader from "@/views/header/SupplierHeader.vue";
+import UnregisteredHeader from "@/views/header/UnregisteredHeader.vue";
 
 export default {
     data: function() {
@@ -22,10 +24,22 @@ export default {
     },
 	components: {
         PatientHeader,
-        SupplierHeader
+        SupplierHeader,
+        UnregisteredHeader
     },
     mounted(){
         this.userRole = this.$store.getters.getUserRole;
     }
 };
 </script>
+
+<style>
+    .nav>li {
+        margin-left: 0.3rem;
+    }
+
+    .nav .nav-link{
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+</style>

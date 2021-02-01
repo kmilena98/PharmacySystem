@@ -6,9 +6,3 @@
         <li class="nav-item"><a href="#" class="nav-link">Supplier 3</a></li>
     </ul>
 </template>
-
-<style scoped>
-    .nav>li {
-        margin-left: 0.5rem;
-    }
-</style>
