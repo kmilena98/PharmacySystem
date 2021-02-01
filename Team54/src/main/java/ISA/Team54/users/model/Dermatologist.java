@@ -1,6 +1,7 @@
 package ISA.Team54.users.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
+import org.springframework.security.core.GrantedAuthority;
 
 import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
 import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
@@ -37,7 +41,7 @@ public class Dermatologist extends User{
 		super();
 	}
 
-	public Dermatologist(long id, Email email, String password, String name, String surname, String address,
+	public Dermatologist(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, double price, double rating,
 			List<DermatologistWorkSchedule> workSchedule, List<Pharmacy> pharmacy) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
@@ -77,8 +81,6 @@ public class Dermatologist extends User{
 
 	public void setPharmacy(List<Pharmacy> pharmacy) {
 		this.pharmacys = pharmacy;
-	}
-	
-	
+	}	
 	
 }

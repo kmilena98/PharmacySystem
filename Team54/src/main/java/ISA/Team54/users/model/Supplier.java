@@ -29,7 +29,7 @@ public class Supplier extends User{
 		super();
 	}
 
-	public Supplier(long id, Email email, String password, String name, String surname, String address, String city,
+	public Supplier(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, List<Offer> offer) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.offer = offer;
@@ -41,10 +41,6 @@ public class Supplier extends User{
 
 	public void setOffer(List<Offer> offer) {
 		this.offer = offer;
-	}
-
-	
-	
-	
+	}	
 	
 }
