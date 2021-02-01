@@ -42,6 +42,16 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	public List<User> findByName(String name) throws AccessDeniedException {
+		List<User> result = userRepository.findByName(name);
+		return result;		
+	}	
+	
+	public List<User> findBySurname(String surname) throws AccessDeniedException {
+		List<User> result = userRepository.findBySurname(surname);
+		return result;		
+	}	
+	
 /*	@Override
 	public User save(UserRequestDTO userRequest) {
 		User u = new User();
