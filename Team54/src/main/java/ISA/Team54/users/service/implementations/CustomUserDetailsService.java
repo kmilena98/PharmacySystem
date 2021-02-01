@@ -1,5 +1,8 @@
 package ISA.Team54.users.service.implementations;
 
+import java.awt.List;
+import java.util.Collections;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +38,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	// Funkcija koja na osnovu username-a iz baze vraca objekat User-a
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Patient user = userRepository.findByEmail(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userRepository.findByEmail(email);
 		if (user == null) {
-			throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+			throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
 		} else {
 			return user;
 		}

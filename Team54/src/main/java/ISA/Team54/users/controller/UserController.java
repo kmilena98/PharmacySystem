@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.interfaces.UserService;
 
 
@@ -29,12 +30,15 @@ public class UserController {
 	// Za pristup ovoj metodi neophodno je da ulogovani korisnik ima ADMIN ulogu
 	// Ukoliko nema, server ce vratiti gresku 403 Forbidden
 	// Korisnik jeste autentifikovan, ali nije autorizovan da pristupi resursu
+	
+	
 	@GetMapping("/user/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public Patient loadById(@PathVariable Long userId) {
+	public User loadById(@PathVariable Long userId) {
 		return this.userService.findById(userId);
 	}
 
+	/*
 	@GetMapping("/user/all")
 	@PreAuthorize("hasRole('ADMIN')")
 	public List<Patient> loadAll() {
@@ -52,5 +56,5 @@ public class UserController {
         Map<String, String> fooObj = new HashMap<>();
         fooObj.put("foo", "bar");
         return fooObj;
-    }
+    }*/
 }

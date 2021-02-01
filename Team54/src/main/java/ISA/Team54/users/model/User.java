@@ -57,12 +57,6 @@ public abstract class User implements UserDetails{
 	@Column(unique = false,nullable = true)
 	protected String phoneNumber;	
 	
-	@Column(name = "enabled")
-	protected boolean enabled;
-	
-	@Column(name = "last_password_reset_date")
-	protected Timestamp lastPasswordResetDate;
-	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -87,18 +81,12 @@ public abstract class User implements UserDetails{
 		this.phoneNumber = phoneNumber;
 	}
 
-
-
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getEmail2() {
-		return email;
 	}
 	
 	public String getEmail() {
@@ -109,13 +97,7 @@ public abstract class User implements UserDetails{
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
 	public void setPassword(String password) {
-        Timestamp now = new Timestamp(new Date().getTime());
-        this.setLastPasswordResetDate(now);
         this.password = password;
 	}
 
@@ -175,24 +157,34 @@ public abstract class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
-	
-    public Timestamp getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
 
-    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
-    }
-    
+	@Override
+	public String getUsername() {
+		return email;
+	}
+	
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
 	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-	
-	
-	
-	
+		return true;
+	}		
 }

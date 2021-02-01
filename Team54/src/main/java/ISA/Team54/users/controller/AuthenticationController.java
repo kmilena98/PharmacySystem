@@ -58,14 +58,14 @@ public class AuthenticationController {
 
 		// 
 		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
 						authenticationRequest.getPassword()));
 
 		// Ubaci korisnika u trenutni security kontekst
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		// Kreiraj token za tog korisnika
-		Patient user = (Patient) authentication.getPrincipal();
+		User user = (User) authentication.getPrincipal();
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
 

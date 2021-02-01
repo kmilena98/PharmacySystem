@@ -7,8 +7,8 @@ import ISA.Team54.users.model.User;
 import ISA.Team54.users.model.UserRequestDTO;
 
 public interface UserService {
-	Patient findById(Long id);
-	Patient findByUsername(String username);
-    List<Patient> findAll ();
+	User findById(Long id);
+	User findByUsername(String username);
+    List<User> findAll ();
 	//User save(UserRequestDTO userRequest);
 }

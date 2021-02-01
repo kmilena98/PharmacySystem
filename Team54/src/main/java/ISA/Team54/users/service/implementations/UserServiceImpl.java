@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.UserRepository;
 import ISA.Team54.users.service.interfaces.AuthorityService;
 import ISA.Team54.users.service.interfaces.UserService;
@@ -26,18 +27,18 @@ public class UserServiceImpl implements UserService {
 	private AuthorityService authService;
 
 	@Override
-	public Patient findByUsername(String username) throws UsernameNotFoundException {
-		Patient u = userRepository.findByEmail(username);
+	public User findByUsername(String username) throws UsernameNotFoundException {
+		User u = userRepository.findByEmail(username);
 		return u;
 	}
 
-	public Patient findById(Long id) throws AccessDeniedException {
-		Patient u = userRepository.findById(id).orElseGet(null);
+	public User findById(Long id) throws AccessDeniedException {
+		User u = userRepository.findById(id).orElseGet(null);
 		return u;
 	}
 
-	public List<Patient> findAll() throws AccessDeniedException {
-		List<Patient> result = userRepository.findAll();
+	public List<User> findAll() throws AccessDeniedException {
+		List<User> result = userRepository.findAll();
 		return result;
 	}
 

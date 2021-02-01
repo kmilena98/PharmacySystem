@@ -1,4 +1,4 @@
-package ISA.Team54.config;
+package ISA.Team54.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
