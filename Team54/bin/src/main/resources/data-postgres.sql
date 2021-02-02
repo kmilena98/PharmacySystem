@@ -1,1 +1,1 @@
-insert into drug(name) values ('Aspirin');
+insert into drug(name,code,loyality_points) values ('Aspirin','231432',5);
