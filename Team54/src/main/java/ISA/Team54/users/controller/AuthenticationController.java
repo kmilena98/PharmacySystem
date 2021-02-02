@@ -72,7 +72,7 @@ public class AuthenticationController {
 	}
 
 	// Endpoint za registraciju novog korisnika
-	@PostMapping("/signup")
+	@PostMapping("/signupPatient")
 	public ResponseEntity<User> addUser(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(userRequest.getEmail());
@@ -80,7 +80,7 @@ public class AuthenticationController {
 			throw new ResourceConflictException((long)0, "Username already exists");
 		}
 		
-		User user = null;S
+		User user = null;
 		switch(userRequest.getRole()) {
 			case PATIENT:
 				user = this.pharmacyService.addPatient(userRequest);
