@@ -3,7 +3,6 @@
 			<Header />
 		<router-link to="/">Home</router-link> |
 		<router-link to="/about">About</router-link>
-			<router-link to="/patients">Patients</router-link>
 		<router-view />
 	</div>
 </template>

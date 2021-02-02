@@ -31,11 +31,29 @@ public class PatientController {
 		return patientsDTO;
 	}
 	
-	@GetMapping("/patientBySurname/{surname}")
+	@GetMapping("patientBySurnameAndName/{surnameAndName}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<PatientDTO> loadBySurnameAndName(@PathVariable String surnameAndName){
+		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
+		for(User user : this.patientService.findBySurnameAndName(surnameAndName)) 
+			patientsDTO.add(new PatientMapper().UserToPatientDTO(user));
+		return patientsDTO;
+	}
+	
+	@GetMapping("/patientBySurname/{surname}")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<PatientDTO> loadBySurname(@PathVariable String surname){
 		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
 		for(User user : this.patientService.findBySurname(surname)) 
+			patientsDTO.add(new PatientMapper().UserToPatientDTO(user));
+		return patientsDTO;
+	}
+	
+	@GetMapping("/allPatients/")
+	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<PatientDTO> loadPatients(){
+		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
+		for(User user : this.patientService.findAll()) 
 			patientsDTO.add(new PatientMapper().UserToPatientDTO(user));
 		return patientsDTO;
 	}
