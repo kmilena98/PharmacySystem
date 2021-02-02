@@ -28,7 +28,7 @@ import ISA.Team54.security.Authority;
 @Inheritance(strategy = TABLE_PER_CLASS)
 public abstract class User implements UserDetails{
 	@Id
-	@SequenceGenerator(name = "mySeqGen1", sequenceName = "mySeq1",initialValue = 1,allocationSize = 1)
+	@SequenceGenerator(name = "mySeqGen1", sequenceName = "mySeq1",initialValue = 3,allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen1")
 	protected long id;
 	

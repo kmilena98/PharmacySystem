@@ -2,15 +2,17 @@ package ISA.Team54.users.dto;
 
 import javax.persistence.Column;
 
+import ISA.Team54.users.enums.UserRole;
+
 public class UserRequestDTO {
 
 	private String email;
 
 	private String password;
 
-	private String firstname;
+	private String firstName;
 
-	private String lastname;
+	private String lastName;
 	
 	private String address;
 	
@@ -19,8 +21,18 @@ public class UserRequestDTO {
 	private String country;
 	
 	private String phoneNumber;	
+	
+	private UserRole role = UserRole.PATIENT;
 
-	public String getEamil() {
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
+
+	public String getEmail() {
 		return email;
 	}
 
@@ -36,20 +48,20 @@ public class UserRequestDTO {
 		this.password = password;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	public String getAddress() {

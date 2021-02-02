@@ -1,8 +1,5 @@
 package ISA.Team54.users.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,9 +22,9 @@ import ISA.Team54.security.TokenUtils;
 import ISA.Team54.security.UserTokenState;
 import ISA.Team54.security.auth.JwtAuthenticationRequestDTO;
 import ISA.Team54.users.dto.UserRequestDTO;
-import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.implementations.CustomUserDetailsService;
+import ISA.Team54.users.service.interfaces.PharmacyService;
 import ISA.Team54.users.service.interfaces.UserService;
 
 
@@ -49,6 +44,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PharmacyService pharmacyService;
 
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
@@ -74,19 +72,34 @@ public class AuthenticationController {
 	}
 
 	// Endpoint za registraciju novog korisnika
-/*	@PostMapping("/signup")
+	@PostMapping("/signup")
 	public ResponseEntity<User> addUser(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
-		User existUser = this.userService.findByEmail(userRequest.getUsername());
+		User existUser = this.userService.findByUsername(userRequest.getEmail());
 		if (existUser != null) {
-			throw new ResourceConflictException(userRequest.getId(), "Username already exists");
+			throw new ResourceConflictException((long)0, "Username already exists");
 		}
-
-		User user = this.userService.save(userRequest);
+		
+		User user = null;
+		switch(userRequest.getRole()) {
+			case PATIENT:
+				user = this.pharmacyService.addPatient(userRequest);
+			case ADMIN:
+				user = this.pharmacyService.addPharmacyAdministrator(userRequest);
+			case SYSTEM_ADMIN:
+				user = this.pharmacyService.addSystemAdministrator(userRequest);
+			case DERMATOLOGIST:
+				user = this.pharmacyService.addDermatologist(userRequest);
+			case SUPPLIER:
+				user = this.pharmacyService.addSupplier(userRequest);
+		}
+	
+	//------------------------
+	//Pitanje za ogija,za sta nam treba ovo ispod headers,posto radi isto i sa tim i bez toga		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
-		return new ResponseEntity<>(user, HttpStatus.CREATED);
-	} */
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 
+		return new ResponseEntity<>(user, HttpStatus.CREATED); 
+	} 
 
 
 	/* @RequestMapping(value = "/change-password", method = RequestMethod.POST)
