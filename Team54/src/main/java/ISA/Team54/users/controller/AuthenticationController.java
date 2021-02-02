@@ -80,7 +80,7 @@ public class AuthenticationController {
 			throw new ResourceConflictException((long)0, "Username already exists");
 		}
 		
-		User user = null;
+		User user = null;S
 		switch(userRequest.getRole()) {
 			case PATIENT:
 				user = this.pharmacyService.addPatient(userRequest);
