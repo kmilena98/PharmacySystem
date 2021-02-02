@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -72,8 +73,26 @@ public class AuthenticationController {
 	}
 
 	// Endpoint za registraciju novog korisnika
-	@PostMapping("/signupPatient")
+	
+	@PostMapping("/signup")
 	public ResponseEntity<User> addUser(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
+
+		User existUser = this.userService.findByUsername(userRequest.getEmail());
+		if (existUser != null) {
+			throw new ResourceConflictException((long)0, "Username already exists");
+		}
+		
+		User user = this.pharmacyService.addPatient(userRequest);;			
+	
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 
+		return new ResponseEntity<>(user, HttpStatus.CREATED); 
+	} 
+
+
+	@PostMapping("/signupBySystemAdmin")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public ResponseEntity<User> addUserBySystemAdmin(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(userRequest.getEmail());
 		if (existUser != null) {
@@ -82,8 +101,6 @@ public class AuthenticationController {
 		
 		User user = null;
 		switch(userRequest.getRole()) {
-			case PATIENT:
-				user = this.pharmacyService.addPatient(userRequest);
 			case ADMIN:
 				user = this.pharmacyService.addPharmacyAdministrator(userRequest);
 			case SYSTEM_ADMIN:
@@ -93,9 +110,7 @@ public class AuthenticationController {
 			case SUPPLIER:
 				user = this.pharmacyService.addSupplier(userRequest);
 		}
-	
-	//------------------------
-	//Pitanje za ogija,za sta nam treba ovo ispod headers,posto radi isto i sa tim i bez toga		
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 
 		return new ResponseEntity<>(user, HttpStatus.CREATED); 

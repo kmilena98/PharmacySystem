@@ -48,7 +48,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Override
 	public Patient addPatient(UserRequestDTO userRequest) {
-		Patient patient = UserMapper.UserRequestDTOToPatient(userRequest);	
+		Patient patient = new Patient();
+		UserMapper.UserRequestDTOToUser(userRequest,patient);
 		patient.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		List<Authority> auth = authService.findByname("ROLE_PATIENT");
 		patient.setAuthorities(auth);
@@ -57,7 +58,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Override
 	public PharmacyAdministrator addPharmacyAdministrator(UserRequestDTO userRequest) {
-		PharmacyAdministrator pharmacyAdministrator = UserMapper.UserRequestDTOaToPharmacyAdministrator(userRequest);	
+		PharmacyAdministrator pharmacyAdministrator = new PharmacyAdministrator();
+		UserMapper.UserRequestDTOToUser(userRequest,pharmacyAdministrator);
 		pharmacyAdministrator.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		List<Authority> auth = authService.findByname("ROLE_ADMIN");
 		pharmacyAdministrator.setAuthorities(auth);
@@ -66,7 +68,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Override
 	public SystemAdministrator addSystemAdministrator(UserRequestDTO userRequest) {
-		SystemAdministrator systemAdministrator = UserMapper.UserRequestDTOaToSystemAdministrator(userRequest);	
+		SystemAdministrator systemAdministrator = new SystemAdministrator();
+		UserMapper.UserRequestDTOToUser(userRequest,systemAdministrator);
 		systemAdministrator.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		List<Authority> auth = authService.findByname("ROLE_SYSTEM_ADMIN");
 		systemAdministrator.setAuthorities(auth);
@@ -75,7 +78,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Override
 	public Dermatologist addDermatologist(UserRequestDTO userRequest) {
-		Dermatologist dermatologist = UserMapper.UserRequestDTOaToDermatologist(userRequest);	
+		Dermatologist dermatologist = new Dermatologist();
+		UserMapper.UserRequestDTOToUser(userRequest,dermatologist);	
 		dermatologist.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		List<Authority> auth = authService.findByname("ROLE_DERMATOLOGIST");
 		dermatologist.setAuthorities(auth);
@@ -84,7 +88,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Override
 	public Supplier addSupplier(UserRequestDTO userRequest) {
-		Supplier supplier = UserMapper.UserRequestDTOaToSupplier(userRequest);	
+		Supplier supplier = new Supplier();
+		UserMapper.UserRequestDTOToUser(userRequest,supplier);	
 		supplier.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		List<Authority> auth = authService.findByname("ROLE_SUPPLIER");
 		supplier.setAuthorities(auth);
