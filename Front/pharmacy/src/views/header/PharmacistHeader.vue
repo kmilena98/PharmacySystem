@@ -6,13 +6,10 @@
         <li class="nav-item"><a href="#" class="nav-link">Preporuci lekove/a></li>
         <li class="nav-item"><a href="#" class="nav-link">Zakazi savetovanje</a></li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               Milica Ivkovic
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Moj profil</a>
-                <a class="dropdown-item" href="#">Odjava</a>
-            </div>
+            <b-dropdown text="Milica Ivkovic">
+            <b-dropdown-item href="#">Moj profil</b-dropdown-item>
+            <b-dropdown-item href="#">Odjava</b-dropdown-item>
+        </b-dropdown>
         </li>
-    </ul>
+    </ul>   
 </template>

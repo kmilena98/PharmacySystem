@@ -6,13 +6,10 @@
         <li class="nav-item"><a href="#" class="nav-link">Preporuci preparate/a></li>
         <li class="nav-item"><a href="#" class="nav-link">Zakazi pregled</a></li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               Ana Marinkovic
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Moj profil</a>
-                <a class="dropdown-item" href="#">Odjava</a>
-            </div>
+            <b-dropdown text="Milica Ivkovic">
+            <b-dropdown-item href="#">Moj profil</b-dropdown-item>
+            <b-dropdown-item href="#">Odjava</b-dropdown-item>
+        </b-dropdown>
         </li>
     </ul>
 </template>
