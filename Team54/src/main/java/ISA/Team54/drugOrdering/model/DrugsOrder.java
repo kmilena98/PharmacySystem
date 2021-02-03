@@ -22,7 +22,7 @@ public class DrugsOrder {
 	@OneToMany(mappedBy="order", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Offer> offers;
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
