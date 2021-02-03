@@ -16,7 +16,7 @@ public class VacationRequest {
 	@Embedded
 	private DateRange timePeriod;
 	
-	@Column(unique = false,nullable = true)
+	@Enumerated(EnumType.STRING)
 	private VacationRequestStatus status;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

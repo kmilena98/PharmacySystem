@@ -23,7 +23,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ISA.Team54.security.Authority;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 @Entity
 @Inheritance(strategy = TABLE_PER_CLASS)
 public abstract class User implements UserDetails{

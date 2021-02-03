@@ -40,7 +40,7 @@ public class UserController {
 		return this.userService.findByName(name);
 	}
 	
-	@GetMapping("userBySurname/{surname}")
+	@GetMapping("/userBySurname/{surname}")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<User> loadBySurname(@PathVariable String name){
 		return this.userService.findBySurname(name);

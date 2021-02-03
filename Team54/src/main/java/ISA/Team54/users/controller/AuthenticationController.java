@@ -85,8 +85,8 @@ public class AuthenticationController {
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
 			userRole = UserRole.ADMIN;
 		} else if (authentication.getAuthorities().stream()
-		          .anyMatch(r -> r.getAuthority().equals("ROLE_SISTEM_ADMIN"))) {
-			userRole = UserRole.SISTEM_ADMIN;
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_SYSTEM_ADMIN"))) {
+			userRole = UserRole.SYSTEM_ADMIN;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_DERMATOLOGIST"))) {
 			userRole = UserRole.DERMATOLOGIST;
@@ -118,7 +118,7 @@ public class AuthenticationController {
 	} 
 	
 	@PostMapping("/signupSupplierOrSystemAdmin")
-	@PreAuthorize("hasRole('SISTEM_ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> addSupplierOrSystemAdmin(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(userRequest.getEmail());
@@ -130,7 +130,7 @@ public class AuthenticationController {
 			case SUPPLIER:
 				user = this.pharmacyService.addSupplier(userRequest);
 				break;
-			case SISTEM_ADMIN:
+			case SYSTEM_ADMIN:
 				user = this.pharmacyService.addSystemAdministrator(userRequest);	
 				break;
 		}
@@ -140,7 +140,7 @@ public class AuthenticationController {
 	} 
 	
 	@PostMapping("/signupPharmacyAdmin")
-	@PreAuthorize("hasRole('SISTEM_ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> addPharmacyAdmin(@RequestBody PharmacyAdministratorRequestDTO pharmacyAdministratorRequestDTO, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(pharmacyAdministratorRequestDTO.getEmail());
@@ -157,7 +157,7 @@ public class AuthenticationController {
 
 
 	@PostMapping("/signupDermatologist")
-	@PreAuthorize("hasRole('SISTEM_ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> addDermatologist(@RequestBody DermatologistRequestDTO dermatologistRequestDTO, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(dermatologistRequestDTO.getEmail());

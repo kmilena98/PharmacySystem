@@ -38,9 +38,12 @@ public class Pharmacy {
 	
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<PharmacyAdministrator> pharmacyAdministrators;
-			
-	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public List<DrugInPharmacy> drugs = new ArrayList<DrugInPharmacy>();
+	
+	// zbog ovoga se dva puta pojavi pharmacy_id u drug in pharmacy, proveriti da li nam treba
+	/*
+	 * @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY) public
+	 * List<DrugInPharmacy> drugs = new ArrayList<DrugInPharmacy>();
+	 */
 
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<Promotion> promotion = new ArrayList<Promotion>();
@@ -60,7 +63,7 @@ public class Pharmacy {
 	private List<Examination> examinations = new ArrayList<Examination>();
 
 	public Pharmacy(long id, String name, String address, String description,
-			List<PharmacyAdministrator> pharmacyAdministrators, List<DrugInPharmacy> drugs, List<Promotion> promotion,
+			List<PharmacyAdministrator> pharmacyAdministrators, List<Promotion> promotion,
 			List<Patient> subscribedPatients, List<Dermatologist> dermatologists, List<Pharmacist> pharmacists,
 			List<Examination> examinations) {
 		super();
@@ -69,7 +72,7 @@ public class Pharmacy {
 		this.address = address;
 		this.description = description;
 		this.pharmacyAdministrators = pharmacyAdministrators;
-		this.drugs = drugs;
+
 		this.promotion = promotion;
 		this.subscribedPatients = subscribedPatients;
 		this.dermatologists = dermatologists;
@@ -116,14 +119,6 @@ public class Pharmacy {
 
 	public void setPharmacyAdministrators(List<PharmacyAdministrator> pharmacyAdministrators) {
 		this.pharmacyAdministrators = pharmacyAdministrators;
-	}
-
-	public List<DrugInPharmacy> getDrugs() {
-		return drugs;
-	}
-
-	public void setDrugs(List<DrugInPharmacy> drugs) {
-		this.drugs = drugs;
 	}
 
 	public List<Promotion> getPromotion() {

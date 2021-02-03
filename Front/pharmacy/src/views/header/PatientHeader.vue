@@ -7,14 +7,9 @@
         <li class="nav-item"><a href="#" class="nav-link">Moji lekovi</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Pretplaćene apoteke</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Žalbe</a></li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Mirko Mirković
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Moj profil</a>
-                <a class="dropdown-item" href="#">Odjava</a>
-            </div>
-        </li>
+        <b-nav-item-dropdown text="Mirko Mirković" right>
+          <b-dropdown-item href="#"><router-link to="/patient-profile">Moj profil</router-link></b-dropdown-item>
+          <b-dropdown-item href="#">Odjava</b-dropdown-item>
+        </b-nav-item-dropdown>
     </ul>
 </template>
