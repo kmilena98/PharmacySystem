@@ -5,10 +5,10 @@ insert into authority(id,name) values (4, 'ROLE_DERMATOLOGIST');
 insert into authority(id,name) values (5, 'ROLE_PHARMACIST');
 insert into authority(id,name) values (6, 'ROLE_SUPPLIER');
 
-insert into contraindications values (1, 'Preosetljivost na metronidazol');
-insert into contraindications values (2, 'Abdominalni bol');
-insert into contraindications values (3, 'Pogoršanje astme');
-insert into contraindications values (4, 'Deca mlađa od 2 godine');
+insert into contraindications( id, name) values (1, 'Preosetljivost na metronidazol');
+insert into contraindications( id, name) values (2, 'Abdominalni bol');
+insert into contraindications( id, name) values (3, 'Pogoršanje astme');
+insert into contraindications( id, name) values (4, 'Deca mlađa od 2 godine');
 
 /* --- DERMATOLOGISTS --- */
 
@@ -58,8 +58,8 @@ values (8,'Somborski bulevar 97','Zajecar','Srbija','kristina@gmail.com','Kristi
 
 
 /* --- PHARMACIES --- */
-insert into pharmacy values (1,'Narodnoog Fronta 12','gradska apoteka','Apoteka Novi Sad');
-insert into pharmacy values (2,'Petra Kocica 3','gradska apoteka','Apoteka Sirmijum');
+insert into pharmacy(id, address, description, name) values (1,'Narodnoog Fronta 12','gradska apoteka','Apoteka Novi Sad');
+insert into pharmacy(id, address, description, name) values (2,'Petra Kocica 3','gradska apoteka','Apoteka Sirmijum');
 
 
 
@@ -127,27 +127,27 @@ insert into supplier(id,address, city, country, email, name, password, phone_num
 values (19,'Somborski bulevar 99','Zrenjanin','Srbija','natasa@gmail.com','Natasa','$2y$10$SDsigowv761RRb9KIuiYwedVzSWvI05uIiR1o7MTp9QcaXS3fgS/.',
 		'062941622','Subotic');
 
-insert into user_authority values (1,4);
-insert into user_authority values (2,4);
-insert into user_authority values (3,4);
-insert into user_authority values (4,4);
-insert into user_authority values (5,1);
-insert into user_authority values (6,1);
-insert into user_authority values (7,1);
-insert into user_authority values (8,1);
-insert into user_authority values (9,5);
-insert into user_authority values (10,5);
-insert into user_authority values (9,5);
-insert into user_authority values (17,5);
-insert into user_authority values (18,5);
-insert into user_authority values (10,5);
-insert into user_authority values (11,2);
-insert into user_authority values (12,2);
-insert into user_authority values (13,3);
-insert into user_authority values (14,3);
-insert into user_authority values (15,6);
-insert into user_authority values (16,6);
-insert into user_authority values (19,6);
+insert into user_authority( user_id, authority_id) values (1,4);
+insert into user_authority( user_id, authority_id) values (2,4);
+insert into user_authority( user_id, authority_id) values (3,4);
+insert into user_authority( user_id, authority_id) values (4,4);
+insert into user_authority( user_id, authority_id) values (5,1);
+insert into user_authority( user_id, authority_id) values (6,1);
+insert into user_authority( user_id, authority_id) values (7,1);
+insert into user_authority( user_id, authority_id) values (8,1);
+insert into user_authority( user_id, authority_id) values (9,5);
+insert into user_authority( user_id, authority_id) values (10,5);
+insert into user_authority( user_id, authority_id) values (9,5);
+insert into user_authority( user_id, authority_id) values (17,5);
+insert into user_authority( user_id, authority_id) values (18,5);
+insert into user_authority( user_id, authority_id) values (10,5);
+insert into user_authority( user_id, authority_id) values (11,2);
+insert into user_authority( user_id, authority_id) values (12,2);
+insert into user_authority( user_id, authority_id) values (13,3);
+insert into user_authority( user_id, authority_id) values (14,3);
+insert into user_authority( user_id, authority_id) values (15,6);
+insert into user_authority( user_id, authority_id) values (16,6);
+insert into user_authority( user_id, authority_id) values (19,6);
 
 		
 		
@@ -172,41 +172,41 @@ insert into drug_allergies(id, drug_id, patient_id) values (5, 4, 7);
 insert into examination_loyalty_points(type, points) values ('DermatologistExamination', 15);
 insert into examination_loyalty_points(type, points) values ('PharmacistExamiantion', 10);
 
-insert into vacation_request values (1, 0,'2021-09-11', '2021-08-21', 1, 9);
-insert into vacation_request values (2, 0,'2021-10-15', '2021-09-26', 2, 10);
-insert into vacation_request values (3, 0,'2021-03-22', '2021-02-19', 3, 17);
+insert into vacation_request( status, end_date, start_date, dermatologist_id, pharmacist_id) values ('Created','2021-09-11', '2021-08-21', 1, 9);
+insert into vacation_request( status, end_date, start_date, dermatologist_id, pharmacist_id) values ('Created','2021-10-15', '2021-09-26', 2, 10);
+insert into vacation_request( status, end_date, start_date, dermatologist_id, pharmacist_id) values ('Approved','2021-03-22', '2021-02-19', 3, 17);
 
-insert into promotion values (1,'2021-03-22', '2021-02-19', '20 posto popusta', 1);
-insert into promotion values (2,'2021-05-01', '2021-04-20','10 posto popusta' , 1);
-insert into promotion values (3,'2021-11-20', '2021-11-26', '20 posto popusta', 2);
-insert into promotion values (4,'2021-02-22', '2021-02-17', '30 posto popusta', 2);
+insert into promotion(id, end_date, start_date, description, pharmacy_id) values (1,'2021-03-22', '2021-02-19', '20 posto popusta', 1);
+insert into promotion(id, end_date, start_date, description, pharmacy_id) values (2,'2021-05-01', '2021-04-20','10 posto popusta' , 1);
+insert into promotion(id, end_date, start_date, description, pharmacy_id) values (3,'2021-11-20', '2021-11-26', '20 posto popusta', 2);
+insert into promotion(id, end_date, start_date, description, pharmacy_id) values (4,'2021-02-22', '2021-02-17', '30 posto popusta', 2);
 
 
-insert into drug_in_storage values ( 1, 20, 1, 15);
-insert into drug_in_storage values ( 2, 24, 2, 15);
-insert into drug_in_storage values ( 3, 50, 3, 15);
-insert into drug_in_storage values ( 4, 40, 4, 16);
-insert into drug_in_storage values ( 5, 65, 5, 16);
-insert into drug_in_storage values ( 6, 25, 1, 16);
-insert into drug_in_storage values ( 7, 35, 2, 19);
-insert into drug_in_storage values ( 8, 15, 3, 19);
-insert into drug_in_storage values ( 9, 10, 4, 19);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (1, 20, 1, 15);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (2, 24, 2, 15);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (3, 50, 3, 15);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (4, 40, 4, 16);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (5, 65, 5, 16);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (6, 25, 1, 16);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (7, 35, 2, 19);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (8, 15, 3, 19);
+insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (9, 10, 4, 19);
 
-insert into supplier_drugs_in_storage values ( 15, 1);
-insert into supplier_drugs_in_storage values ( 15, 2);
-insert into supplier_drugs_in_storage values ( 15, 3);
-insert into supplier_drugs_in_storage values ( 16, 4);
-insert into supplier_drugs_in_storage values ( 16, 5);
-insert into supplier_drugs_in_storage values ( 16, 6);
-insert into supplier_drugs_in_storage values ( 19, 7);
-insert into supplier_drugs_in_storage values ( 19, 8);
-insert into supplier_drugs_in_storage values ( 19, 9);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 15, 1);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 15, 2);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 15, 3);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 16, 4);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 16, 5);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 16, 6);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 19, 7);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 19, 8);
+insert into supplier_drugs_in_storage( supplier_id, drugs_in_storage_id) values ( 19, 9);
 
-insert into orders values ( 1, '2021-02-17', 0, 13);
-insert into orders values ( 2, '2021-06-22', 0, 13);
-insert into orders values ( 3, '2021-05-08', 0, 14);
-insert into orders values ( 4, '2021-01-22', 0, 14);
-insert into orders values ( 5, '2021-12-11', 0, 14);
+insert into orders( deadline, status, administrator_id) values ( '2021-02-17', 'Waiting', 13);
+insert into orders( deadline, status, administrator_id) values ( '2021-06-22', 'Waiting', 13);
+insert into orders( deadline, status, administrator_id) values ( '2021-05-08', 'Waiting', 14);
+insert into orders( deadline, status, administrator_id) values ( '2021-01-22', 'Fulfilled', 14);
+insert into orders( deadline, status, administrator_id) values ( '2021-12-11', 'Fulfilled', 14);
 
 /*-- DERMATOLOGISTS IN PHARMACY --*/
 
@@ -274,40 +274,42 @@ values('Opis 5', 9, 1200, 'Filled', 30, '2020-12-14 11:30', 6, 'PharmacistExamin
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Opis 6', 10, 1250, 'Filled', 30, '2020-7-8 14:30', 3, 'PharmacistExamination', 5, 2);
 
- 	/* -- PRICELIST --*/
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1500,'2020-12-10 9:00','2021-12-01 9:00',1,1);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1300,'2020-12-01 9:00','2021-12-01 9:00',2,1);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1400,'2020-12-01 9:00','2021-12-01 9:00',3,1);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1800'2020-12-01 9:00','2021-12-01 9:00',4,1);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (2150,'2020-12-01 9:00','2021-12-01 9:00',5,1);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1450,'2020-12-01 9:00','2021-12-01 9:00',1,2);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1500,'2020-12-01 9:00','2021-12-01 9:00',2,2);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1700,'2020-12-01 9:00','2021-12-01 9:00',4,2);
-insert into pricelist(price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
- 
- 
+
  
  	/* -- DRUG IN PHARMACY --*/
  /* drug_id, pharmacy_id, quantity, pricelist*/
-insert into drug_in_pharmacy values(1,1,20,1);
-insert into drug_in_pharmacy values(2,1,50,2);
-insert into drug_in_pharmacy values(3,1,30,3);
-insert into drug_in_pharmacy values(4,1,40,4);
-insert into drug_in_pharmacy values(5,1,10,5);
-insert into drug_in_pharmacy values(1,2,100,6);
-insert into drug_in_pharmacy values(2,2,30,7);
-insert into drug_in_pharmacy values(4,2,20,8);
-insert into drug_in_pharmacy values(5,2,80,9);
+insert into drug_in_pharmacy values(1,1,20,null);
+insert into drug_in_pharmacy values(2,1,50,null);
+insert into drug_in_pharmacy values(3,1,30,null);
+insert into drug_in_pharmacy values(4,1,40,null);
+insert into drug_in_pharmacy values(5,1,10,null);
+insert into drug_in_pharmacy values(1,2,100,null);
+insert into drug_in_pharmacy values(2,2,30,null);
+insert into drug_in_pharmacy values(4,2,20,null);
+insert into drug_in_pharmacy values(5,2,80,null);
 
+
+ 	/* -- PRICELIST --*/
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (1, 1500,'2020-12-10 9:00','2021-12-01 9:00',1,1);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (2,1300,'2020-12-01 9:00','2021-12-01 9:00',2,1);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (3, 1400,'2020-12-01 9:00','2021-12-01 9:00',3,1);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (4, 1800, '2020-12-01 9:00','2021-12-01 9:00',4,1);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (5, 2150,'2020-12-01 9:00','2021-12-01 9:00',5,1);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (6, 1450,'2020-12-01 9:00','2021-12-01 9:00',1,2);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (7, 1500,'2020-12-01 9:00','2021-12-01 9:00',2,2);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (8, 1700,'2020-12-01 9:00','2021-12-01 9:00',4,2);
+insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
+values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
+ 
+ 
 	/* -- DRUG RESERVATION --*/
  
  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 

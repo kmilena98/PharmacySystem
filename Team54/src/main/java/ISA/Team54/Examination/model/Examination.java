@@ -21,7 +21,7 @@ public class Examination {
 	 private String diagnose;
 	 
 	 @Column(unique = false,nullable = false)
-	 private int price;
+	 private int price; 
 	 
 	 //duration in minutes
 	 @Column(unique = false,nullable = true)
