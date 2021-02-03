@@ -181,6 +181,7 @@ insert into promotion values (2,'2021-05-01', '2021-04-20','10 posto popusta' , 
 insert into promotion values (3,'2021-11-20', '2021-11-26', '20 posto popusta', 2);
 insert into promotion values (4,'2021-02-22', '2021-02-17', '30 posto popusta', 2);
 
+
 insert into drug_in_storage values ( 1, 20, 1, 15);
 insert into drug_in_storage values ( 2, 24, 2, 15);
 insert into drug_in_storage values ( 3, 50, 3, 15);
@@ -260,8 +261,57 @@ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy
  insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
  values('Osip',10,50,0,30,'2021-06-01 11:00',30,0,7,2);
  insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
- values('Odmaranje',17,50,0,30,'2021-06-01 12:00',30,0,8,1);
+ values('Odmaranje',17,50,1,30,'2021-01-01 12:00',30,0,8,1);
  insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
- values('Odmaranje',18,20,0,30,'2021-06-01 10:00',30,0,5,2);
+ values('Odmaranje',18,20,1,30,'2021-01-01 10:00',30,0,5,2);
  insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
- values('Blaza upala grla',18,20,0,30,'2021-06-01 9:00',30,0,5,2);
+ values('Blaza upala grla',18,20,1,30,'2020-12-01 9:00',30,0,5,2);
+ 
+ 	/* -- DRUG IN PHARMACY --*/
+ /* drug_id, pharmacy_id, quantity, pricelist*/
+insert into drug_in_pharmacy values(1,1,20,null);
+insert into drug_in_pharmacy values(2,1,50,null);
+insert into drug_in_pharmacy values(3,1,30,null);
+insert into drug_in_pharmacy values(4,1,40,null);
+insert into drug_in_pharmacy values(5,1,10,null);
+insert into drug_in_pharmacy values(1,2,100,null);
+insert into drug_in_pharmacy values(2,2,30,null);
+insert into drug_in_pharmacy values(4,2,20,null);
+insert into drug_in_pharmacy values(5,2,80,null);
+
+	/* -- DRUG RESERVATION --*/
+ 
+ insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-03-01 9:00',0,5,1,1);
+  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-04-01 13:00',1,6,2,1);
+  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-03-09 10:00',1,7,3,1);
+  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-02-06 11:00',2,5,4,1);
+  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-02-25 17:00',0,6,1,1);
+  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-05-07 10:00',0,7,1,2);
+  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
+ values ('2021-03-04 12:00',0,8,1,2);
+ 
+ /* -- ERECIPE --*/
+ 
+ insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 12:00',8);
+ insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 10:00',5);
+ insert into erecipe(date_of_issue,patient_id) values ('2020-12-01 9:00',5);
+ 
+ /* -- DRUG IN ERECIPE --*/
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (1,1);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (1,2);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (1,3);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (1,4);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (1,5);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (2,3);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (2,4);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (3,1);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (3,2);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (3,3);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (3,4);
+ insert into drugs_inerecipe(erecipe_id,drug_id) values (3,5);
