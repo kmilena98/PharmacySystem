@@ -36,6 +36,7 @@ export default {
             .get('/patient/' + this.$store.getters.getUserId)
             .then( res => {
                 this.user = res.data
+                console.log(this.user)
             })
     },
     components: {

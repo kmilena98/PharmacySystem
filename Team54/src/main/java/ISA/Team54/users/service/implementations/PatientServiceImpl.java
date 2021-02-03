@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.PatientRepository;
@@ -31,5 +32,9 @@ public class PatientServiceImpl implements PatientService {
 	public Patient findById(long id) {
 		Patient patient = patientRepository.findById(id);
 		return patient;
+	}
+	
+	public void updatePatient(BasicPatientInfoDTO patient) {
+		//patientRepository.updatePatient(patient.getName(), patient.getSurname(), patient.getAddress(), patient.getCity(), patient.getCountry(), patient.getPhoneNumber(), patient.getId());
 	}
 }

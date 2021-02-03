@@ -29,7 +29,7 @@ public class Patient extends User{
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ERecipe> eRecipes = new ArrayList<ERecipe>();
 	
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
 	public List<DrugAllergy> drugAllergies = new ArrayList<DrugAllergy>();
 	
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	

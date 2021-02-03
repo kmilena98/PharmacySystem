@@ -7,9 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.interfaces.PatientService;
@@ -37,4 +40,12 @@ public class PatientController {
 	public Patient loadById(@PathVariable long id){
 		return this.patientService.findById(id);
 	}
+	
+	@PutMapping("")
+	@PreAuthorize("hasRole('PATIENT')")
+	public void updatePatient(@RequestBody BasicPatientInfoDTO patient){
+		this.patientService.updatePatient(patient);
+	}
+	
+	
 }
