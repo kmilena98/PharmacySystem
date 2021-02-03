@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 
 import ISA.Team54.Examination.model.Examination;
 
-
-
 @Entity
 public class Drug {
 	@Id

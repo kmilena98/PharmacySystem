@@ -38,9 +38,12 @@ public class Pharmacy {
 	
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<PharmacyAdministrator> pharmacyAdministrators;
-			
-	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public List<DrugInPharmacy> drugs = new ArrayList<DrugInPharmacy>();
+	
+	// zbog ovoga se dva puta pojavi pharmacy_id u drug in pharmacy, proveriti da li nam treba
+	/*
+	 * @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY) public
+	 * List<DrugInPharmacy> drugs = new ArrayList<DrugInPharmacy>();
+	 */
 
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<Promotion> promotion = new ArrayList<Promotion>();

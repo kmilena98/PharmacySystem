@@ -28,4 +28,11 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 			+ "phoneNumber = ?6"
 			+ " where id = ?7")
 	void updatePatient(String name, String surname, String address, String city, String country, String phone, Long id);*/
+
+	@Query("SELECT u FROM User u WHERE upper(u.name) = ?1 and upper(u.surname) = ?2")
+	List<User> findByNameAndSurnameIgnoreCaseIn(String name,String surname);
+	@Query("SELECT u FROM User u WHERE upper(u.name) = ?1 or upper(u.surname) = ?2")
+	List<User> findByNameOrSurnameIgnoreCaseIn(String name,String surname);
+	List<Patient> findAll();
+	
 }
