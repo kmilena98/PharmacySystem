@@ -11,7 +11,7 @@ Vue.prototype.$axios = axios
 
 export default new Vuex.Store({
 	state: {
-		userRole: 'ROLE_PATIENT'
+		userRole: 'ROLE_UNREGISTERED'
 	},
 	mutations: {},
 	actions: {},
