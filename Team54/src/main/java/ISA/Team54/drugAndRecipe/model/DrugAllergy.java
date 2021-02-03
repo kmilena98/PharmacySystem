@@ -19,7 +19,7 @@ public class DrugAllergy {
 	private long id;
 	
 	@OneToOne()
-	private Drug drugs;
+	private Drug drug;
 	
 	@OneToOne()
 	private Patient patient;
@@ -28,10 +28,10 @@ public class DrugAllergy {
 		super();
 	}
 
-	public DrugAllergy(long id, Drug drugs, Patient patient) {
+	public DrugAllergy(long id, Drug drug, Patient patient) {
 		super();
 		this.id = id;
-		this.drugs = drugs;
+		this.drug = drug;
 		this.patient = patient;
 	}
 
@@ -44,11 +44,11 @@ public class DrugAllergy {
 	}
 
 	public Drug getDrugs() {
-		return drugs;
+		return drug;
 	}
 
 	public void setDrugs(Drug drugs) {
-		this.drugs = drugs;
+		this.drug = drugs;
 	}
 
 	public Patient getPatient() {

@@ -1,6 +1,7 @@
 package ISA.Team54.users.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 	@Query("SELECT u FROM User u WHERE upper(u.name) = ?1 or upper(u.surname) = ?2")
 	List<User> findByNameOrSurnameIgnoreCaseIn(String name,String surname);
 	List<Patient> findAll();
+	Optional<Patient> findById(Long id);
 	
 }

@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import ISA.Team54.drugAndRecipe.model.enums.ReservationStatus;
+import ISA.Team54.drugAndRecipe.enums.ReservationStatus;
 import ISA.Team54.users.model.Patient;
 
 @Entity

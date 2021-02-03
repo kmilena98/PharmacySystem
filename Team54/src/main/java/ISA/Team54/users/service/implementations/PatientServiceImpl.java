@@ -2,6 +2,7 @@ package ISA.Team54.users.service.implementations;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public List<Patient> findAll() {
 		return patientRepository.findAll();
-	}	
+	}
 
+	@Override
+	public Optional<Patient> findById(Long id) {
+		return patientRepository.findById(id);
+	}	
 }
