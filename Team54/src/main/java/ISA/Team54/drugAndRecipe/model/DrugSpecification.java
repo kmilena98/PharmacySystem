@@ -16,29 +16,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 @Entity
+@Table(name="drug_specifications")
 public class DrugSpecification {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@ManyToMany
-	@JoinTable(name = "contraindicationInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "contraindication_id",referencedColumnName= "id"))
+	@JoinTable(name = "contraindicationsInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "contraindication_id",referencedColumnName= "id"))
 	private Set<Contraindication> contraindications = new HashSet<Contraindication>();
 	
 	@ManyToMany
 	@JoinTable(name = "ingredientInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "ingredient_id",referencedColumnName= "id"))	
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 	
-	@Column(unique = false,nullable = true)
-	private int suggestedDose;	
+	@Column(unique = false,nullable = false)
+	private String suggestedDose;	
 	
 	public DrugSpecification() {
 		super();
 	}
 
 	
-	public DrugSpecification(long id, int suggestedDose) {
+	public DrugSpecification(long id, String suggestedDose) {
 		super();
 		this.id = id;
 		this.suggestedDose = suggestedDose;
@@ -46,7 +50,7 @@ public class DrugSpecification {
 
 
 	public DrugSpecification(long id, Set<Contraindication> contraindications, Set<Ingredient> ingredients,
-			int suggestedDose) {
+			String suggestedDose) {
 		super();
 		this.id = id;
 		this.contraindications = contraindications;
@@ -78,11 +82,11 @@ public class DrugSpecification {
 		this.ingredients = ingredients;
 	}
 
-	public int getSuggestedDose() {
+	public String getSuggestedDose() {
 		return suggestedDose;
 	}
 
-	public void setSuggestedDose(int suggestedDose) {
+	public void setSuggestedDose(String suggestedDose) {
 		this.suggestedDose = suggestedDose;
 	}	
 	

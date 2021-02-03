@@ -23,14 +23,10 @@ public class PharmacyAdministrator extends User{
 		
 	}
 
-	public PharmacyAdministrator(long id, Email email, String password, String name, String surname, String address,
+	public PharmacyAdministrator(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, List<DrugsOrder> drugOrder) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.drugOrders = drugOrder;
 	}
-	
-	
-	
-	
 
 }

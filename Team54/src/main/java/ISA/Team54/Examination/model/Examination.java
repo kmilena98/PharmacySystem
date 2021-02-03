@@ -38,10 +38,10 @@ public class Examination {
 	 @Column(unique = false,nullable = false)
 	 private int therapyDuration;
 	 
-	 @Column(unique = false,nullable = false)
+	 @Embedded
 	 private ExaminationType type;
 	 
-	 @Column(unique = false,nullable = false)
+	 @Embedded
 	 private ExaminationStatus status;
 	 
 	 @Column(unique = false,nullable = false)
