@@ -1,11 +1,6 @@
 package ISA.Team54.users.dto;
 
-import javax.persistence.Column;
-
-import ISA.Team54.users.enums.UserRole;
-
-public class UserRequestDTO {
-
+public class PharmacyAdministratorRequestDTO {
 	private String email;
 
 	private String password;
@@ -22,14 +17,14 @@ public class UserRequestDTO {
 	
 	private String phoneNumber;	
 	
-	private UserRole role;
-
-	public UserRole getRole() {
-		return role;
+	private int pharmacyId;
+	
+	public int getPharmacyId() {
+		return pharmacyId;
 	}
 
-	public void setRole(UserRole role) {
-		this.role = role;
+	public void setPharmacyId(int pharmacyId) {
+		this.pharmacyId = pharmacyId;
 	}
 
 	public String getEmail() {
@@ -95,5 +90,4 @@ public class UserRequestDTO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
 }

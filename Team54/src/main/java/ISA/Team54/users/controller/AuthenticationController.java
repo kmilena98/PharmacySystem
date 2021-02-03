@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ISA.Team54.exceptions.ResourceConflictException;
+import ISA.Team54.security.Authority;
 import ISA.Team54.security.TokenUtils;
 import ISA.Team54.security.UserTokenState;
 import ISA.Team54.security.auth.JwtAuthenticationRequestDTO;
+import ISA.Team54.users.dto.DermatologistRequestDTO;
+import ISA.Team54.users.dto.PharmacyAdministratorRequestDTO;
 import ISA.Team54.users.dto.UserRequestDTO;
+import ISA.Team54.users.enums.UserRole;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.implementations.CustomUserDetailsService;
 import ISA.Team54.users.service.interfaces.PharmacyService;
@@ -68,8 +72,32 @@ public class AuthenticationController {
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
 
+
+		UserRole userRole = null;		
+		
+		if(authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_PATIENT"))) {
+			userRole = UserRole.PATIENT;
+		} else if (authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_SUPPLIER"))) {
+			userRole = UserRole.SUPPLIER;
+		} else if (authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+			userRole = UserRole.ADMIN;
+		} else if (authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_SISTEM_ADMIN"))) {
+			userRole = UserRole.SISTEM_ADMIN;
+		} else if (authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_DERMATOLOGIST"))) {
+			userRole = UserRole.DERMATOLOGIST;
+		} else if (authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_PHARMACIST"))) {
+			userRole = UserRole.PHARMACIST;
+		}
+		
+	
 		// Vrati token kao odgovor na uspesnu autentifikaciju
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getId(), userRole));
 	}
 
 	// Endpoint za registraciju novog korisnika
@@ -88,28 +116,56 @@ public class AuthenticationController {
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 
 		return new ResponseEntity<>(user, HttpStatus.CREATED); 
 	} 
-
-
-	@PostMapping("/signupBySystemAdmin")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
-	public ResponseEntity<User> addUserBySystemAdmin(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
+	
+	@PostMapping("/signupSupplierOrSystemAdmin")
+	@PreAuthorize("hasRole('SISTEM_ADMIN')")
+	public ResponseEntity<User> addSupplierOrSystemAdmin(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(userRequest.getEmail());
 		if (existUser != null) {
 			throw new ResourceConflictException((long)0, "Username already exists");
 		}
-		
 		User user = null;
 		switch(userRequest.getRole()) {
-			case ADMIN:
-				user = this.pharmacyService.addPharmacyAdministrator(userRequest);
-			case SYSTEM_ADMIN:
-				user = this.pharmacyService.addSystemAdministrator(userRequest);
-			case DERMATOLOGIST:
-				user = this.pharmacyService.addDermatologist(userRequest);
 			case SUPPLIER:
 				user = this.pharmacyService.addSupplier(userRequest);
+				break;
+			case SISTEM_ADMIN:
+				user = this.pharmacyService.addSystemAdministrator(userRequest);	
+				break;
 		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 
+		return new ResponseEntity<>(user, HttpStatus.CREATED); 
+	} 
+	
+	@PostMapping("/signupPharmacyAdmin")
+	@PreAuthorize("hasRole('SISTEM_ADMIN')")
+	public ResponseEntity<User> addPharmacyAdmin(@RequestBody PharmacyAdministratorRequestDTO pharmacyAdministratorRequestDTO, UriComponentsBuilder ucBuilder) {
+
+		User existUser = this.userService.findByUsername(pharmacyAdministratorRequestDTO.getEmail());
+		if (existUser != null) {
+			throw new ResourceConflictException((long)0, "Username already exists");
+		}
+		
+		User user = this.pharmacyService.addPharmacyAdministrator(pharmacyAdministratorRequestDTO);	
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 
+		return new ResponseEntity<>(user, HttpStatus.CREATED); 
+	} 
+
+
+	@PostMapping("/signupDermatologist")
+	@PreAuthorize("hasRole('SISTEM_ADMIN')")
+	public ResponseEntity<User> addDermatologist(@RequestBody DermatologistRequestDTO dermatologistRequestDTO, UriComponentsBuilder ucBuilder) {
+
+		User existUser = this.userService.findByUsername(dermatologistRequestDTO.getEmail());
+		if (existUser != null) {
+			throw new ResourceConflictException((long)0, "Username already exists");
+		}
+		
+		User user = this.pharmacyService.addDermatologist(dermatologistRequestDTO);	
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri()); 

@@ -2,7 +2,7 @@ package ISA.Team54.users.enums;
 
 public enum UserRole {
 	PATIENT,
-	SYSTEM_ADMIN,
+	SISTEM_ADMIN,
 	ADMIN,
 	DERMATOLOGIST,
 	PHARMACIST,

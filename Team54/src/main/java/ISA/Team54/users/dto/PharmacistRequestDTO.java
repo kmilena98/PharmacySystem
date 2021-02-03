@@ -1,11 +1,8 @@
 package ISA.Team54.users.dto;
 
-import javax.persistence.Column;
+import java.util.Date;
 
-import ISA.Team54.users.enums.UserRole;
-
-public class UserRequestDTO {
-
+public class PharmacistRequestDTO {
 	private String email;
 
 	private String password;
@@ -22,14 +19,34 @@ public class UserRequestDTO {
 	
 	private String phoneNumber;	
 	
-	private UserRole role;
-
-	public UserRole getRole() {
-		return role;
+	private Date endDate;
+	
+	private Date startDate;
+	
+	private int pharmacyId;
+	
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setRole(UserRole role) {
-		this.role = role;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public int getPharmacyId() {
+		return pharmacyId;
+	}
+
+	public void setPharmacyId(int pharmacyId) {
+		this.pharmacyId = pharmacyId;
 	}
 
 	public String getEmail() {
@@ -95,5 +112,4 @@ public class UserRequestDTO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
 }
