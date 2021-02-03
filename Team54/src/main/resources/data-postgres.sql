@@ -5,52 +5,55 @@ insert into authority(id,name) values (4, 'ROLE_DERMATOLOGIST');
 insert into authority(id,name) values (5, 'ROLE_PHARMACIST');
 insert into authority(id,name) values (6, 'ROLE_SUPPLIER');
 
-insert into contraindications(id,name) values (1, 'Preosetljivost na metronidazol');
-insert into contraindications(id,name) values (2, 'Abdominalni bol');
-insert into contraindications(id,name) values (3, 'Pogoršanje astme');
-insert into contraindications(id,name) values (4, 'Deca mlađa od 2 godine');
+insert into contraindications values (1, 'Preosetljivost na metronidazol');
+insert into contraindications values (2, 'Abdominalni bol');
+insert into contraindications values (3, 'Pogoršanje astme');
+insert into contraindications values (4, 'Deca mlađa od 2 godine');
+
+/* --- DERMATOLOGISTS --- */
 
 /* pera@gmail.com, pera */
-insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating) 
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating,confirmed) 
 values (1,'Jovana Ducica 22','Beograd','Srbija','pera@gmail.com','Pera','$2y$10$4pqzt42GblUIbx6vrwSGhObU5wtpGd1EaCXSLqnXh0dIeouX5P98e',
-		'231432123','Peric', 1500, 4.7);
+		'231432123','Peric', 1500, 4.7,true);
 		
 /* zika@gmail.com, zika */
-insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating) 
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating,confirmed) 
 values (2,'Janka Cmelika 9','Novi Sad','Srbija','zika@gmail.com','Zika','$2y$10$MN616XcMIPO4vqY2bjNEQO97f9mmT6fbFuinbLLylKr0QrJoIJSWm',
-		'0617788996','Zikic', 2000, 4.1);
+		'0617788996','Zikic', 2000, 4.1,false);
 		
 /* marko@gmail.com, marko */
-insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating) 
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating,confirmed) 
 values (3,'Bulevar Oslobodjenja 49','Nis','Srbija','marko@gmail.com','Marko','$2y$10$zsoFKgzcVBAUFgjNLNPrGeIK1Utd7ZBEik9GlhDNYZXA.0yVltuaq',
-		'021879554','Markovic', 1700, 4.8);
+		'021879554','Markovic', 1700, 4.8,true);
 		
 /* petar@gmail.com, petar */
-insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating) 
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price, rating,confirmed) 
 values (4,'Trg Slobode 4','Subotica','Srbija','petar@gmail.com','Petar','$2y$10$8a2ynifL9RQtjOOVJA3RfO.LcNzmievmarf54iJTM.fg8LgTtGwbu ',
-		'06987445','Petrovic', 1400, 4.6);
+		'06987445','Petrovic', 1400, 4.6,true);
 		
 /* --- PATIENTS --- */
 		
+		
 /* filip@gmail.com, filip */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
 values (5,'Bulevar Mihajla Pupina 2','Beograd','Srbija','filip@gmail.com','Filip','$2y$10$Y8ssB0gdD8hGqvTmAeh6n.ZD7lpKoQkNYlKzUJrCCsjsTy73tGVJS',
-		'061985622','Filipovic', 120, 1);
+		'061985622','Filipovic', 120, 1,true);
 		
 /* mihajlo@gmail.com, mihajlo */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
 values (6,'Ruzveltova 34','Beograd','Srbija','mihajlo@gmail.com','Mihajlo','$2y$10$RsVLRg9b4gIw8IegArZGi.FGP3IkbG8/97D/TyYjSyslbEDSIzq2.',
-		'01147884','Mihajlovic', 10, 0);
+		'01147884','Mihajlovic', 10, 0,true);
 		
 /* ana@gmail.com, ana */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
 values (7,'Bulevar Oslobodjenja 56','Novi Sad','Srbija','ana@gmail.com','Ana','$2y$10$Ot3AbKBsBoZSRign2IFkI.vuY6iuUbKxGhtWJY39D9oH6OGJWbUFq',
-		'061985622','Anic', 0, 0);
+		'061985622','Anic', 0, 0,true);
 		
 /* kristina@gmail.com, kristina */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
 values (8,'Somborski bulevar 97','Zajecar','Srbija','kristina@gmail.com','Kristina','$2y$10$IZLi/JPnH2LrQ9TxyVVhZOpLCY.Z3ZJGp1szResXjLUOFCTb/4vum',
-		'061985622','Krstic', 27, 0);
+		'061985622','Krstic', 27, 0,true);
 
 
 
@@ -204,4 +207,61 @@ insert into orders values ( 3, '2021-05-08', 0, 14);
 insert into orders values ( 4, '2021-01-22', 0, 14);
 insert into orders values ( 5, '2021-12-11', 0, 14);
 
+	/*-- DERMATOLOGISTS IN PHARMACY --*/
 
+insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (1,1);
+insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (1,2);
+insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (1,3);
+insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (1,4);
+insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (2,1);
+insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (2,3);
+
+	/*-- SCHEDULED EXAMINATIONS -DERMATOLOGIST  --*/
+
+insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Ekcem',1,20,0,30,'2021-06-01 12:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Alergija',1,20,0,30,'2021-06-07 12:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Suga',1,20,0,30,'2021-06-15 12:00',30,0,5,1);
+ 
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Ekcem',2,30,0,30,'2021-06-01 12:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Osip',2,30,0,30,'2021-06-01 12:00',30,0,6,1);
+ 
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Ovcije boginje',1,20,0,30,'2021-03-01 10:00',30,0,6,2);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Osip',4,50,0,30,'2021-06-01 12:00',30,0,7,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Osip',4,50,0,30,'2021-06-01 12:00',30,0,8,2);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Ekcem',3,20,0,30,'2021-06-01 12:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Psorijaza',3,20,0,30,'2021-06-01 12:00',30,0,5,1);
+
+ /*-- SCHEDULED EXAMINATIONS -PHARMACIST --*/
+
+insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Odmaranje',9,20,0,30,'2021-06-01 10:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Blaza upala urla',9,20,0,30,'2021-06-07 13:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Sirup za kasalj',9,20,0,30,'2021-06-15 9:00',30,0,5,1);
+ 
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Blaza upala urla',9,30,0,30,'2021-06-01 14:00',30,0,5,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Blaza upala',10,30,0,30,'2021-06-01 9:00',30,0,6,2);
+ 
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Ovcije boginje',10,20,0,30,'2021-03-01 10:00',30,0,6,2);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Osip',10,50,0,30,'2021-06-01 11:00',30,0,7,2);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Odmaranje',17,50,0,30,'2021-06-01 12:00',30,0,8,1);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Odmaranje',18,20,0,30,'2021-06-01 10:00',30,0,5,2);
+ insert into examination(diagnose,emplyeed_id,price,status,duration,start,therapy_duration,type,patient_id,pharmacy_id)
+ values('Blaza upala grla',18,20,0,30,'2021-06-01 9:00',30,0,5,2);
