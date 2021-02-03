@@ -10,4 +10,5 @@ import ISA.Team54.users.model.User;
 public interface PatientRepository extends JpaRepository<Patient, Long>{
 	List<User> findByName(String name);
 	List<User> findBySurname(String surname);
+	Patient findById(long id);
 }

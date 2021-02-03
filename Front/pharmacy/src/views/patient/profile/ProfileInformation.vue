@@ -2,11 +2,11 @@
     <div class="patient-information">
         <b-row>
             <b-col cols="8">
-                <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+                <b-form @submit="onSubmit" @reset="onReset">
                     <b-form-group id="name-group" label="Ime:" label-for="name-input" class="text-left">
                         <b-form-input
                             id="name-input"
-                            v-model="form.name"
+                            v-model="user.name"
                             placeholder="Unesite ime"
                             required>
                         </b-form-input>
@@ -15,7 +15,7 @@
                     <b-form-group id="surname-group" label="Prezime:" label-for="surname-input" class="text-left">
                         <b-form-input
                             id="surname-input"
-                            v-model="form. surname"
+                            v-model="user.surname"
                             placeholder="Unesite prezime"
                             required>
                         </b-form-input>
@@ -24,7 +24,7 @@
                     <b-form-group id="address-group" label="Adresa, grad, država:" label-for="address-input" class="text-left">
                         <b-form-input
                             id="address-input"
-                            v-model="form.address"
+                            v-model="user.address"
                             placeholder="Unesite adresu, grad, državu"
                             required>
                         </b-form-input>
@@ -33,7 +33,7 @@
                     <b-form-group id="phone-group" label="Broj telefona:" label-for="phone-input" class="text-left">
                         <b-form-input
                             id="phone-input"
-                            v-model="form.phone"
+                            v-model="user.phoneNumber"
                             placeholder="Unesite broj telefona"
                             required>
                         </b-form-input>
@@ -62,16 +62,9 @@
 import ChangePasswordModal from './ChangePasswordModal.vue';
 
 export default {
+    props: ['user'],
     data() {
         return {
-            form: {
-                email: '',
-                name: '',
-                food: null,
-                checked: []
-            },
-            foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-            show: true
         }
     },
     methods: {

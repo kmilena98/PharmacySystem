@@ -2,7 +2,6 @@ package ISA.Team54.users.model;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;

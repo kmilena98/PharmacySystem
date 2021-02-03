@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.interfaces.PatientService;
 
 @RestController
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PatientController {
 	@Autowired
 	private PatientService patientService;
@@ -29,5 +30,11 @@ public class PatientController {
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<User> loadBySurname(@PathVariable String surname){
 		return this.patientService.findBySurname(surname);
+	}
+	
+	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('PATIENT')")
+	public Patient loadById(@PathVariable long id){
+		return this.patientService.findById(id);
 	}
 }
