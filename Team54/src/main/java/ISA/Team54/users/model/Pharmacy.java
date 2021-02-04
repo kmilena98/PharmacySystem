@@ -61,4 +61,105 @@ public class Pharmacy {
 
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Examination> examinations = new ArrayList<Examination>();
+
+	public Pharmacy(long id, String name, String address, String description,
+			List<PharmacyAdministrator> pharmacyAdministrators, List<Promotion> promotion,
+			List<Patient> subscribedPatients, List<Dermatologist> dermatologists, List<Pharmacist> pharmacists,
+			List<Examination> examinations) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.description = description;
+		this.pharmacyAdministrators = pharmacyAdministrators;
+
+		this.promotion = promotion;
+		this.subscribedPatients = subscribedPatients;
+		this.dermatologists = dermatologists;
+		this.pharmacists = pharmacists;
+		this.examinations = examinations;
+	}
+
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<PharmacyAdministrator> getPharmacyAdministrators() {
+		return pharmacyAdministrators;
+	}
+
+	public void setPharmacyAdministrators(List<PharmacyAdministrator> pharmacyAdministrators) {
+		this.pharmacyAdministrators = pharmacyAdministrators;
+	}
+
+	public List<Promotion> getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(List<Promotion> promotion) {
+		this.promotion = promotion;
+	}
+
+	public List<Patient> getSubscribedPatients() {
+		return subscribedPatients;
+	}
+
+	public void setSubscribedPatients(List<Patient> subscribedPatients) {
+		this.subscribedPatients = subscribedPatients;
+	}
+
+	public List<Dermatologist> getDermatologists() {
+		return dermatologists;
+	}
+
+	public void setDermatologists(List<Dermatologist> dermatologists) {
+		this.dermatologists = dermatologists;
+	}
+
+	public List<Pharmacist> getPharmacists() {
+		return pharmacists;
+	}
+
+	public void setPharmacists(List<Pharmacist> pharmacists) {
+		this.pharmacists = pharmacists;
+	}
+
+	public List<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(List<Examination> examinations) {
+		this.examinations = examinations;
+	}
+	
+	
 }
