@@ -1,6 +1,6 @@
 package ISA.Team54.users.service.implementations;
 
-import java.awt.List;
+import java.util.List;
 import java.util.Collections;
 
 import org.apache.commons.logging.Log;

@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 
 import ISA.Team54.Examination.model.Examination;
 
-
-
 @Entity
 public class Drug {
 	@Id
@@ -50,8 +48,8 @@ public class Drug {
 		this.code = code;
 		this.loyalityPoints = loyalityPoints;
 	}
-	public Long getId() {
-		return id;
+	public int getId() {
+		return (int) id;
 	}
 	public void setId(long id) {
 		this.id = id;

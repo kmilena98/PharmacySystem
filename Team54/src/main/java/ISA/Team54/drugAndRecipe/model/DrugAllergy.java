@@ -9,19 +9,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import ISA.Team54.users.model.Patient;
 
 @Entity
+@Table(name="drug_allergies")
 public class DrugAllergy {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@OneToOne()
+	@OneToOne
 	private Drug drug;
 	
-	@OneToOne()
+	@OneToOne
 	private Patient patient;
 
 	public DrugAllergy() {
@@ -47,8 +49,8 @@ public class DrugAllergy {
 		return drug;
 	}
 
-	public void setDrugs(Drug drugs) {
-		this.drug = drugs;
+	public void setDrugs(Drug drug) {
+		this.drug = drug;
 	}
 
 	public Patient getPatient() {

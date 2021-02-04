@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import ISA.Team54.Examination.enums.ExaminationStatus;
+import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.model.Examination;
 
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
 	public List<Examination> findAll();
-	public List<Examination> findEmplyeedIdAndExaminationStatus(Long id,ExaminationStatus i);
+	public List<Examination> findByEmplyeedIdAndStatus(int id,ExaminationStatus es);
+	public List<Examination> findByTypeAndPatientIdAndStatus(ExaminationType type, Long id,ExaminationStatus es);
+	public Examination findById(int id);
+	
 }

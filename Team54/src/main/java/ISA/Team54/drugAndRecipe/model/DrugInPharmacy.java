@@ -21,8 +21,6 @@ public class DrugInPharmacy {
 	@Column(unique = false, nullable = true)
 	private int quantity;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Pharmacy pharmacy;
 	
 	@OneToMany(mappedBy = "reservedDrug", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DrugReservation> drugReservations = new ArrayList<DrugReservation>();

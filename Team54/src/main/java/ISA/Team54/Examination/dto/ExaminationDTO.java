@@ -3,10 +3,10 @@ package ISA.Team54.Examination.dto;
 import java.time.LocalDateTime;
 
 public class ExaminationDTO {
+	int id;
 	String patientName;
 	String patientSurname;
 	LocalDateTime examinationStart;
-	int duration;
 	
 	
 	public ExaminationDTO() {
@@ -14,12 +14,24 @@ public class ExaminationDTO {
 	}
 
 
-	public ExaminationDTO(String patientName, String patientSurname, LocalDateTime examinationStart, int duration) {
+	public ExaminationDTO(int id,String patientName, String patientSurname, LocalDateTime examinationStart) {
 		super();
+		this.id = id;
 		this.patientName = patientName;
 		this.patientSurname = patientSurname;
 		this.examinationStart = examinationStart;
-		this.duration = duration;
+		
+	}
+
+	
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -50,16 +62,6 @@ public class ExaminationDTO {
 
 	public void setExaminationStart(LocalDateTime examinationStart) {
 		this.examinationStart = examinationStart;
-	}
-
-
-	public int getDuration() {
-		return duration;
-	}
-
-
-	public void setDuration(int duration) {
-		this.duration = duration;
 	}
 	
 	
