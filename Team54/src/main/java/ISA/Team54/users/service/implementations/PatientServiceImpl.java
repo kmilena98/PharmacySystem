@@ -16,17 +16,7 @@ import ISA.Team54.users.service.interfaces.PatientService;
 @Service
 public class PatientServiceImpl implements PatientService {
 	@Autowired
-	private PatientRepository patientRepository;
-	public List<User> findByName(String name) throws AccessDeniedException {
-		List<User> result = patientRepository.findByName(name);
-		return result;		
-	}	
-	
-	public List<User> findBySurname(String surname) throws AccessDeniedException {
-		List<User> result = patientRepository.findBySurname(surname);
-		return result;		
-	}
-	
+	private PatientRepository patientRepository;	
 
 	@Override
 	public Set<User> findBySurnameAndName(String surnameAndName) {
