@@ -11,12 +11,14 @@ Vue.prototype.$axios = axios
 
 export default new Vuex.Store({
 	state: {
-		userRole: 'ROLE_UNREGISTERED'
+		userRole: 'ROLE_UNREGISTERED',
+		userId : 0,
 	},
 	mutations: {},
 	actions: {},
 	modules: {},
 	getters:{
-		getUserRole: state => state.userRole
+		getUserRole: state => state.userRole,
+		getUserId: state => state.userId
 	}
 });

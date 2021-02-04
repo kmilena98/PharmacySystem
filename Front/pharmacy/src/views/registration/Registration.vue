@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <h4 class="h4 align-middle my-4">Pristup sistemu</h4>
-        <div class="profile-main">
-            <b-card no-body>
+        <div class="registration-main">
+            <b-card no-body >
                 <b-tabs pills card align="center" lazy>
-                    <b-tab title="Logovanje" active>
+                    <b-tab title="Logovanje" active class="text-center">
                         <Login />
                     </b-tab>
-                    <b-tab title="Registracija">
+                    <b-tab title="Registracija" >
                         <Register />
                     </b-tab>
                 </b-tabs>
