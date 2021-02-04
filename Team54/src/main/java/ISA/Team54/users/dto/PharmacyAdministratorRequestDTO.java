@@ -1,17 +1,13 @@
-package ISA.Team54.users.model;
+package ISA.Team54.users.dto;
 
-import javax.persistence.Column;
-
-public class UserRequestDTO {
-	private Long id;
-
-	private String username;
+public class PharmacyAdministratorRequestDTO {
+	private String email;
 
 	private String password;
 
-	private String firstname;
+	private String firstName;
 
-	private String lastname;
+	private String lastName;
 	
 	private String address;
 	
@@ -20,13 +16,23 @@ public class UserRequestDTO {
 	private String country;
 	
 	private String phoneNumber;	
-
-	public String getUsername() {
-		return username;
+	
+	private int pharmacyId;
+	
+	public int getPharmacyId() {
+		return pharmacyId;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPharmacyId(int pharmacyId) {
+		this.pharmacyId = pharmacyId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -37,30 +43,22 @@ public class UserRequestDTO {
 		this.password = password;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getAddress() {
 		return address;
 	}
@@ -92,5 +90,4 @@ public class UserRequestDTO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
 }

@@ -1,3 +1,4 @@
+
 insert into authority(id,name) values (1,'ROLE_PATIENT');
 insert into authority(id,name) values (2, 'ROLE_SYSTEM_ADMIN');
 insert into authority(id,name) values (3, 'ROLE_PHARMACY_ADMIN');
@@ -329,7 +330,4 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 12:00',8);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 10:00',5);
  insert into erecipe(date_of_issue,patient_id) values ('2020-12-01 9:00',5);
- 
-
-
 

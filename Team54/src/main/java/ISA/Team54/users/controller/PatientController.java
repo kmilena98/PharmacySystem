@@ -29,15 +29,7 @@ import ISA.Team54.users.service.interfaces.PatientService;
 public class PatientController {
 	@Autowired
 	private PatientService patientService;
-	
-	@GetMapping("patientByName/{name}")
-	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public List<PatientDTO> loadByName(@PathVariable String name){
-		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
-		for(User user : this.patientService.findByName(name)) 
-			patientsDTO.add(new PatientMapper().UserToPatientDTO(user));
-		return patientsDTO;
-	}
+
 	
 	@GetMapping("patientBySurnameAndName/{surnameAndName}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
@@ -48,15 +40,7 @@ public class PatientController {
 		return patientsDTO;
 	}
 	
-	@GetMapping("/patientBySurname/{surname}")
-	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public List<PatientDTO> loadBySurname(@PathVariable String surname){
-		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
-		for(User user : this.patientService.findBySurname(surname)) 
-			patientsDTO.add(new PatientMapper().UserToPatientDTO(user));
-		return patientsDTO;
-	}
-	
+
 	@GetMapping("/allPatients/")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<PatientDTO> loadPatients(){
