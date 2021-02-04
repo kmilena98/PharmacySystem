@@ -25,7 +25,6 @@ import ISA.Team54.users.service.interfaces.PatientService;
 public class PatientServiceImpl implements PatientService {
 	
 	@Autowired
-<<<<<<< HEAD
 	private PatientRepository patientRepository;
 	
 	@Autowired
@@ -40,10 +39,6 @@ public class PatientServiceImpl implements PatientService {
 		List<User> result = patientRepository.findBySurname(surname);
 		return result;		
 	}
-	
-=======
-	private PatientRepository patientRepository;	
->>>>>>> develop
 
 	@Override
 	public Set<User> findBySurnameAndName(String surnameAndName) {
