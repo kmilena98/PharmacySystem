@@ -13,7 +13,7 @@
                     </b-col>
                     <b-col>
                         <div class="loyalty-points">
-                            <h5 class="h5">102</h5>
+                            <h5 class="h5">{{loyalty_points}}</h5>
                             <span>POENA</span>
                         </div>                       
                     </b-col>
@@ -22,13 +22,32 @@
             <b-col class="text-left">
                 <h6 class="h6">Kazneni penali</h6>
                 <div class="penalty-points">
-                    <span>0</span>
+                    <span>{{penalty_points}}</span>
                     <span>KAZNENIH POENA</span>
                 </div>
             </b-col>
         </b-row>
     </div>
 </template>
+
+<script>
+export default {
+    data(){
+        return{
+            loyalty_points: 0,
+            penalty_points: 0
+        }
+    },
+    mounted(){
+        this.$http
+            .get('/patient/' + this.$store.getters.getUserId)
+            .then( res => {
+                this.loyalty_points = res.data.loyaltyPoints
+                this.penalty_points = res.data.penaltyPoints
+            })
+    }
+}
+</script>
 
 <style scoped>
 
@@ -43,6 +62,7 @@
         width: 100px;
         height: 100px;
         text-align: center;
+        align-self: center;
     }
 
     .penalty-points > *{

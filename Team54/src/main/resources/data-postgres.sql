@@ -147,27 +147,25 @@ insert into user_authority( user_id, authority_id) values (13,3);
 insert into user_authority( user_id, authority_id) values (14,3);
 insert into user_authority( user_id, authority_id) values (15,6);
 insert into user_authority( user_id, authority_id) values (16,6);
-insert into user_authority( user_id, authority_id) values (19,6);
+insert into user_authority( user_id, authority_id) values (19,6);		
 
+insert into drug_specification(id, suggested_dose) values (1, '20mg');
+insert into drug_specification(id, suggested_dose) values (2, '300mg');
+insert into drug_specification(id, suggested_dose) values (3, '1g');
+insert into drug_specification(id, suggested_dose) values (4, '10mg');
+insert into drug_specification(id, suggested_dose) values (5, '5mg');
 		
-		
-insert into drug_specifications(id, suggested_dose) values (1, '20mg');
-insert into drug_specifications(id, suggested_dose) values (2, '300mg');
-insert into drug_specifications(id, suggested_dose) values (3, '1g');
-insert into drug_specifications(id, suggested_dose) values (4, '10mg');
-insert into drug_specifications(id, suggested_dose) values (5, '5mg');
-
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (1, 'Aspirin','231432', 5, 1);
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (2, 'Bensedin','125697', 3, 2);
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (3, 'Bisoprolol','365895', 4, 3);
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (4, 'Brufen','023547', 5, 4);
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (5, 'Probiotic','785493', 5, 5);
 
-insert into drug_allergies(id, drug_id, patient_id) values (1, 1, 5);
-insert into drug_allergies(id, drug_id, patient_id) values (2, 2, 5);
-insert into drug_allergies(id, drug_id, patient_id) values (3, 3, 5);
-insert into drug_allergies(id, drug_id, patient_id) values (4, 4, 6);
-insert into drug_allergies(id, drug_id, patient_id) values (5, 4, 7);
+insert into drug_allergies(drug_id, patient_id) values (1, 5);
+insert into drug_allergies(drug_id, patient_id) values (2, 5);
+insert into drug_allergies(drug_id, patient_id) values (3, 5);
+insert into drug_allergies(drug_id, patient_id) values (4, 6);
+insert into drug_allergies(drug_id, patient_id) values (4, 7);
 
 insert into examination_loyalty_points(type, points) values ('DermatologistExamination', 15);
 insert into examination_loyalty_points(type, points) values ('PharmacistExamiantion', 10);
@@ -180,7 +178,6 @@ insert into promotion(id, end_date, start_date, description, pharmacy_id) values
 insert into promotion(id, end_date, start_date, description, pharmacy_id) values (2,'2021-05-01', '2021-04-20','10 posto popusta' , 1);
 insert into promotion(id, end_date, start_date, description, pharmacy_id) values (3,'2021-11-20', '2021-11-26', '20 posto popusta', 2);
 insert into promotion(id, end_date, start_date, description, pharmacy_id) values (4,'2021-02-22', '2021-02-17', '30 posto popusta', 2);
-
 
 insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (1, 20, 1, 15);
 insert into drug_in_storage(id, quantity, drug_id, supplier_id) values (2, 24, 2, 15);
@@ -333,16 +330,6 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 10:00',5);
  insert into erecipe(date_of_issue,patient_id) values ('2020-12-01 9:00',5);
  
- /* -- DRUG IN ERECIPE --*/
- insert into drugs_inerecipe(erecipe_id,drug_id) values (1,1);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (1,2);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (1,3);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (1,4);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (1,5);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (2,3);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (2,4);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (3,1);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (3,2);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (3,3);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (3,4);
- insert into drugs_inerecipe(erecipe_id,drug_id) values (3,5);
+
+
+

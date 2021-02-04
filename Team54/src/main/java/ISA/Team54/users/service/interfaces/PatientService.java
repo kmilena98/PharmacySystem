@@ -3,6 +3,8 @@ package ISA.Team54.users.service.interfaces;
 import java.util.List;
 import java.util.Set;
 
+import ISA.Team54.drugAndRecipe.model.Drug;
+import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
@@ -14,4 +16,7 @@ public interface PatientService {
     void updatePatient(BasicPatientInfoDTO patient);
     Set<User> findBySurnameAndName(String surnameAndName);
     List<Patient> findAll();
+    List<Drug> getPatientAllergies(long id);
+    void deletePatientAllergy(long id);
+    void addAllergy(long id);
 }

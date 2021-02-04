@@ -1,13 +1,20 @@
 package ISA.Team54.users.service.implementations;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ISA.Team54.drugAndRecipe.model.Drug;
+import ISA.Team54.drugAndRecipe.model.DrugAllergy;
+import ISA.Team54.drugAndRecipe.service.IDrugService;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
@@ -19,6 +26,9 @@ public class PatientServiceImpl implements PatientService {
 	
 	@Autowired
 	private PatientRepository patientRepository;
+	
+	@Autowired
+	private IDrugService drugService;
 	
 	public List<User> findByName(String name) throws AccessDeniedException {
 		List<User> result = patientRepository.findByName(name);
@@ -63,7 +73,49 @@ public class PatientServiceImpl implements PatientService {
 		return patient;
 	}
 	
-	public void updatePatient(BasicPatientInfoDTO patient) {
-		//patientRepository.updatePatient(patient.getName(), patient.getSurname(), patient.getAddress(), patient.getCity(), patient.getCountry(), patient.getPhoneNumber(), patient.getId());
+	public void updatePatient(BasicPatientInfoDTO dto) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+		patient.setName(dto.getName());
+		patient.setSurname(dto.getSurname());
+		patient.setAddress(dto.getAddress());
+		patient.setCity(dto.getCity());
+		patient.setCountry(dto.getCountry());
+		
+		patientRepository.save(patient); 		
+	}
+	
+	public List<Drug> getPatientAllergies(long id){
+		Patient patient = patientRepository.findById(id);
+		System.out.println(patient.getDrugAllergies());
+		return patient.getDrugAllergies();
+	}
+
+	@Override
+	public void deletePatientAllergy(long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+		List<Drug> drugAllergies = patient.getDrugAllergies();
+		Iterator<Drug> it = drugAllergies.iterator();
+		while (it.hasNext()) {
+			Drug allergy = it.next();
+			if(allergy.getId() == id) {
+				it.remove();
+				break;				
+			}
+		}
+		patientRepository.save(patient);
+		
+	}
+
+	@Override
+	public void addAllergy(long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+		
+		Drug allergy = drugService.findById(id);		
+		List<Drug> drugAllergies = patient.getDrugAllergies();
+		drugAllergies.add(allergy);
+		patientRepository.save(patient);		
 	}
 }

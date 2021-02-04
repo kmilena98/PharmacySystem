@@ -21,11 +21,29 @@
                         </b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="address-group" label="Adresa, grad, država:" label-for="address-input" class="text-left">
+                    <b-form-group id="address-group" label="Adresa:" label-for="address-input" class="text-left">
                         <b-form-input
                             id="address-input"
                             v-model="form.address"
-                            placeholder="Unesite adresu, grad, državu"
+                            placeholder="Unesite adresu"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group id="city-group" label="Grad:" label-for="city-input" class="text-left">
+                        <b-form-input
+                            id="city-input"
+                            v-model="form.city"
+                            placeholder="Unesite grad"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group id="country-group" label="Država:" label-for="country-input" class="text-left">
+                        <b-form-input
+                            id="country-input"
+                            v-model="form.country"
+                            placeholder="Unesite državu"
                             required>
                         </b-form-input>
                     </b-form-group>
@@ -65,27 +83,51 @@ export default {
     props: ['user'],
     data() {
         return {
-            form: this.user,
-            backup: this.user
+            form: {},
+            backup: {}
         }
+    },
+    mounted(){
+
+        this.$http
+            .get('/patient/' + this.$store.getters.getUserId)
+            .then( res => {
+                console.log(res)
+                this.form = JSON.parse(JSON.stringify(res.data))
+                this.backup = JSON.parse(JSON.stringify(res.data))
+            })
+
     },
     methods: {
         onSubmit(event) {
             event.preventDefault()
             this.$http
-                .put('/patient/' + this.$store.getters.getUserId)
+                .put('/patient/', 
+                    {
+                        name: this.form.name, 
+                        surname: this.form.surname, 
+                        city: this.form.city, 
+                        address: this.form.address, 
+                        country: this.form.country, 
+                        phoneNumber: this.form.phoneNumber, 
+                    })
                 .then( res => {
                     if(res.status == 200){
-                        console.log('OK')
+                        this.toast()
                     }
                 })
         },
+        toast(){
+            this.$bvToast.toast(`Uspešno ste izmeni svoje informacije!`, {
+                title: 'Uspešno!',
+                variant: 'success',
+                autoHideDelay: 5000
+            })
+            scroll(0,0)
+        },
         onCancel(event) {
             event.preventDefault()
-            this.form = this.backup
-        },
-        mounted(){
-            this.form = JSON.parse(JSON.stringify(this.user))
+            this.form = JSON.parse(JSON.stringify(this.backup))
         }
     },
     components:{

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import ISA.Team54.drugAndRecipe.model.Drug;
+import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
@@ -18,8 +20,8 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 	List<User> findBySurname(String surname);
 	Patient findById(long id);
 	
-	/*@Modifying
-	@Query("update patient set "
+	@Modifying
+	@Query("update User set "
 			+ "name = ?1, "
 			+ "surname = ?2, "
 			+ "address = ?3, "
@@ -27,12 +29,15 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 			+ "country = ?5 ,"
 			+ "phoneNumber = ?6"
 			+ " where id = ?7")
-	void updatePatient(String name, String surname, String address, String city, String country, String phone, Long id);*/
+	void updatePatient(String name, String surname, String address, String city, String country, String phone, Long id);
 
 	@Query("SELECT u FROM User u WHERE upper(u.name) = ?1 and upper(u.surname) = ?2")
 	List<User> findByNameAndSurnameIgnoreCaseIn(String name,String surname);
 	@Query("SELECT u FROM User u WHERE upper(u.name) = ?1 or upper(u.surname) = ?2")
 	List<User> findByNameOrSurnameIgnoreCaseIn(String name,String surname);
 	List<Patient> findAll();
+	
+	//@Query("SELECT d FROM DrugAllergies d WHERE patient_id = ?1")
+	//List<Drug> getPatientAllergies(long id);
 	
 }

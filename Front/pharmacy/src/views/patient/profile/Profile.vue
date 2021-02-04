@@ -5,13 +5,13 @@
             <b-card no-body>
                 <b-tabs pills card align="center" lazy>
                     <b-tab title="Lične informacije" active>
-                        <ProfileInformation v-bind:user="user" />
+                        <ProfileInformation />
                     </b-tab>
                     <b-tab title="Alergije">
-                        <Allergies v-bind:allergies="user.drugAllergies" />
+                        <Allergies />
                     </b-tab>
                     <b-tab title="Loyalty program i poeni">
-                        <Loyalty v-bind="user" />
+                        <Loyalty/>
                     </b-tab>
                 </b-tabs>
             </b-card>
@@ -27,17 +27,9 @@ import Loyalty from "./Loyalty.vue";
 export default {
     data(){
         return{
-            user: {}
         }
     },
     mounted(){
-
-        this.$http
-            .get('/patient/' + this.$store.getters.getUserId)
-            .then( res => {
-                this.user = res.data
-                console.log(this.user)
-            })
     },
     components: {
         ProfileInformation,

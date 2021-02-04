@@ -19,7 +19,7 @@ public class Complaint {
 	@Enumerated
 	private ComplaintType type;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Patient patient;
 	
 	public Complaint() {
