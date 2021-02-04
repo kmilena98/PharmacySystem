@@ -82,7 +82,7 @@ public class AuthenticationController {
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_SUPPLIER"))) {
 			userRole = UserRole.SUPPLIER;
 		} else if (authentication.getAuthorities().stream()
-		          .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_PHARMACY_ADMIN"))) {
 			userRole = UserRole.ADMIN;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_SYSTEM_ADMIN"))) {

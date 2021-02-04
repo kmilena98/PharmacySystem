@@ -14,11 +14,18 @@ export default new Vuex.Store({
 		userRole: 'ROLE_UNREGISTERED',
 		userId : 0,
 	},
-	mutations: {},
+	mutations: {
+		setUserRole(state,newRole) {
+			state.userRole = newRole;
+		},
+		setUserId(state,newUserId) {
+			state.userId = newUserId;
+		}
+	},
 	actions: {},
 	modules: {},
 	getters:{
 		getUserRole: state => state.userRole,
 		getUserId: state => state.userId
-	}
+	} ,
 });
