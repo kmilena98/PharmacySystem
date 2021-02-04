@@ -47,8 +47,7 @@ export default {
             this.$notify({
                  type: "error",
                 title: 'Error',
-                text: 'Doslo je do greske prilikom poziva!',
-              
+                text: 'Doslo je do greske prilikom poziva!',              
                 closeOnClick : true
             });
         })},

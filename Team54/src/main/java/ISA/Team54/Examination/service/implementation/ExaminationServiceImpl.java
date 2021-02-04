@@ -49,12 +49,15 @@ public class ExaminationServiceImpl implements ExaminationService{
 	public void updateExamination(ExaminationInformationDTO examinationInformationDTO) {
 		Examination examination = examinationRepository.findById((examinationInformationDTO.getId()));
 		List<Drug> drugsForExamination = new ArrayList<Drug>();
-				for(DrugDTO d : examinationInformationDTO.getDrugs()) {
-					drugsForExamination.add(drugRepository.findOneById(d.getId()));
-				};
+		if(examinationInformationDTO.getDrugs()!=null) {
+			for(DrugDTO d : examinationInformationDTO.getDrugs()) {
+				drugsForExamination.add(drugRepository.findOneById(d.getId()));
+			};
+			examination.setDrugs(drugsForExamination);
+		}		
 		examination.setDiagnose(examinationInformationDTO.getDiagnosis());
 		examination.setStatus(ExaminationStatus.Filled);
-		examination.setDrugs(drugsForExamination);
+		
 		examinationRepository.save(examination);
 	}
 	

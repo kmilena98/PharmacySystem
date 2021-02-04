@@ -1,5 +1,7 @@
 <template>
+
 <div>
+ <notifications animation-type="velocity"/>
 <b-container class="bv-example-row"  >
 
   <b-row>
@@ -111,8 +113,8 @@ export default {
             // GET request for examination information
             this.$axios.get("http://localhost:9001/examination/soonestExamination/"+1)
             .then(response => {this.examination = response.data
-                                this.n = this.examination.soonestExamination.patientName
-                                this.surname = this.examination.soonestExamination.patientSurname
+                                this.n = this.examination.soonestExamination.dermatologistName
+                                this.surname = this.examination.soonestExamination.dermatologistSurname
                                 this.start = this.examination.soonestExamination.examinationStart
                                 this.items = this.examination.historyExaminations
                                 this.examinationId = this.examination.soonestExamination.id
@@ -135,12 +137,18 @@ export default {
         },
         submit : function(){
            
-            const headers = { 
-                "Authorization": "Bearer my-token",
-                "My-Custom-Header": "foobar"
-            };
-            this.$axios.post("https://reqres.in/examination/updateExamination", {id: this.examinationId, diagnosis: this.text, drugs : this.therapy}, { headers })
-                .then(response => (this.articleId = response.data.id));
+           
+            this.$axios.post("http://localhost:9001/examination/updateExamination", {id: this.examinationId, diagnosis: this.text, drugs : this.therapy})
+                .then(response => {this.message = response.data
+                 this.$notify({
+                 type: "success",
+                title: 'Success',
+                text: this.message,              
+                closeOnClick : true
+            })
+
+                });
+            
         }
     }
 }

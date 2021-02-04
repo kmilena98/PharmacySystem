@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 public class ExaminationDTO {
 	int id;
-	String patientName;
-	String patientSurname;
+	String dermatologistName;
+	String dermatologistSurname;
 	LocalDateTime examinationStart;
 	
 	
@@ -14,11 +14,11 @@ public class ExaminationDTO {
 	}
 
 
-	public ExaminationDTO(int id,String patientName, String patientSurname, LocalDateTime examinationStart) {
+	public ExaminationDTO(int id,String dermatologistName, String dermatologistSurname, LocalDateTime examinationStart) {
 		super();
 		this.id = id;
-		this.patientName = patientName;
-		this.patientSurname = patientSurname;
+		this.dermatologistName = dermatologistName;
+		this.dermatologistSurname = dermatologistSurname;
 		this.examinationStart = examinationStart;
 		
 	}
@@ -35,23 +35,23 @@ public class ExaminationDTO {
 	}
 
 
-	public String getPatientName() {
-		return patientName;
+	public String getDermatologistName() {
+		return dermatologistName;
 	}
 
 
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
+	public void setDermatologistName(String dermatologistName) {
+		this.dermatologistName = dermatologistName;
 	}
 
 
-	public String getPatientSurname() {
-		return patientSurname;
+	public String getDermatologistSurname() {
+		return dermatologistSurname;
 	}
 
 
-	public void setPatientSurname(String patientSurname) {
-		this.patientSurname = patientSurname;
+	public void setDermatologistSurname(String dermatologistSurname) {
+		this.dermatologistSurname = dermatologistSurname;
 	}
 
 

@@ -348,3 +348,4 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  insert into drugs_inerecipe(erecipe_id,drug_id) values (3,3);
  insert into drugs_inerecipe(erecipe_id,drug_id) values (3,4);
  insert into drugs_inerecipe(erecipe_id,drug_id) values (3,5);
+

@@ -24,9 +24,27 @@ public class PharmacyAdministrator extends User{
 	}
 
 	public PharmacyAdministrator(long id, String email, String password, String name, String surname, String address,
-			String city, String country, String phoneNumber, List<DrugsOrder> drugOrder) {
+			String city, String country, String phoneNumber, List<DrugsOrder> drugOrder,Pharmacy pharmacy) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.drugOrders = drugOrder;
+		this.pharmacy = pharmacy;
 	}
+
+	public List<DrugsOrder> getDrugOrders() {
+		return drugOrders;
+	}
+
+	public void setDrugOrders(List<DrugsOrder> drugOrders) {
+		this.drugOrders = drugOrders;
+	}
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+	
 
 }

@@ -8,6 +8,7 @@ public class ExaminationInformationDTO {
 	public int id;
 	public String diagnosis;
 	public List<DrugDTO> drugs;
+	
 	public ExaminationInformationDTO() {
 		super();
 	}
