@@ -36,7 +36,7 @@ public class Examination {
 	 @Column(unique = false,nullable = false)
 	 private int emplyeedId; 
 	 
-	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
+	 @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	 private Patient patient;
 	 
 	 @Embedded

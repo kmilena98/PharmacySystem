@@ -11,7 +11,7 @@
                         <Allergies />
                     </b-tab>
                     <b-tab title="Loyalty program i poeni">
-                        <Loyalty />
+                        <Loyalty/>
                     </b-tab>
                 </b-tabs>
             </b-card>
@@ -25,6 +25,12 @@ import Allergies from "./Allergies.vue";
 import Loyalty from "./Loyalty.vue";
 
 export default {
+    data(){
+        return{
+        }
+    },
+    mounted(){
+    },
     components: {
         ProfileInformation,
         Allergies,
