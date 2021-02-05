@@ -33,6 +33,7 @@ public class Patient extends User {
 	@Column(unique = false, nullable = true)
 	private int loyaltyPoints;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ERecipe> eRecipes;
 
@@ -40,15 +41,18 @@ public class Patient extends User {
 	@JoinTable(name = "drug_allergies", joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
 	public List<Drug> drugAllergies;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Complaint> complaints;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<DrugReservation> drugReservations;	
 	
 	@ManyToMany(mappedBy= "subscribedPatients")
 	private List<Pharmacy> prescriptionsPharmacies;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Examination> examinations;
 
