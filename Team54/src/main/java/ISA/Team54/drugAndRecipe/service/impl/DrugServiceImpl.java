@@ -20,6 +20,7 @@ import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.repository.DrugsInPharmacyRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.repository.PatientRepository;
 
 @Service
 public class DrugServiceImpl implements DrugService {
@@ -32,21 +33,20 @@ public class DrugServiceImpl implements DrugService {
 	private DrugAllergyRepository drugAllergyRepsoitory;
 	@Autowired
 	private DrugsInPharmacyRepository drugsInPharmacyRepository;
+	@Autowired
+	private PatientRepository patientRepository;
 	
 	@Override
 	public List<Drug> getDrugsForPatient(Long id) {
-		List<Drug> drugsForPatient = drugRepsoitory.findAll();
-		if(drugsForPatient== null) 
+		List<Drug> allDrugs = drugRepsoitory.findAll();
+		List<Drug> drugsForPatient = new ArrayList<Drug>();
+		if(allDrugs== null) 
 			return new ArrayList<Drug>();
 		
-		if(drugAllergyRepsoitory.getByPatientId(id)== null)
-			return drugsForPatient;
 		
-		for(DrugAllergy drugAllergy : drugAllergyRepsoitory.getByPatientId(id)) {
-			for(Drug drug : drugRepsoitory.findAll()) {
-				if(drug.getId() == drugAllergy.getPatient().getId()) {
-					drugsForPatient.remove(drug);
-				}
+		for(Drug drugAllergy : allDrugs) {
+			if(isPatientAlergicOnDrug(id,drugAllergy.getId())) {
+				drugsForPatient.add(drugAllergy);
 			}
 			
 		}
@@ -55,8 +55,9 @@ public class DrugServiceImpl implements DrugService {
 	
 	private boolean isPatientAlergicOnDrug(Long patientId, Long drugId) {
 		Drug drug = drugRepsoitory.findOneById(drugId);
-		for(DrugAllergy allergyDrug : drugAllergyRepsoitory.getByPatientId(patientId)) {
-			if(drug.getId()==allergyDrug.getDrug().getId()) {
+		Patient patient = patientRepository.findOneById(patientId);
+		for(Drug allergyDrug : patient.getDrugAllergies()) {
+			if(drug.getId()==allergyDrug.getId()) {
 				return false;
 			}
 		}

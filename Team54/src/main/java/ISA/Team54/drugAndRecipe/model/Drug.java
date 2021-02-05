@@ -64,8 +64,8 @@ public class Drug {
 		this.code = code;
 		this.loyalityPoints = loyalityPoints;
 	}
-	public int getId() {
-		return (int) id;
+	public long getId() {
+		return  id;
 	}
 
 	public void setId(long id) {

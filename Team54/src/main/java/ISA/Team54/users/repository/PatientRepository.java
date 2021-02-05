@@ -22,7 +22,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 	List<User> findByName(String name);
 	List<User> findBySurname(String surname);
 	Patient findById(long id);
-
+	Patient findOneById(long id);
 	Patient save(Patient patient);
 	Patient findByEmail( String email );
 
