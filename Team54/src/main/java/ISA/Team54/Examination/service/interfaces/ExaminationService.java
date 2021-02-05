@@ -9,6 +9,7 @@ import ISA.Team54.Examination.model.Examination;
 
 public interface ExaminationService {
 	public Examination getCurrentExaminationByDermatologistId(int dermatologistId);
-	public List<Examination> historyOfDermatologistExamination(Long id);
+	public List<Examination> historyOfPatientExamination(Long id);
 	public void updateExamination(ExaminationInformationDTO examinationInformationDTO);
+	public List<Examination> getAllExaminationsForDermatologist(int id);
 }

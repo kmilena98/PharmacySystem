@@ -1,64 +1,35 @@
 <template>
-
-  <div>
-  <notifications animation-type="velocity"/>
-   <b-input-group prepend="Prezime i ime" class="mt-3">
-    <b-form-input v-model="imeIPrezime"></b-form-input>
-    <b-input-group-append>
-      <b-button variant="info" v-on:click="search(imeIPrezime)">Pretrazi</b-button>
-    </b-input-group-append>
-  </b-input-group>
-    <b-table striped hover :items="items"></b-table>
+  <div id="app">
+    <b-table primary-key="id" :tbody-transition-props="transProps" :items="items" :fields="fields"></b-table>
   </div>
-  
 </template>
-
 <script>
 export default {
-    data(){
-       return{ items : [],
-                imeIPrezime : ''};
-    },
-     created() {
-  // GET request using axios with error handling
-   this.$axios.get("http://localhost:9001/api/patientBySurnameAndName/*")
+  name: "App",
+  data() {
+    return {
+      fields: [
+        { key: "id", sortable: true },
+        { key: "name", sortable: true },
+        { key: "surname", sortable: true },
+        { key: "term", sortable: true }
+      ],
+      transProps: {
+        name: "flip-list"
+      },
+      items: []
+    };
+  },created() {
+            // GET request for examination information
+            this.$axios.get("http://localhost:9001/api/examinatedPatients/"+1)
             .then(response => this.items = response.data)
             .catch(error => {
             this.errorMessage = error.message;
-            console.error("There was an error!", error);});
-    },methods: {
-        search: function(imeIPrezime){
-           if(imeIPrezime.trim() === "")
-                {
-                    imeIPrezime = "*"
-                }
-
-            this.$axios.get("http://localhost:9001/api/patientBySurnameAndName/"+ imeIPrezime)
-            .then(response => { this.items = response.data
-            if(response.data.length === 0){
-                 this.$notify({  
-                type: "info",
-                title: 'Empty',
-                text: ' Nema trazenih korisnika!',
-                closeOnClick : true
-            });
-            }})
-            .catch(() => {
-            this.$notify({
-                 type: "error",
-                title: 'Error',
-                text: 'Doslo je do greske prilikom poziva!',              
-                closeOnClick : true
-            });
-        })},
-        subtract: function(dec){
-            this.age -= dec;
-        },
-        updateXY: function(event){
-            this.x = event.offsetX;
-            this.y = event.offsetY;
-        }
-    }
-}
+            console.error("There was an error!", error);});}
+};
 </script>
-
+<style>
+table .flip-list-move {
+  transition: transform 1s;
+}
+</style>

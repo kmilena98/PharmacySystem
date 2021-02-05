@@ -9,4 +9,5 @@ public class DrugMapper {
 	{
 		return new DrugDTO(drug.getId(),drug.getCode(),drug.getLoyalityPoints(),drug.getName());
 	}
+	
 }

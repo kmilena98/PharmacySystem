@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.drugAndRecipe.dto.DrugDTO;
+import ISA.Team54.drugAndRecipe.dto.DrugSpecificationDTO;
+import ISA.Team54.drugAndRecipe.dto.IsAvalableDrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
+import ISA.Team54.drugAndRecipe.mapper.DrugSpecificationMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
+import ISA.Team54.drugAndRecipe.model.DrugSpecification;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 
 @RestController
@@ -29,5 +33,18 @@ public class DrugController {
 			drugsForPatient.add(new DrugMapper().DrugIntoDrugDTO(drug));
 		}
 		return drugsForPatient;
+	}
+	
+	@GetMapping("/isAvailableInPharmacy/{drugId}/{examinationId}")
+	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public IsAvalableDrugDTO isAvailable(@PathVariable int drugId,@PathVariable int examinationId){
+		return drugService.findOrFindSubstitute(drugId,examinationId);
+	}
+	
+	@GetMapping("/drugSpecification/{drugId}")
+	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public DrugSpecificationDTO getDrugSpecification(@PathVariable int drugId){
+		DrugSpecification drugSpecification = drugService.getSpecificationForDrug((long) drugId);
+		return new DrugSpecificationMapper().DrugSpecificationIntoDrugSpecificationDTO(drugSpecification);
 	}
 }

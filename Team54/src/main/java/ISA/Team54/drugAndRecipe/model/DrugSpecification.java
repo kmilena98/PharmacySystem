@@ -1,23 +1,19 @@
 package ISA.Team54.drugAndRecipe.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="drug_specifications")
 public class DrugSpecification {
@@ -26,13 +22,15 @@ public class DrugSpecification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@JsonManagedReference(value="clinci_movement")
 	@ManyToMany
 	@JoinTable(name = "contraindicationsInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "contraindication_id",referencedColumnName= "id"))
-	private Set<Contraindication> contraindications = new HashSet<Contraindication>();
+	private List<Contraindication> contraindications = new ArrayList<Contraindication>();
 	
+	@JsonManagedReference(value="ingredient_clinci_movement")
 	@ManyToMany
 	@JoinTable(name = "ingredientInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "ingredient_id",referencedColumnName= "id"))	
-	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	
 	@Column(unique = false,nullable = false)
 	private String suggestedDose;	
@@ -49,7 +47,7 @@ public class DrugSpecification {
 	}
 
 
-	public DrugSpecification(long id, Set<Contraindication> contraindications, Set<Ingredient> ingredients,
+	public DrugSpecification(long id, List<Contraindication> contraindications, List<Ingredient> ingredients,
 			String suggestedDose) {
 		super();
 		this.id = id;
@@ -58,37 +56,48 @@ public class DrugSpecification {
 		this.suggestedDose = suggestedDose;
 	}
 
+
 	public long getId() {
 		return id;
 	}
+
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	public Set<Contraindication> getContraindications() {
+
+	public List<Contraindication> getContraindications() {
 		return contraindications;
 	}
 
-	public void setContraindications(Set<Contraindication> contraindications) {
+
+	public void setContraindications(List<Contraindication> contraindications) {
 		this.contraindications = contraindications;
 	}
 
-	public Set<Ingredient> getIngredinets() {
+
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredinets(Set<Ingredient> ingredients) {
+
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+
 
 	public String getSuggestedDose() {
 		return suggestedDose;
 	}
 
+
 	public void setSuggestedDose(String suggestedDose) {
 		this.suggestedDose = suggestedDose;
-	}	
+	}
+
+
+	
 	
 	
 }

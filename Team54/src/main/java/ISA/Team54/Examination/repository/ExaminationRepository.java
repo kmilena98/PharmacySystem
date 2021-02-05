@@ -13,4 +13,5 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 	public List<Examination> findByEmplyeedIdAndStatus(int id,ExaminationStatus es);
 	public List<Examination> findByTypeAndPatientIdAndStatus(ExaminationType type, Long id,ExaminationStatus es);
 	public Examination findById(int id);
+	public List<Examination> findByEmplyeedId(int id);
 }

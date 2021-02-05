@@ -6,18 +6,22 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 
 public class ExaminationInformationDTO {
 	public int id;
+	public int therapyDuration;
 	public String diagnosis;
 	public List<DrugDTO> drugs;
 	
 	public ExaminationInformationDTO() {
 		super();
 	}
-	public ExaminationInformationDTO(int id, String diagnosis, List<DrugDTO> drugs) {
+
+	public ExaminationInformationDTO(int id, int therapyDuration, String diagnosis, List<DrugDTO> drugs) {
 		super();
 		this.id = id;
+		this.therapyDuration = therapyDuration;
 		this.diagnosis = diagnosis;
 		this.drugs = drugs;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -35,6 +39,14 @@ public class ExaminationInformationDTO {
 	}
 	public void setDrugs(List<DrugDTO> drugs) {
 		this.drugs = drugs;
+	}
+
+	public int getTherapyDuration() {
+		return therapyDuration;
+	}
+
+	public void setTherapyDuration(int therapyDuration) {
+		this.therapyDuration = therapyDuration;
 	}
 
 	

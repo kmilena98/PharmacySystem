@@ -35,8 +35,22 @@ public class Drug {
 	@ManyToMany(mappedBy="drugs")
 	private List<ERecipe> erecipes = new ArrayList<ERecipe>();
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private DrugSpecification drugSpecification;
+	
+	@ManyToMany
+	@JoinTable(name="substituteDrugs",
+	 joinColumns=@JoinColumn(name="mainDrugId"),
+	 inverseJoinColumns=@JoinColumn(name="substituteDrugId")
+	)
+	private List<Drug> mainDrugs;
+
+	@ManyToMany
+	@JoinTable(name="substituteDrugs",
+	 joinColumns=@JoinColumn(name="substituteDrugId"),
+	 inverseJoinColumns=@JoinColumn(name="mainDrugId")
+	)
+	private List<Drug> substituteDrugs;
 	
 	public Drug() {
 		super();
@@ -77,6 +91,30 @@ public class Drug {
 	}
 	public void setDrugSpecification(DrugSpecification drugSpecification) {
 		this.drugSpecification = drugSpecification;
+	}
+	public List<Examination> getExaminations() {
+		return examinations;
+	}
+	public void setExaminations(List<Examination> examinations) {
+		this.examinations = examinations;
+	}
+	public List<ERecipe> getErecipes() {
+		return erecipes;
+	}
+	public void setErecipes(List<ERecipe> erecipes) {
+		this.erecipes = erecipes;
+	}
+	public List<Drug> getMainDrugs() {
+		return mainDrugs;
+	}
+	public void setMainDrugs(List<Drug> mainDrugs) {
+		this.mainDrugs = mainDrugs;
+	}
+	public List<Drug> getSubstituteDrugs() {
+		return substituteDrugs;
+	}
+	public void setSubstituteDrugs(List<Drug> substituteDrugs) {
+		this.substituteDrugs = substituteDrugs;
 	}
 	
 	

@@ -48,7 +48,7 @@ public class ExaminationController {
 		ExaminationDTO soonestExaminationDTO = new ExaminationMapper().ExaminationToExaminationDTO(soonestExamination);
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
 		long patientId = soonestExamination.getPatient().getId();
-		for(Examination examination :examinationService.historyOfDermatologistExamination((long)patientId)) {
+		for(Examination examination :examinationService.historyOfPatientExamination((long)patientId)) {
 			Dermatologist dermatologist = dermatologistSerivce.findOneById((long)examination.getEmplyeedId());
 			historyExaminations.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination,dermatologist));
 		}
@@ -64,7 +64,7 @@ public class ExaminationController {
 	public List<ExaminationDTO> examinationHistory(@PathVariable int patientId){
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
 		
-		for(Examination examination :examinationService.historyOfDermatologistExamination((long) patientId)) {
+		for(Examination examination :examinationService.historyOfPatientExamination((long) patientId)) {
 			historyExaminations.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination,null));
 		}
 		return historyExaminations;

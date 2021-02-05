@@ -1,104 +1,141 @@
 <template>
-
-<div>
- <notifications animation-type="velocity"/>
-<b-container class="bv-example-row"  >
-
-  <b-row>
-    <b-col>
-    <h3><b> Podaci o pregledu</b></h3>
-  <b-card>
-      <b-form-group
-        label="Ime pacijenta :"
-        label-for="nested-street"
-        label-cols-sm="3"
-        label-align-sm="right"
-      >
-        <input
-        v-model="n">
-      </b-form-group>
-
-      <b-form-group
-        label="Prezime pacijenta :"
-        label-for="nested-city"
-        label-cols-sm="3"
-        label-align-sm="right"
-      >
-        <input
-        v-model="surname">
-      </b-form-group>
-
-      <b-form-group
-        label="Vreme pocetka pregleda :"
-        label-for="nested-state"
-        label-cols-sm="3"
-        label-align-sm="right"
-      >
-         <input
-        v-model="start">
-      </b-form-group>
-      </b-card>
- </b-col>
-  <b-col>
-      <h3><b>Istorija poseta dermatologu</b></h3>
- 
-       <b-table striped hover :items="items"></b-table>
-  </b-col>
- </b-row>
-</b-container>
+    <div class="container">
+    <notifications animation-type="velocity"/>
+        <h4 class="h4 align-middle my-4">Pregled pacijenta</h4>
+        <div>
   
 
-
-<b-container class="bv-example-row">
-  <b-row>
-    <b-col>
-     
-    <h4><b>Postavi dijagnozu</b></h4>
-       <b-form-textarea
-            id="textarea"
-            v-model="text"
-            placeholder="Unesi text..."
-            rows="5"
-            max-rows="10">
-       </b-form-textarea>
-
-    </b-col>
-    <b-col>
-        <h4><b>Lista lekova</b></h4>
-       <div v-for="(item, index) in allDrugs" :key="item">
-         <input v-model="item.name" >
-         <button v-on:click="add(item,index)">Dodaj</button>
+    <b-modal ref="my-modal" hide-footer title="Zamenski lekovi">
+      <div class="d-block text-center">
+         <div v-for="(item, index) in subdrugs" :key="item">
+            <input v-model="item.name" >
+            <button v-on:click="defAdd(item,index)">Dodaj</button>
         </div>
-    </b-col>
+      </div>
+      <b-row>
+        <b-col>
+         <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>
+        </b-col>
+      </b-row>
+    </b-modal>
 
-     <b-col>
-        <h4><b>Lekovi za terapiju</b></h4>
-         <div v-for="(item, index) in therapy" :key="item">
-         <input v-model="item.name" >
-         <button v-on:click="subtract(item,index)">Ukloni</button>
+    <b-modal ref="specification-modal" hide-footer title="Zamenski lekovi">
+      <b-row>
+        <b-col>
+          <h5> Preporucena doza : {{this.dose}}</h5>
+          </b-col>
+      </b-row>  
+      <b-row>
+        <b-col>
+             <div id="app">
+                  <b-table primary-key="id" :tbody-transition-props="transProps" :items="contraindications" :fields="Fields"></b-table>
+          </div>
+        </b-col>
+        <b-col>
+            <div id="app">
+                  <b-table primary-key="id" :tbody-transition-props="transProps" :items="ingredients" :fields="Ingr"></b-table>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+  </div>
+        <div class="profile-main">
+            <b-card no-body>
+                <b-tabs pills card align="center" lazy>
+                    <b-tab title="Informacije o pacijentu i pregledu" active>
+                         <b-card>
+                            <b-form-group
+                              label="Ime pacijenta :"
+                              label-for="nested-street"
+                              label-cols-sm="3"
+                              label-align-sm="right">
+                                    <input v-model="name">
+                            </b-form-group>
+
+                            <b-form-group
+                              label="Prezime pacijenta :"
+                              label-for="nested-city"
+                              label-cols-sm="3"
+                              label-align-sm="right" >
+                                    <input v-model="surname">
+                            </b-form-group>
+
+                            <b-form-group
+                              label="Zakazan pregled :"
+                              label-for="nested-state"
+                              label-cols-sm="3"
+                              label-align-sm="right">
+                                    <input v-model="start">
+                            </b-form-group>
+                        </b-card>
+                    </b-tab>
+                    <b-tab title="Istorija poseta dermatologa">
+                        <b-table striped hover :items="items"></b-table>
+                    </b-tab>
+                    <b-tab title="Terapija">
+                       <b-row>
+                       <b-col>
+                       <h5><b>Postavi dijagnozu</b></h5>
+                            <b-form-textarea
+                                  id="textarea"
+                                  v-model="text"
+                                  placeholder="Unesi text..."
+                                  rows="5"
+                                  max-rows="10" required>
+                            </b-form-textarea>
+                            </b-col>
+                                <b-col>
+                      <h4 >Trajanje terapije </h4>
+                    <input type="number" v-model="therapyDuration"
+                      min="0" max="100" required>
+                            </b-col>
+                       </b-row>
+                       <b-row>
+                     
+                          <b-col>
+                          </b-col>
+                          <b-col>
+                          </b-col>
+                       </b-row>
+                       
+                       <b-row>
+                          <b-col>
+                            <h5><b>Lista lekova</b></h5>
+                            <div v-for="(item) in allDrugs" :key="item">
+                                <input v-model="item.name" >
+                                <button  v-on:click="getSpec(item.id)">Specifikacija</button>
+                                <button v-on:click="add(item)">Dodaj</button>
+                            </div>
+                          </b-col>
+
+                          <b-col>
+                            <h5><b>Lekovi za terapiju</b></h5>
+                            <div v-for="(item, index) in therapy" :key="item">
+                                <input v-model="item.name" >
+                                <button v-on:click="subtract(item,index)">Ukloni</button>
+                            </div>
+                        </b-col>
+                        </b-row>
+                          <b-row >
+                            <b-col >
+                              <b-button variant="success" v-on:click="submit()">SUBMIT INFORMACIJA O PREGLEDU</b-button>
+                            </b-col>
+                          </b-row>
+                    </b-tab>
+                </b-tabs>
+            </b-card>
         </div>
-    </b-col>
-    
-  </b-row>
-  <b-row class="col-md-2">
-<label></label>
-  </b-row>
-  <b-row >
-  <b-col >
-     <b-button variant="info" v-on:click="submit()">SUBMIT INFORMACIJA O PREGLEDU</b-button>
-    </b-col>
-    </b-row>
-</b-container>
-
-
-
-</div>
+    </div>
 </template>
 
 <script>
 export default {
     data(){
-       return{ 
+       return{   Fields: [
+        { key: "name", sortable: true }
+      ],Ingr: [
+        { key: "ingredient", sortable: true }
+      ],
                  n : '',
                 surname : '',
                 start :'',
@@ -106,14 +143,20 @@ export default {
                 items: [],
                 allDrugs : [],
                 text : '',
-                therapy : []                
+                therapy : [],
+                subdrugs : [],
+                added : 0 ,
+                dose : 0,
+                ingredients : [],
+                therapyDuration :0,
+                contraindications : []              
                };
     },
      created() {
             // GET request for examination information
             this.$axios.get("http://localhost:9001/examination/soonestExamination/"+1)
             .then(response => {this.examination = response.data
-                                this.n = this.examination.soonestExamination.dermatologistName
+                                this.name = this.examination.soonestExamination.dermatologistName
                                 this.surname = this.examination.soonestExamination.dermatologistSurname
                                 this.start = this.examination.soonestExamination.examinationStart
                                 this.items = this.examination.historyExaminations
@@ -126,19 +169,91 @@ export default {
             
         
     },methods: {
-        add : function(item,index){
-         this.therapy.push(item)
-         this.allDrugs.splice(index, 1);
-         console.log(item)
+        add : function(item){
+             this.$axios.get("http://localhost:9001/drugs/isAvailableInPharmacy/"+ item.id+"/"+this.examinationId)
+           .then(response => {this.isAvailable = response.data 
+            // ako lek nije dostupan obavesti ga 
+              if(this.isAvailable.available){
+                   this.therapy.push(item)
+                   this.getDrugs(item)
+              }else{
+                  this.$notify({  
+                type: "info",
+                title: 'Empty',
+                text: ' U apoteci nema trazenog leka!',
+                closeOnClick : true});
+                this.subdrugs = response.data.drugsDTO
+                this.$refs['my-modal'].show()
+              }
+           
+           })
+            .catch(error => {
+            this.errorMessage = error.message;
+            console.error("There was an error!", error);});
+
+        
         },
+        getDrugs: function(drug){
+          var newArray = this.allDrugs.filter(function (drug2) {
+          return drug2.id != drug.id;
+        });
+          this.allDrugs = newArray
+        },
+        getSubDrugs: function(drug){
+          var newArray = this.allDrugs.filter(function (drug2) {
+          return drug2.id != drug.id;
+        });
+        var newArray2 = this.subdrugs.filter(function (drug2) {
+          return drug2.id != drug.id;
+        })
+        this.allDrugs = newArray
+          this.subdrugs = newArray2
+        },
+
+
+         defAdd : function(item){
+          this.added = 0
+           this.therapy.forEach((value) => {
+                if(value.id == item.id){
+                  this.added = 1
+                }
+              });
+            if(this.added === 0 ){
+              this.therapy.push(item)
+            }else{
+               this.$notify({  
+                type: "info",
+                title: 'Empty',
+                text: ' Lek je vec dodat!',
+                closeOnClick : true});
+            }  
+                        
+             this.getSubDrugs(item)
+         },
         subtract: function(item,index){
             this.allDrugs.push(item)
-         this.therapy.splice(index, 1);
+            this.therapy.splice(index, 1);
         },
+        getSpec: function(id){
+          // treba da pozove zahtev na osnovu ovoga
+           this.$axios.get("http://localhost:9001/drugs/drugSpecification/"+ id)
+           .then(response => {this.contraindications = response.data.contraindication
+                              this.ingredients = response.data.ingredients
+                              this.dose = response.data.suggestedDose
+            // ako lek nije dostupan obavesti ga 
+           this.$refs['specification-modal'].show()
+           })
+          
+         
+        },
+        hideModal() {
+        
+        this.$refs['my-modal'].hide()
+      },
         submit : function(){
            
            
-            this.$axios.post("http://localhost:9001/examination/updateExamination", {id: this.examinationId, diagnosis: this.text, drugs : this.therapy})
+            this.$axios.post("http://localhost:9001/examination/updateExamination", {id: this.examinationId,therapyDuration: this.therapyDuration, diagnosis: this.text, drugs : this.therapy})
                 .then(response => {this.message = response.data
                  this.$notify({
                  type: "success",

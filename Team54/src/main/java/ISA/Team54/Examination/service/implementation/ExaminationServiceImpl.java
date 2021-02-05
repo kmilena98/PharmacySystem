@@ -14,6 +14,8 @@ import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.repository.DrugRepository;
+import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
+import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.repository.PatientRepository;
 
 @Service
@@ -24,6 +26,8 @@ public class ExaminationServiceImpl implements ExaminationService{
 	private PatientRepository patientRepository;
 	@Autowired
 	private DrugRepository drugRepository;
+	@Autowired
+	private DrugService drugService;
 	@Override
 	public Examination getCurrentExaminationByDermatologistId(int dermatologistId) {
 		//,ExaminationStatus.Unfille nedostaje deo sa statusom 
@@ -41,7 +45,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	}
 	
 	@Override
-	public List<Examination> historyOfDermatologistExamination(Long id) {
+	public List<Examination> historyOfPatientExamination(Long id) {
 		return examinationRepository.findByTypeAndPatientIdAndStatus(ExaminationType.DermatologistExamination,id,ExaminationStatus.Filled);
 	}
 	
@@ -52,13 +56,26 @@ public class ExaminationServiceImpl implements ExaminationService{
 		if(examinationInformationDTO.getDrugs()!=null) {
 			for(DrugDTO d : examinationInformationDTO.getDrugs()) {
 				drugsForExamination.add(drugRepository.findOneById(d.getId()));
+				drugService.reduceDrugQuantityInPharmacy(d.getId(),(int)examination.getPharmacy().getId(),1);
 			};
 			examination.setDrugs(drugsForExamination);
 		}		
+		examination.setTherapyDuration(examinationInformationDTO.getTherapyDuration());
 		examination.setDiagnose(examinationInformationDTO.getDiagnosis());
 		examination.setStatus(ExaminationStatus.Filled);
 		
 		examinationRepository.save(examination);
+	}
+
+	@Override
+	public List<Examination> getAllExaminationsForDermatologist(int id) {
+		List<Examination> examinations = new ArrayList<Examination>();
+		for(Examination e : examinationRepository.findByEmplyeedIdAndStatus(id,ExaminationStatus.Filled)) {
+			Patient p = e.getPatient();
+			e.setPatient(p);
+			examinations.add(e);
+		}
+		return examinations;
 	}
 	
 }

@@ -65,23 +65,23 @@ insert into pharmacy(id, address, description, name) values (2,'Petra Kocica 3',
 /* --- PHARMACISTS --- */
 		
 /* dimitrije@gmail.com, dimi */
-insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (9,'Bulevar Mihajla Pupina 2','Zitiste','Srbija','dimitrije@gmail.com','Dimitrije','$2y$10$3vrKs8fQ4UL9h93TCSfOPOGsGYks8rKmvkUPHgwonIfv.8Jl1yQhi',
+insert into pharmacist(id,address, city,confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
+values (9,'Bulevar Mihajla Pupina 2','Zitiste',true,'Srbija','dimitrije@gmail.com','Dimitrije','$2y$10$3vrKs8fQ4UL9h93TCSfOPOGsGYks8rKmvkUPHgwonIfv.8Jl1yQhi',
 		'061985022','Bulaja', 50,'2021-03-15','2021-03-01', 1);
 		
 /* mihajlo@gmail.com, mika */
-insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (10,'Ruzveltova 21','Zrenjanin','Srbija','mihajlo@gmail.com','Mihajlo','$2y$10$JIe9RowUDmlOW7vKSDiBnuZup7wo/I0y1l052uWHNaIuWMYPJkB7m',
+insert into pharmacist(id,address, city,confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
+values (10,'Ruzveltova 21','Zrenjanin',true,'Srbija','mihajlo@gmail.com','Mihajlo','$2y$10$JIe9RowUDmlOW7vKSDiBnuZup7wo/I0y1l052uWHNaIuWMYPJkB7m',
 		'01147881','Omaljev', 54,'2021-05-29','2021-01-11', 2);
 
 /* mario@gmail.com, kima */		
-insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (17,'Bulevar Mihajla Pupina 11','Zrenjanin','Srbija','mario@gmail.com','Mario','$2y$10$zbIaMV.WAa0D4vj7kS274O8awW6OJoC1KIUBiJ3NpgdAjBGtefcy2',
+insert into pharmacist(id,address, city,confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
+values (17,'Bulevar Mihajla Pupina 11','Zrenjanin',true,'Srbija','mario@gmail.com','Mario','$2y$10$zbIaMV.WAa0D4vj7kS274O8awW6OJoC1KIUBiJ3NpgdAjBGtefcy2',
 		'061985022','Petromanjanc', 33,'2021-09-11','2021-02-11', 1);
 		
 /* ivica@gmail.com, ivica */
-insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (18,'Ruzveltova 21','Zrenjanin','Srbija','mihajlo@gmail.com','Ivica','$2y$10$cavm.nwcllSXz6W8aPjtKuYrkafL9nSPaKDz45LVaHWmRMWJBZXp2',
+insert into pharmacist(id,address, city,confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
+values (18,'Ruzveltova 21','Zrenjanin',false,'Srbija','mihajlo@gmail.com','Ivica','$2y$10$cavm.nwcllSXz6W8aPjtKuYrkafL9nSPaKDz45LVaHWmRMWJBZXp2',
 		'01147881','Novakov', 84,'2021-06-29','2021-01-21', 2);
 		
 /* --- SYSTEM_ADMINISTRATORS --- */
@@ -163,11 +163,47 @@ insert into drug(id, name,code,loyality_points, drug_specification_id) values (3
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (4, 'Brufen','023547', 5, 4);
 insert into drug(id, name,code,loyality_points, drug_specification_id) values (5, 'Probiotic','785493', 5, 5);
 
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(2,1);
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(3,1);
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(4,1);
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(5,2);
+
 insert into drug_allergies(id, drug_id, patient_id) values (1, 1, 5);
 insert into drug_allergies(id, drug_id, patient_id) values (2, 2, 5);
 insert into drug_allergies(id, drug_id, patient_id) values (3, 3, 5);
 insert into drug_allergies(id, drug_id, patient_id) values (4, 4, 6);
 insert into drug_allergies(id, drug_id, patient_id) values (5, 4, 7);
+
+ /* -- INGREDIENTS --*/
+insert into ingredient values (1,'Amilorid');
+insert into ingredient values (2,'Hidrohortiazid');
+insert into ingredient values (3,'Escitaloparm');
+insert into ingredient values (4,'Vekluri');
+insert into ingredient values (5,'Ibuprofen');
+insert into ingredient values (6,'Piridoksin');
+insert into ingredient values (7,'Benfotiamni');
+/* -- INGREDIENTS IN DRUG SPECIFICATION --*/
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (1,1);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (1,2);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (1,3);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (2,4);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (2,5);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (4,1);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (3,2);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (3,3);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (5,4);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (5,5);
+/* -- CONTRAINDICATIONS IN DRUG SPECIFICATION --*/
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (1,1);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (1,2);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (1,3);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (2,4);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (2,2);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (4,1);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (3,2);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (3,3);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (5,4);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (5,3);
 
 insert into examination_loyalty_points(type, points) values ('DermatologistExamination', 15);
 insert into examination_loyalty_points(type, points) values ('PharmacistExamiantion', 10);
@@ -280,8 +316,6 @@ values('Opis 6', 10, 1250, 'Filled', 30, '2020-7-8 14:30', 3, 'PharmacistExamina
  
  	/* -- DRUG IN PHARMACY --*/
  /* drug_id, pharmacy_id, quantity, pricelist*/
-insert into drug_in_pharmacy values(1,1,20,null);
-insert into drug_in_pharmacy values(2,1,50,null);
 insert into drug_in_pharmacy values(3,1,30,null);
 insert into drug_in_pharmacy values(4,1,40,null);
 insert into drug_in_pharmacy values(5,1,10,null);
@@ -292,10 +326,7 @@ insert into drug_in_pharmacy values(5,2,80,null);
 
 
  	/* -- PRICELIST --*/
-insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1, 1500,'2020-12-10 9:00','2021-12-01 9:00',1,1);
-insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (2,1300,'2020-12-01 9:00','2021-12-01 9:00',2,1);
+
 insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
 values (3, 1400,'2020-12-01 9:00','2021-12-01 9:00',3,1);
 insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
@@ -314,16 +345,12 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  
 	/* -- DRUG RESERVATION --*/
  
- insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-03-01 9:00',0,5,1,1);
-  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-04-01 13:00',1,6,2,1);
+
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-03-09 10:00',1,7,3,1);
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-02-06 11:00',2,5,4,1);
-  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-02-25 17:00',0,6,1,1);
+
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-05-07 10:00',0,7,1,2);
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 

@@ -45,11 +45,11 @@ public class DrugAllergy {
 		this.id = id;
 	}
 
-	public Drug getDrugs() {
+	public Drug getDrug() {
 		return drug;
 	}
 
-	public void setDrugs(Drug drug) {
+	public void setDrug(Drug drug) {
 		this.drug = drug;
 	}
 

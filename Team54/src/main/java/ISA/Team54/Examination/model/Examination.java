@@ -131,6 +131,14 @@ public class Examination {
 	public void setDrugs(List<Drug> drugs) {
 		this.drugs = drugs;
 	}
+
+	public int getTherapyDuration() {
+		return therapyDuration;
+	}
+
+	public void setTherapyDuration(int therapyDuration) {
+		this.therapyDuration = therapyDuration;
+	}
 	 
 	 
 }
