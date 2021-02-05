@@ -1,29 +1,26 @@
 package ISA.Team54.drugAndRecipe.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
 
 import ISA.Team54.users.model.Patient;
-
 @Entity
-@Table(name="drug_allergies")
 public class DrugAllergy {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@OneToOne
+
+	@OneToOne(fetch = FetchType.LAZY)
 	private Drug drug;
+
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Patient patient;
 
 	public DrugAllergy() {
@@ -60,6 +57,5 @@ public class DrugAllergy {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
 	
 }

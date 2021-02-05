@@ -1,7 +1,7 @@
 package ISA.Team54.drugAndRecipe.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,10 +30,10 @@ public class Drug {
 	private int loyalityPoints;
 	
 	@ManyToMany(mappedBy="drugs")
-	private List<Examination> examinations = new ArrayList<Examination>();
+	private Set<Examination> examinations;
 	
 	@ManyToMany(mappedBy="drugs")
-	private List<ERecipe> erecipes = new ArrayList<ERecipe>();
+	private Set<ERecipe> erecipes;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private DrugSpecification drugSpecification;
@@ -55,6 +55,7 @@ public class Drug {
 	public Drug() {
 		super();
 	}
+
 	public Drug(long id, String name, String code, int loyalityPoints) {
 		super();
 		this.id = id;
@@ -65,58 +66,75 @@ public class Drug {
 	public int getId() {
 		return (int) id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	public int getLoyalityPoints() {
 		return loyalityPoints;
 	}
+
 	public void setLoyalityPoints(int loyalityPoints) {
 		this.loyalityPoints = loyalityPoints;
 	}
+
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
+
+	public Set<ERecipe> getErecipes() {
+		return erecipes;
+	}
+
+	public void setErecipes(Set<ERecipe> erecipes) {
+		this.erecipes = erecipes;
+	}
+
 	public DrugSpecification getDrugSpecification() {
 		return drugSpecification;
 	}
+
 	public void setDrugSpecification(DrugSpecification drugSpecification) {
 		this.drugSpecification = drugSpecification;
 	}
-	public List<Examination> getExaminations() {
-		return examinations;
-	}
-	public void setExaminations(List<Examination> examinations) {
-		this.examinations = examinations;
-	}
-	public List<ERecipe> getErecipes() {
-		return erecipes;
-	}
-	public void setErecipes(List<ERecipe> erecipes) {
-		this.erecipes = erecipes;
-	}
+
 	public List<Drug> getMainDrugs() {
 		return mainDrugs;
 	}
+
 	public void setMainDrugs(List<Drug> mainDrugs) {
 		this.mainDrugs = mainDrugs;
 	}
+
 	public List<Drug> getSubstituteDrugs() {
 		return substituteDrugs;
 	}
+
 	public void setSubstituteDrugs(List<Drug> substituteDrugs) {
 		this.substituteDrugs = substituteDrugs;
 	}
-	
+
 	
 	
 }

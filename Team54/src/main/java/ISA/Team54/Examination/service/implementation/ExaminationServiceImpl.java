@@ -18,6 +18,8 @@ import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.repository.PatientRepository;
 
+
+
 @Service
 public class ExaminationServiceImpl implements ExaminationService{
 	@Autowired

@@ -13,4 +13,6 @@ public interface DrugService {
 	IsAvalableDrugDTO findOrFindSubstitute(int drugId,int examinationId);
 	void reduceDrugQuantityInPharmacy(long drugId, int pharmacyId,int quantity);
 	DrugSpecification getSpecificationForDrug(Long drugId);
+	List<Drug> getAllDrugs();
+	Drug findById(long id);
 }

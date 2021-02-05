@@ -30,35 +30,29 @@ public class Contraindication {
 	public Contraindication() {
 		super();
 	}
-	public Contraindication(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getContraindication() {
-		return name;
-	}
-	public void setContraindication(String name) {
-		this.name = name;
-	}
-	public Set<DrugSpecification> getDrugSpecifications() {
-		return drugSpecifications;
-	}
-	public void setDrugSpecifications(Set<DrugSpecification> drugSpecifications) {
-		this.drugSpecifications = drugSpecifications;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public Set<DrugSpecification> getDrugSpecifications() {
+		return drugSpecifications;
+	}
+
+	public void setDrugSpecifications(Set<DrugSpecification> drugSpecifications) {
+		this.drugSpecifications = drugSpecifications;
+	}
 	
 }

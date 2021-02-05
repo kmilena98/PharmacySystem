@@ -1,4 +1,4 @@
-package ISA.Team54.drugAndRecipe.service;
+package ISA.Team54.drugAndRecipe.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.repository.DrugsInPharmacyRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.model.Patient;
+
 @Service
 public class DrugServiceImpl implements DrugService {
 
@@ -111,6 +112,14 @@ public class DrugServiceImpl implements DrugService {
 		}
 		return null;
 	}
+	@Override
+	public List<Drug> getAllDrugs() {
+		return drugRepsoitory.findAll();
+	}
 
+	@Override
+	public Drug findById(long id) {
+		return drugRepsoitory.findById(id).orElse(null);
+	}
 	
 }

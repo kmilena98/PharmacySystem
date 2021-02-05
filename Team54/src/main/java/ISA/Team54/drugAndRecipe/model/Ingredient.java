@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 public class Ingredient {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -27,29 +28,29 @@ public class Ingredient {
 	public Ingredient() {
 		super();
 	}
-	public Ingredient(long id, String ingredient) {
-		super();
-		this.id = id;
-		this.ingredient = ingredient;
-	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getIngredient() {
 		return ingredient;
 	}
+
 	public void setIngredient(String ingredient) {
 		this.ingredient = ingredient;
 	}
+
 	public Set<DrugSpecification> getDrugSpecifications() {
 		return drugSpecifications;
 	}
+
 	public void setDrugSpecifications(Set<DrugSpecification> drugSpecifications) {
 		this.drugSpecifications = drugSpecifications;
-	}
-	
+	}	
 	
 }

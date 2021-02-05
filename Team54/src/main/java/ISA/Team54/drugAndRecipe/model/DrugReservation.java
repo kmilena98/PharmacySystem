@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import ISA.Team54.drugAndRecipe.enums.ReservationStatus;
@@ -26,9 +27,53 @@ public class DrugReservation {
 	@Column(unique = false,nullable = true)
 	private ReservationStatus status; 
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Patient patient;
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private DrugInPharmacy reservedDrug;
+	
+	public DrugReservation() {
+		super();
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getReservationToDate() {
+		return reservationToDate;
+	}
+
+	public void setReservationToDate(Date reservationToDate) {
+		this.reservationToDate = reservationToDate;
+	}
+
+	public ReservationStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ReservationStatus status) {
+		this.status = status;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public DrugInPharmacy getReservedDrug() {
+		return reservedDrug;
+	}
+
+	public void setReservedDrug(DrugInPharmacy reservedDrug) {
+		this.reservedDrug = reservedDrug;
+	}
 }

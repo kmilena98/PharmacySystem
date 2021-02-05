@@ -12,26 +12,34 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import ISA.Team54.Examination.model.Examination;
+import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.drugAndRecipe.model.DrugReservation;
 import ISA.Team54.drugAndRecipe.model.ERecipe;
 
 @Entity
-public class Patient extends User{
+public class Patient extends User {
+
 	
-	@Column(unique = false,nullable = true)
+	@Column(unique = false, nullable = true)
 	private int penaltyPoints;
-	
-	@Column(unique = false,nullable = true)
+
+	@Column(unique = false, nullable = true)
 	private int loyaltyPoints;
-	
+
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<ERecipe> eRecipes = new ArrayList<ERecipe>();
-	
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public List<DrugAllergy> drugAllergies = new ArrayList<DrugAllergy>();
-	
+	private List<ERecipe> eRecipes;
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "drug_allergies", joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
+	public List<Drug> drugAllergies;
+
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Complaint> complaints;
 	
@@ -43,111 +51,91 @@ public class Patient extends User{
 	
 	@OneToMany(mappedBy="patient",cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	private List<Examination> examinations;
-	
+
 	public Patient() {
 		super();
 	}
-		
-	
 
 	public Patient(long id, String email, String password, String name, String surname, String address, String city,
-			String country, String phoneNumber, int penaltyPoints, int loyaltyPoints, List<ERecipe> eRecipes, List<DrugAllergy> drugAllergies,
-			List<Complaint> complaints, List<DrugReservation> drugReservations, List<Pharmacy> pharmacys,
-			List<Examination> examinations) {
-		super(id, email,  password, name, surname, address, city,
-				country, phoneNumber);
+			String country, String phoneNumber, int penaltyPoints, int loyaltyPoints, List<ERecipe> eRecipes,
+			List<DrugAllergy> drugAllergies, List<Complaint> complaints, List<DrugReservation> drugReservations,
+			List<Pharmacy> pharmacys, List<Examination> examinations) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber);
 		this.penaltyPoints = penaltyPoints;
 		this.loyaltyPoints = loyaltyPoints;
 		this.eRecipes = eRecipes;
-		this.drugAllergies = drugAllergies;
 		this.complaints = complaints;
 		this.drugReservations = drugReservations;
-		//this.pharmacys = pharmacys;
+		// this.pharmacys = pharmacys;
 		this.examinations = examinations;
 	}
-
-
 
 	public int getPenaltyPoints() {
 		return penaltyPoints;
 	}
 
-
 	public void setPenaltyPoints(int penaltyPoints) {
 		this.penaltyPoints = penaltyPoints;
 	}
-
 
 	public int getLoyaltyPoints() {
 		return loyaltyPoints;
 	}
 
-
 	public void setLoyaltyPoints(int loyaltyPoints) {
 		this.loyaltyPoints = loyaltyPoints;
 	}
-
-
-	
-	public List<DrugAllergy> getDrugAllergies() {
-		return drugAllergies;
-	}
-
-
-
-	public void setDrugAllergies(List<DrugAllergy> drugAllergies) {
-		this.drugAllergies = drugAllergies;
-	}
-
-
-
-	public List<Complaint> getComplaints() {
-		return complaints;
-	}
-
-
-	public void setComplaints(List<Complaint> complaints) {
-		this.complaints = complaints;
-	}
-
-
-	public List<DrugReservation> getDrugReservations() {
-		return drugReservations;
-	}
-
-
-	public void setDrugReservations(List<DrugReservation> drugReservations) {
-		this.drugReservations = drugReservations;
-	}
-
 
 	public List<ERecipe> geteRecipes() {
 		return eRecipes;
 	}
 
-
 	public void seteRecipes(List<ERecipe> eRecipes) {
 		this.eRecipes = eRecipes;
 	}
 
+	public List<Drug> getDrugAllergies() {
+		return drugAllergies;
+	}
 
-	/*
-	 * public List<Pharmacy> getPharmacys() { return pharmacys; }
-	 * 
-	 * 
-	 * public void setPharmacys(List<Pharmacy> pharmacys) { this.pharmacys =
-	 * pharmacys; }
-	 */
+	public void setDrugAllergies(List<Drug> drugAllergies) {
+		this.drugAllergies = drugAllergies;
+	}
 
+	public List<Complaint> getComplaints() {
+		return complaints;
+	}
 
-	public List<Examination> getExamiantions() {
+	public void setComplaints(List<Complaint> complaints) {
+		this.complaints = complaints;
+	}
+
+	public List<DrugReservation> getDrugReservations() {
+		return drugReservations;
+	}
+
+	public void setDrugReservations(List<DrugReservation> drugReservations) {
+		this.drugReservations = drugReservations;
+	}
+
+	public List<Pharmacy> getPrescriptionsPharmacies() {
+		return prescriptionsPharmacies;
+	}
+
+	public void setPrescriptionsPharmacies(List<Pharmacy> prescriptionsPharmacies) {
+		this.prescriptionsPharmacies = prescriptionsPharmacies;
+	}
+
+	public List<Examination> getExaminations() {
 		return examinations;
 	}
 
-
-	public void setExamiantions(List<Examination> examiantions) {
-		this.examinations = examiantions;
+	public void setExaminations(List<Examination> examinations) {
+		this.examinations = examinations;
 	}
+
+	
+
 	
 	
 }

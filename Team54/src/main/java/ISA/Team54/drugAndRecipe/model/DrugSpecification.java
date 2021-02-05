@@ -14,8 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name="drug_specifications")
 public class DrugSpecification {
 	
 	@Id
@@ -57,6 +57,8 @@ public class DrugSpecification {
 	}
 
 
+	
+
 	public long getId() {
 		return id;
 	}
@@ -96,8 +98,4 @@ public class DrugSpecification {
 		this.suggestedDose = suggestedDose;
 	}
 
-
-	
-	
-	
 }

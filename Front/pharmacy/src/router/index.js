@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
+import Registration from "../views/registration/Registration.vue";
 
 Vue.use(VueRouter);
 
@@ -10,6 +11,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/registration",
+    name: "Registration",
+    component: Registration
   },
   {
     path: "/patient-profile",
@@ -50,6 +56,12 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/StartExamination.vue")
+  },
+  {
+    path: "/pharmacies",
+    name: "Pharmacy",
+    component: () =>
+      import("../views/patient/pharmacy/Pharmacy.vue")
   }
 ];
 
