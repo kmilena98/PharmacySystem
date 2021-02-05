@@ -55,7 +55,7 @@ public abstract class User implements UserDetails{
 	protected String phoneNumber;	
 	
 	@Column(unique = false,nullable = true)
-	protected boolean confirmed = false;	
+	protected Boolean confirmed = false;	
 	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
@@ -188,12 +188,14 @@ public abstract class User implements UserDetails{
 		return true;
 	}
 
-	public boolean isConfirmed() {
+	public Boolean getConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}	
+	
+	
 	
 }

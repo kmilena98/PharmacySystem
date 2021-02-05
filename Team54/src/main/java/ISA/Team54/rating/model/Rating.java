@@ -5,33 +5,41 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Null;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import ISA.Team54.rating.enums.RatingObject;
+import ISA.Team54.users.model.Dermatologist;
+import ISA.Team54.users.model.Pharmacist;
+import ISA.Team54.users.model.Pharmacy;
 @Entity
 public class Rating {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = false,nullable = false)
-	private Long objectId;
+	@JsonBackReference
+	@ManyToOne
+	@Null
+	private Dermatologist dermatologist;
+	
+	@JsonBackReference
+	@ManyToOne
+	@Null
+	private Pharmacist pharmacist;
+	
+	@JsonBackReference
+	@ManyToOne
+	@Null
+	private Pharmacy pharmacy;
 	
 	@Column(unique = false,nullable = false)
 	private double rating;
 	
-	@Column(unique = false,nullable = false)
-	private RatingObject objectType;
-
 	public Rating() {
 		super();
-	}
-
-	public Rating(Long id, Long objectId, double rating, RatingObject objectType) {
-		super();
-		this.id = id;
-		this.objectId = objectId;
-		this.rating = rating;
-		this.objectType = objectType;
 	}
 
 	public Long getId() {
@@ -42,12 +50,29 @@ public class Rating {
 		this.id = id;
 	}
 
-	public Long getObjectId() {
-		return objectId;
+	public Dermatologist getDermatoligist() {
+		return dermatologist;
 	}
 
-	public void setObjectId(Long objectId) {
-		this.objectId = objectId;
+	public void setDermatoligist(Dermatologist dermatoligist) {
+		this.dermatologist = dermatoligist;
+	}
+
+	public Pharmacist getPharmacist() {
+		return pharmacist;
+	}
+
+	
+	public void setPharmacist(Pharmacist pharmacist) {
+		this.pharmacist = pharmacist;
+	}
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
 	}
 
 	public double getRating() {
@@ -57,15 +82,6 @@ public class Rating {
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
-
-	public RatingObject getObjectType() {
-		return objectType;
-	}
-
-	public void setObjectType(RatingObject objectType) {
-		this.objectType = objectType;
-	}
-	
 	
 	
 }

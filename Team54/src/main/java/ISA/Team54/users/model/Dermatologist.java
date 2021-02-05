@@ -3,6 +3,7 @@ package ISA.Team54.users.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +16,10 @@ import javax.persistence.OneToOne;
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
+import ISA.Team54.rating.model.Rating;
 import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 
 @Entity
@@ -23,32 +27,21 @@ public class Dermatologist extends User{
 	@Column(unique = false,nullable = true)
 	private double price;
 	
-	@Column(unique = false,nullable = true)
-	private double rating;
+	@JsonManagedReference	
+	@OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Rating> ratings;
 	
 	@OneToMany(mappedBy="dermatologist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<DermatologistWorkSchedule> workSchedules;
 	
-	@ManyToMany(mappedBy="dermatologists")
-	private List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<Pharmacy> pharmacys;
 	
 	@OneToMany(mappedBy = "dermatologist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<VacationRequest> vacationRequests;
 	
-	
-	
 	public Dermatologist() {
 		super();
-	}
-
-	public Dermatologist(long id, String email, String password, String name, String surname, String address,
-			String city, String country, String phoneNumber, double price, double rating,
-			List<DermatologistWorkSchedule> workSchedule, List<Pharmacy> pharmacy) {
-		super(id, email, password, name, surname, address, city, country, phoneNumber);
-		this.price = price;
-		this.rating = rating;
-		this.workSchedules = workSchedule;
-		this.pharmacys = pharmacy;
 	}
 
 	public double getPrice() {
@@ -59,12 +52,18 @@ public class Dermatologist extends User{
 		this.price = price;
 	}
 
-	public double getRating() {
-		return rating;
+	public double getRatings() {
+		double rating = 0;
+		int count = 0;
+		for (Rating r : ratings) {
+			rating += r.getRating();
+			count++;
+		}
+		return count != 0 ? (double)rating/count : 0;
 	}
 
-	public void setRating(double rating) {
-		this.rating = rating;
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 
 	public List<DermatologistWorkSchedule> getWorkSchedule() {

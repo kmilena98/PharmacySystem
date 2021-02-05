@@ -39,6 +39,12 @@ const routes = [
     name: "Pharmacy",
     component: () =>
       import("../views/patient/pharmacy/Pharmacy.vue")
+  },
+  {
+    path: "/pharmacy/:id/dermatologist-examinations",
+    name: "DermatologisExaminations",
+    component: () =>
+      import("../views/pharmacy/DermatologistExaminations.vue")
   }
 ];
 
