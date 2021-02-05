@@ -5,7 +5,7 @@
         <div>
   
 
-    <b-modal ref="my-modal" hide-footer title="Zamenski lekovi">
+    <b-modal ref="my-modal" hide-footer title="Specifinacija leka">
       <div class="d-block text-center">
          <div v-for="(item, index) in subdrugs" :key="item">
             <input v-model="item.name" >

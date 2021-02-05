@@ -12,4 +12,5 @@ public interface ExaminationService {
 	public List<Examination> historyOfPatientExamination(Long id);
 	public void updateExamination(ExaminationInformationDTO examinationInformationDTO);
 	public List<Examination> getAllExaminationsForDermatologist(int id);
+	public List<Examination> getDefinedExaminations(int examinationId);
 }

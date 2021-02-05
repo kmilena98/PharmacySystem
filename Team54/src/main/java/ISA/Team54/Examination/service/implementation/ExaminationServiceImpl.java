@@ -80,4 +80,15 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return examinations;
 	}
 	
+	public List<Examination> getDefinedExaminations(int examinationId){
+		List<Examination> definedExaminations = new ArrayList<Examination>();
+		Examination examination = examinationRepository.findById(examinationId);
+		for(Examination ex : examinationRepository.findByEmplyeedIdAndStatusAndPharmacyId(examination.getEmplyeedId(),ExaminationStatus.Unfilled,examination.getPharmacy().getId())) {
+			if(examination.getPatient()!=null) {
+				definedExaminations.add(ex);
+			}
+		}
+		return definedExaminations;
+	}
+	
 }

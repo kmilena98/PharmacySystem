@@ -93,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	//	web.ignoring().antMatchers(HttpMethod.POST, "/auth/signup");
 		//web.ignoring().antMatchers(HttpMethod.POST, );
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
-				"/**/*.css", "/**/*.js","/api/patientBySurnameAndName/*","/api/allPatients/","/examination/soonestExamination/*",
+				"/**/*.css", "/**/*.js","/api/patientBySurnameAndName/*","/api/allPatients/","/examination/soonestExamination/*","/examination/definedExaminations/**",
 				"/examination/examinationHistory/*","/api/examinatedPatients/*","/drugs/forPatient/*","/drugs/drugSpecification/**","/drugs/isAvailableInPharmacy/**");
 	}
 

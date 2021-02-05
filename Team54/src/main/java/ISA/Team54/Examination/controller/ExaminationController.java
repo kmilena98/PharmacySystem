@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ISA.Team54.Examination.dto.DefinedExaminationDTO;
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
+import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.service.interfaces.ExaminationService;
@@ -68,6 +70,17 @@ public class ExaminationController {
 			historyExaminations.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination,null));
 		}
 		return historyExaminations;
+	}
+	
+	@GetMapping("/definedExaminations/{examinationId}")
+	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<DefinedExaminationDTO> getDefinedExaminations(@PathVariable int examinationId){
+		List<DefinedExaminationDTO> definedExaminations = new ArrayList<DefinedExaminationDTO>();
+		
+		for(Examination examination :examinationService.getDefinedExaminations(examinationId)) {
+			definedExaminations.add(new DefinedExamiantionMapper().examinationToDefinedExaminationDTO(examination));
+		}
+		return definedExaminations;
 	}
 	
 	 @PostMapping("/updateExamination")
