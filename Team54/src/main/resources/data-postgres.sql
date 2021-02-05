@@ -14,24 +14,24 @@ insert into contraindications( id, name) values (4, 'Deca mlađa od 2 godine');
 /* --- DERMATOLOGISTS --- */
 
 /* pera@gmail.com, pera */
-insert into dermatologist(id,address, city, confirmed, country, email, name, password, phone_number, surname, price, rating) 
-values (1,'Jovana Ducica 22','Beograd', true, 'Srbija','pera@gmail.com','Pera','$2y$10$4pqzt42GblUIbx6vrwSGhObU5wtpGd1EaCXSLqnXh0dIeouX5P98e',
-		'231432123','Peric', 1500, 4.7);
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price,confirmed) 
+values (1,'Jovana Ducica 22','Beograd','Srbija','pera@gmail.com','Pera','$2y$10$4pqzt42GblUIbx6vrwSGhObU5wtpGd1EaCXSLqnXh0dIeouX5P98e',
+		'231432123','Peric', 1500,true);
 		
 /* zika@gmail.com, zika */
-insert into dermatologist(id,address, city, confirmed, country, email, name, password, phone_number, surname, price, rating) 
-values (2,'Janka Cmelika 9','Novi Sad', true,'Srbija','zika@gmail.com','Zika','$2y$10$MN616XcMIPO4vqY2bjNEQO97f9mmT6fbFuinbLLylKr0QrJoIJSWm',
-		'0617788996','Zikic', 2000, 4.1);
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price,confirmed) 
+values (2,'Janka Cmelika 9','Novi Sad','Srbija','zika@gmail.com','Zika','$2y$10$MN616XcMIPO4vqY2bjNEQO97f9mmT6fbFuinbLLylKr0QrJoIJSWm',
+		'0617788996','Zikic', 2000,false);
 		
 /* marko@gmail.com, marko */
-insert into dermatologist(id,address, city, confirmed,country, email, name, password, phone_number, surname, price, rating) 
-values (3,'Bulevar Oslobodjenja 49','Nis', true,'Srbija','marko@gmail.com','Marko','$2y$10$zsoFKgzcVBAUFgjNLNPrGeIK1Utd7ZBEik9GlhDNYZXA.0yVltuaq',
-		'021879554','Markovic', 1700, 4.8);
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price,confirmed) 
+values (3,'Bulevar Oslobodjenja 49','Nis','Srbija','marko@gmail.com','Marko','$2y$10$zsoFKgzcVBAUFgjNLNPrGeIK1Utd7ZBEik9GlhDNYZXA.0yVltuaq',
+		'021879554','Markovic', 1700, true);
 		
 /* petar@gmail.com, petar */
-insert into dermatologist(id,address, city, confirmed, country, email, name, password, phone_number, surname, price, rating) 
-values (4,'Trg Slobode 4','Subotica', true,'Srbija','petar@gmail.com','Petar','$2y$10$8a2ynifL9RQtjOOVJA3RfO.LcNzmievmarf54iJTM.fg8LgTtGwbu',
-		'06987445','Petrovic', 1400, 4.6);
+insert into dermatologist(id,address, city, country, email, name, password, phone_number, surname, price,confirmed) 
+values (4,'Trg Slobode 4','Subotica','Srbija','petar@gmail.com','Petar','$2y$10$8a2ynifL9RQtjOOVJA3RfO.LcNzmievmarf54iJTM.fg8LgTtGwbu',
+		'06987445','Petrovic', 1400, true);
 		
 /* --- PATIENTS --- */
 		
@@ -67,24 +67,24 @@ insert into pharmacy(id, address, description, name) values (2,'Petra Kocica 3',
 /* --- PHARMACISTS --- */
 		
 /* dimitrije@gmail.com, dimi */
-insert into pharmacist(id,address, city, confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (9,'Bulevar Mihajla Pupina 2','Zitiste', true,'Srbija','dimitrije@gmail.com','Dimitrije','$2y$10$3vrKs8fQ4UL9h93TCSfOPOGsGYks8rKmvkUPHgwonIfv.8Jl1yQhi',
-		'061985022','Bulaja', 50,'2021-03-15','2021-03-01', 1);
+insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, end_date,start_date,pharmacy_id) 
+values (9,'Bulevar Mihajla Pupina 2','Zitiste','Srbija','dimitrije@gmail.com','Dimitrije','$2y$10$3vrKs8fQ4UL9h93TCSfOPOGsGYks8rKmvkUPHgwonIfv.8Jl1yQhi',
+		'061985022','Bulaja','2021-03-15','2021-03-01', 1);
 		
 /* mihajlo@gmail.com, mika */
-insert into pharmacist(id,address, city, confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (10,'Ruzveltova 21','Zrenjanin', true,'Srbija', 'mihajlo@gmail.com','Mihajlo','$2y$10$JIe9RowUDmlOW7vKSDiBnuZup7wo/I0y1l052uWHNaIuWMYPJkB7m',
-		'01147881','Omaljev', 54,'2021-05-29','2021-01-11', 2);
+insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, end_date,start_date,pharmacy_id) 
+values (10,'Ruzveltova 21','Zrenjanin','Srbija','mihajlo@gmail.com','Mihajlo','$2y$10$JIe9RowUDmlOW7vKSDiBnuZup7wo/I0y1l052uWHNaIuWMYPJkB7m',
+		'01147881','Omaljev','2021-05-29','2021-01-11', 2);
 
 /* mario@gmail.com, kima */		
-insert into pharmacist(id,address, city, confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (17,'Bulevar Mihajla Pupina 11','Zrenjanin', true,'Srbija','mario@gmail.com','Mario','$2y$10$zbIaMV.WAa0D4vj7kS274O8awW6OJoC1KIUBiJ3NpgdAjBGtefcy2',
-		'061985022','Petromanjanc', 33,'2021-09-11','2021-02-11', 1);
+insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, end_date,start_date,pharmacy_id) 
+values (17,'Bulevar Mihajla Pupina 11','Zrenjanin','Srbija','mario@gmail.com','Mario','$2y$10$zbIaMV.WAa0D4vj7kS274O8awW6OJoC1KIUBiJ3NpgdAjBGtefcy2',
+		'061985022','Petromanjanc','2021-09-11','2021-02-11', 1);
 		
 /* ivica@gmail.com, ivica */
-insert into pharmacist(id,address, city, confirmed, country, email, name, password, phone_number, surname, rating, end_date,start_date,pharmacy_id) 
-values (18,'Ruzveltova 21','Zrenjanin', true,'Srbija','ivica@gmail.com','Ivica','$2y$10$cavm.nwcllSXz6W8aPjtKuYrkafL9nSPaKDz45LVaHWmRMWJBZXp2',
-		'01147881','Novakov', 84,'2021-06-29','2021-01-21', 2);
+insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, end_date,start_date,pharmacy_id) 
+values (18,'Ruzveltova 21','Zrenjanin','Srbija','mihajlo@gmail.com','Ivica','$2y$10$cavm.nwcllSXz6W8aPjtKuYrkafL9nSPaKDz45LVaHWmRMWJBZXp2',
+		'01147881','Novakov','2021-06-29','2021-01-21', 2);
 		
 /* --- SYSTEM_ADMINISTRATORS --- */
 		
@@ -101,14 +101,14 @@ values (12,'Somborski bulevar 97','Zvornik', true,'Srbija','nemanja@gmail.com','
 /* --- PHARMACY_ADMINISTRATORS --- */
 		
 /* milena@gmail.com, milence */
-insert into pharmacy_administrator(id,address, city, confirmed, country, email, name, password, phone_number, surname, pharmacy_id) 
-values (13,'Balzakova 1','Novi Sad', true,'Srbija','milena@gmail.com','Milena','$2y$10$7u1AWYA7wW3UkcB2PchaTOnenZwVo0TTSbL9w2I68feFLt/u9vI8G',
-		'061385600','Kovacevic', 1);
+insert into pharmacy_administrator(id,address, city, country, email, name, password, phone_number, surname, pharmacy_id, confirmed) 
+values (13,'Balzakova 1','Novi Sad','Srbija','milena@gmail.com','Milena','$2y$10$7u1AWYA7wW3UkcB2PchaTOnenZwVo0TTSbL9w2I68feFLt/u9vI8G',
+		'061385600','Kovacevic', 1, false);
 		
 /* denis@gmail.com, denis */
-insert into pharmacy_administrator(id,address, city, confirmed, country, email, name, password, phone_number, surname, pharmacy_id) 
-values (14,'Somborski bulevar 90','Zrenjanin', true,'Srbija','denis@gmail.com','Denis','$2y$10$ihpttwUywTQ2Iw2FBXYfGueEACL239/xdGRguelnU/3GsS4sPxQja',
-		'062981622','Fruza', 2);
+insert into pharmacy_administrator(id,address, city, country, email, name, password, phone_number, surname, pharmacy_id, confirmed) 
+values (14,'Somborski bulevar 90','Zrenjanin','Srbija','denis@gmail.com','Denis','$2y$10$ihpttwUywTQ2Iw2FBXYfGueEACL239/xdGRguelnU/3GsS4sPxQja',
+		'062981622','Fruza', 2, false);
 
 
 /* --- SUPPLIER --- */
@@ -127,7 +127,12 @@ values (16,'Somborski bulevar 91','Zrenjanin', true,'Srbija','danijel@gmail.com'
 insert into supplier(id,address, city, confirmed, country, email, name, password, phone_number, surname) 
 values (19,'Somborski bulevar 99','Zrenjanin', true,'Srbija','natasa@gmail.com','Natasa','$2y$10$SDsigowv761RRb9KIuiYwedVzSWvI05uIiR1o7MTp9QcaXS3fgS/.',
 		'062941622','Subotic');
-
+		
+insert into rating(id, rating, dermatologist_id, pharmacist_id, pharmacy_id)
+values (1, 4.7, 3, null,null);
+insert into rating(id, rating, dermatologist_id, pharmacist_id, pharmacy_id)
+values (2, 5, 3, null,null);
+		
 insert into user_authority( user_id, authority_id) values (1,4);
 insert into user_authority( user_id, authority_id) values (2,4);
 insert into user_authority( user_id, authority_id) values (3,4);
@@ -149,18 +154,18 @@ insert into user_authority( user_id, authority_id) values (14,3);
 insert into user_authority( user_id, authority_id) values (15,6);
 insert into user_authority( user_id, authority_id) values (16,6);
 insert into user_authority( user_id, authority_id) values (19,6);		
-
-insert into drug_specification(id, suggested_dose) values (1, '20mg');
-insert into drug_specification(id, suggested_dose) values (2, '300mg');
-insert into drug_specification(id, suggested_dose) values (3, '1g');
-insert into drug_specification(id, suggested_dose) values (4, '10mg');
-insert into drug_specification(id, suggested_dose) values (5, '5mg');
 		
-insert into drug(id, name,code,loyality_points, drug_specification_id) values (1, 'Aspirin','231432', 5, 1);
-insert into drug(id, name,code,loyality_points, drug_specification_id) values (2, 'Bensedin','125697', 3, 2);
-insert into drug(id, name,code,loyality_points, drug_specification_id) values (3, 'Bisoprolol','365895', 4, 3);
-insert into drug(id, name,code,loyality_points, drug_specification_id) values (4, 'Brufen','023547', 5, 4);
-insert into drug(id, name,code,loyality_points, drug_specification_id) values (5, 'Probiotic','785493', 5, 5);
+insert into drug(id, name,code,loyality_points) values (1, 'Aspirin','231432', 5);
+insert into drug(id, name,code,loyality_points) values (2, 'Bensedin','125697', 3);
+insert into drug(id, name,code,loyality_points) values (3, 'Bisoprolol','365895', 4);
+insert into drug(id, name,code,loyality_points) values (4, 'Brufen','023547', 5);
+insert into drug(id, name,code,loyality_points) values (5, 'Probiotic','785493', 5);
+
+insert into drug_specification(id, suggested_dose, drug_id) values (1, '20mg', 1);
+insert into drug_specification(id, suggested_dose, drug_id) values (2, '300mg', 2);
+insert into drug_specification(id, suggested_dose, drug_id) values (3, '1g', 3);
+insert into drug_specification(id, suggested_dose, drug_id) values (4, '10mg', 4);
+insert into drug_specification(id, suggested_dose, drug_id) values (5, '5mg', 5);
 
 insert into drug_allergies(drug_id, patient_id) values (1, 5);
 insert into drug_allergies(drug_id, patient_id) values (2, 5);
@@ -218,11 +223,11 @@ insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (2,3
 /*-- SCHEDULED EXAMINATIONS -DERMATOLOGIST  --*/
 
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1500, 'Filled', 30, '2021-06-01 12:00', null, 'DermatologistExamination', 5, 1);
+values(null, 1, 1500, 'Filled', 30, '2021-06-01 12:00', -1, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1500, 'Filled', 30, '2021-06-07 12:00', null, 'DermatologistExamination', 5, 1);
+values(null, 1, 1500, 'Filled', 30, '2021-06-07 12:00', -1, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1500, 'Unfilled', 30, '2021-06-07 12:30', null, 'DermatologistExamination', null, 2);
+values(null, 1, 1500, 'Unfilled', 30, '2021-06-07 12:30', -1, 'DermatologistExamination', null, 2);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Ekcem', 1, 1400, 'Filled', 30, '2020-11-01 12:00', 7, 'DermatologistExamination', 5, 1);
@@ -232,20 +237,20 @@ insert into examination(diagnose, emplyeed_id, price, status, duration, start, t
 values('Osip', 1, 1500, 'Filled', 30, '2020-12-15 12:00', 10, 'DermatologistExamination', 6, 2);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 2, 1800, 'Filled', 30, '2021-06-01 12:00', null, 'DermatologistExamination', 7, 1);
+values(null, 2, 1800, 'Filled', 30, '2021-06-01 12:00', -1, 'DermatologistExamination', 7, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 2, 1800, 'Filled', 30, '2021-06-01 14:30', null, 'DermatologistExamination', 8, 2);
+values(null, 2, 1800, 'Filled', 30, '2021-06-01 14:30', -1, 'DermatologistExamination', 8, 2);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1800, 'Unfilled', 30, '2021-03-01 12:00', null, 'DermatologistExamination', null, 2);
+values(null, 1, 1800, 'Unfilled', 30, '2021-03-01 12:00', -1, 'DermatologistExamination', null, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 3, 1400, 'Unfilled', 30, '2021-06-01 11:00', null, 'DermatologistExamination', null, 1);
+values(null, 3, 1400, 'Unfilled', 30, '2021-06-01 11:00', -1, 'DermatologistExamination', null, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 3, 1400, 'Filled', 30, '2021-06-01 11:30', null, 'DermatologistExamination', 5, 2);
+values(null, 3, 1400, 'Filled', 30, '2021-06-01 11:30', -1, 'DermatologistExamination', 5, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1750, 'Filled', 30, '2021-03-01 12:30', null, 'DermatologistExamination', 6, 2);
+values(null, 1, 1750, 'Filled', 30, '2021-03-01 12:30', -1, 'DermatologistExamination', 6, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 4, 1750, 'Unfilled', 30, '2021-03-01 13:00', null, 'DermatologistExamination', null, 1);
+values(null, 4, 1750, 'Unfilled', 30, '2021-03-01 13:00', -1, 'DermatologistExamination', null, 1);
 
 /*-- SCHEDULED EXAMINATIONS -PHARMACIST --*/
 
@@ -324,7 +329,7 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  values ('2021-05-07 10:00',0,7,1,2);
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-03-04 12:00',0,8,1,2);
- 
+  
  /* -- ERECIPE --*/
  
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 12:00',8);

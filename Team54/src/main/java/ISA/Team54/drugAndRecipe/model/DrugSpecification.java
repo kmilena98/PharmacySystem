@@ -27,16 +27,18 @@ public class DrugSpecification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@ManyToMany
-	@JoinTable(name = "contraindicationsInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "contraindication_id",referencedColumnName= "id"))
-	private Set<Contraindication> contraindications = new HashSet<Contraindication>();
+	@Column
+	private String contraindications;
 	
 	@ManyToMany
 	@JoinTable(name = "ingredientInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "ingredient_id",referencedColumnName= "id"))	
-	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+	private List<Ingredient> ingredients;
 	
 	@Column(unique = false,nullable = false)
 	private String suggestedDose;	
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private Drug drug;
 	
 	public DrugSpecification() {
 		super();
@@ -50,19 +52,19 @@ public class DrugSpecification {
 		this.id = id;
 	}
 
-	public Set<Contraindication> getContraindications() {
+	public String getContraindications() {
 		return contraindications;
 	}
 
-	public void setContraindications(Set<Contraindication> contraindications) {
+	public void setContraindications(String contraindications) {
 		this.contraindications = contraindications;
 	}
 
-	public Set<Ingredient> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(Set<Ingredient> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
