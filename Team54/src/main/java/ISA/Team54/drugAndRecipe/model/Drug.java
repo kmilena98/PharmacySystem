@@ -33,7 +33,7 @@ public class Drug {
 	@ManyToMany(mappedBy="drugs")
 	private Set<ERecipe> erecipes;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(mappedBy="drug",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private DrugSpecification drugSpecification;
 	
 	public Drug() {

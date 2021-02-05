@@ -56,20 +56,6 @@ public class Patient extends User {
 		super();
 	}
 
-	public Patient(long id, String email, String password, String name, String surname, String address, String city,
-			String country, String phoneNumber, int penaltyPoints, int loyaltyPoints, List<ERecipe> eRecipes,
-			List<DrugAllergy> drugAllergies, List<Complaint> complaints, List<DrugReservation> drugReservations,
-			List<Pharmacy> pharmacys, List<Examination> examinations) {
-		super(id, email, password, name, surname, address, city, country, phoneNumber);
-		this.penaltyPoints = penaltyPoints;
-		this.loyaltyPoints = loyaltyPoints;
-		this.eRecipes = eRecipes;
-		this.complaints = complaints;
-		this.drugReservations = drugReservations;
-		// this.pharmacys = pharmacys;
-		this.examinations = examinations;
-	}
-
 	public int getPenaltyPoints() {
 		return penaltyPoints;
 	}
