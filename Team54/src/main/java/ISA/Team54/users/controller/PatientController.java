@@ -20,6 +20,7 @@ import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.dto.PatientDTO;
+import ISA.Team54.users.dto.UserInfoDTO;
 import ISA.Team54.users.mapper.PatientMapper;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.interfaces.PatientService;
@@ -59,9 +60,9 @@ public class PatientController {
 	
 	@PutMapping("")
 	@PreAuthorize("hasRole('PATIENT')")
-	public void updatePatient(@RequestBody BasicPatientInfoDTO patient){
-		this.patientService.updatePatient(patient);
-	}
+	public void updatePatient(@RequestBody UserInfoDTO user){
+		this.patientService.updatePatient(user);
+	} 
 	
 	@GetMapping("/allergies/{id}")
 	@PreAuthorize("hasRole('PATIENT')")

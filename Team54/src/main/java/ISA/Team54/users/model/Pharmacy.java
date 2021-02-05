@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.drugAndRecipe.model.DrugInPharmacy;
@@ -22,7 +23,8 @@ import ISA.Team54.promotion.model.Promotion;
 @Entity
 public class Pharmacy {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "mySeqGen2", sequenceName = "mySeq2",initialValue = 3,allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen2")
 	private long id;
 
 	@Column(unique = false, nullable = false)

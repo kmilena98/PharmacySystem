@@ -59,8 +59,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Override
 	public Pharmacy addPharmacy(PharmacyDTO pharmacyDTO) {
-		Pharmacy pharmacy = PharmacyMapper.PharmacyDTOToPharmacy(pharmacyDTO);
-		return pharmacyRepository.save(pharmacy);		
+		return pharmacyRepository.save(PharmacyMapper.PharmacyDTOToPharmacy(pharmacyDTO));		
 	} 
 	
 	@Override
@@ -118,6 +117,11 @@ public class PharmacyServiceImpl implements PharmacyService {
 	public Pharmacist addPharmacist(PharmacistRequestDTO pharmacistRequestDTO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Pharmacy> findAll() {
+		return this.pharmacyRepository.findAll();
 	}
 	
 }

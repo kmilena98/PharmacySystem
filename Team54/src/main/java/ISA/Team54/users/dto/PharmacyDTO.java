@@ -1,9 +1,22 @@
 package ISA.Team54.users.dto;
 
 public class PharmacyDTO {
+	
 	private String address;
 	private String description;
 	private String name;
+	
+	public PharmacyDTO() {
+		super();
+	}
+	
+	public PharmacyDTO(String address, String description, String name) {
+		super();
+		this.address = address;
+		this.description = description;
+		this.name = name;
+	}
+	
 	public String getAddress() {
 		return address;
 	}

@@ -16,6 +16,8 @@ import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.drugAndRecipe.service.IDrugService;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
+import ISA.Team54.users.dto.UserInfoDTO;
+import ISA.Team54.users.mappers.UserInfoMapper;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.PatientRepository;
@@ -71,24 +73,19 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = patientRepository.findById(id);
 		return patient;
 	}
-	
-	public void updatePatient(BasicPatientInfoDTO dto) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
-		patient.setName(dto.getName());
-		patient.setSurname(dto.getSurname());
-		patient.setAddress(dto.getAddress());
-		patient.setCity(dto.getCity());
-		patient.setCountry(dto.getCountry());
-		
+	@Override
+	public void updatePatient(UserInfoDTO dto) {
+		Patient patient = patientRepository.findById(dto.getId());
+		UserInfoMapper.UserInfoDTOTOUser(dto, patient);
 		patientRepository.save(patient); 		
-	}
-	
+	} 
+		
+	@Override
 	public List<Drug> getPatientAllergies(long id){
 		Patient patient = patientRepository.findById(id);
 		System.out.println(patient.getDrugAllergies());
 		return patient.getDrugAllergies();
-	}
+	} 
 
 	@Override
 	public void deletePatientAllergy(long id) {
