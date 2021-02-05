@@ -1,8 +1,8 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Apoteka Isabela</a>
+            <div class="navbar-header">                
+                <a class="navbar-brand" href="#"><router-link to="/">Apoteka Isabela</router-link></a>
             </div>        
             <SupplierHeader v-if="userRole == 'ROLE_SUPPLIER'" />
             <PatientHeader v-else-if="userRole == 'ROLE_PATIENT'" />
