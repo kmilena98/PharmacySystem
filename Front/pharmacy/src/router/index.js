@@ -51,6 +51,12 @@ const routes = [
     name: "DermatologisExaminations",
     component: () =>
       import("../views/pharmacy/DermatologistExaminations.vue")
+  },
+  {
+    path: "/myexaminations",
+    name: "MyExaminations",
+    component: () =>
+      import("../views/patient/examinations/MyExaminations.vue")
   }
 ];
 

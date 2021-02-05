@@ -8,4 +8,6 @@ import ISA.Team54.Examination.model.Examination;
 public interface ExaminationService  {
 	List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id);
 	void scheduleExamination(long id);
+	void cancelExamination(long id) throws Exception;
+	List<DermatologistExaminationDTO> getFutureDermatologistExaminations();
 }

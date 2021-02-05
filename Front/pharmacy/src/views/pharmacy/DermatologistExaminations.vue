@@ -25,11 +25,12 @@ export default {
 			this.$http
             .get('examination/schedule/' + row.item.id)
             .then( res => {
-				if(res.status == 200)
-				console.log(row)
+				if(res.status == 200){
 					this.toast()
 					this.data.splice(row.index, 1)
 					this.$refs.table.refresh()
+				}
+					
             })
 		},
 		toast(){
