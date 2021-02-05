@@ -18,8 +18,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+
 @Entity
-@Table(name="drug_specifications")
 public class DrugSpecification {
 	
 	@Id
@@ -41,23 +42,6 @@ public class DrugSpecification {
 		super();
 	}
 
-	
-	public DrugSpecification(long id, String suggestedDose) {
-		super();
-		this.id = id;
-		this.suggestedDose = suggestedDose;
-	}
-
-
-	public DrugSpecification(long id, Set<Contraindication> contraindications, Set<Ingredient> ingredients,
-			String suggestedDose) {
-		super();
-		this.id = id;
-		this.contraindications = contraindications;
-		this.ingredients = ingredients;
-		this.suggestedDose = suggestedDose;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -74,11 +58,11 @@ public class DrugSpecification {
 		this.contraindications = contraindications;
 	}
 
-	public Set<Ingredient> getIngredinets() {
+	public Set<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredinets(Set<Ingredient> ingredients) {
+	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -88,7 +72,5 @@ public class DrugSpecification {
 
 	public void setSuggestedDose(String suggestedDose) {
 		this.suggestedDose = suggestedDose;
-	}	
-	
-	
+	}
 }

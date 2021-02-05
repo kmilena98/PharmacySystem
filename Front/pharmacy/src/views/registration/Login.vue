@@ -55,23 +55,31 @@ export default {
         
         login(event) {
            event.preventDefault()
-           this.$axios.post("http://localhost:9001/auth/login",{
-               email : this.form.email,
-               password : this.form.password
-           })
-           .then(function () {             
-                this.$router.push('myPatients');
-                alert(this.$store.getters.getUserRole);
-               // this.$store.commit('setUserRole',response.data.role);
-               // this.$store.commit('setUserId',response.data.userId);
-            
-                
-            }).catch(function (error) {
-                if(error.response.status === 401) {
-                alert('Ne postoji korisnik sa unetim podacima');               
-                }
-            });
-        }, 
+            this.$http
+                .post('auth/login',{
+                    email : this.form.email,
+                    password : this.form.password
+                })
+                .then( (response) => {
+                    this.toast()                            
+                    this.$store.commit('setUserRole',response.data.role);
+                    this.$store.commit('setUserId',response.data.userId);
+                    this.$store.commit('setJWT',response.data.accessToken);
+                    this.$router.push('patient-profile');     
+                })                    
+                .catch(function (error) {
+                    if(error.response.status === 401) {
+                        alert('Ne postoji korisnik sa unetim podacima');
+                    }
+                });
+        },  
+        toast(){
+            this.$bvToast.toast(`Uspešno ste se ulogovali!`, {
+                title: 'Uspešno!',
+                variant: 'success',
+                autoHideDelay: 5000
+            })
+        },
         onReset(event) {
             event.preventDefault()
             // Reset our form values

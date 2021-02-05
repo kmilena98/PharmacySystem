@@ -136,26 +136,44 @@ export default {
                 this.passwordError = true;
             }
             if(!this.passwordError){
-                this.$axios.post("http://localhost:9001/auth/signup",{
-                email : this.user.email,
-                password : this.user.password,
-                firstName : this.user.name,
-                lastName : this.user.surname,
-                address : this.user.address,
-                city : this.user.city,
-                country : this.user.country,
-                phoneNumber : this.user.phone,
+                this.$http
+                .post("auth/signup",{
+                    email : this.user.email,
+                    password : this.user.password,
+                    firstName : this.user.name,
+                    lastName : this.user.surname,
+                    address : this.user.address,
+                    city : this.user.city,
+                    country : this.user.country,
+                    phoneNumber : this.user.phone,
             })
-            .then(function (response) {           
-                    this.$router.push('myPatients');
-                    console.log(response);
-                })
+            .then( () => {
+                     this.$http         
+                        .post('auth/login',{
+                            email : this.user.email,
+                            password : this.user.password
+                        })
+                    .then( (response) => {
+                        this.toast()                                                   
+                        this.$store.commit('setUserRole',response.data.role);
+                        this.$store.commit('setUserId',response.data.userId);
+                        this.$store.commit('setJWT',response.data.accessToken);
+                        this.$router.push('patient-profile');   
+                    }); 
+                })                    
                 .catch(function (error) {
                     if(error.response.status === 500) {
                     alert('Vec postoji korisnik sa unetim imejlom');               
                     }
-                });
-            }
+                });    
+            }     
+        },
+        toast(){
+            this.$bvToast.toast(`Uspešno ste se ulogovali!`, {
+                title: 'Uspešno!',
+                variant: 'success',
+                autoHideDelay: 5000
+            })
         },
         onReset(event) {
             event.preventDefault()

@@ -77,22 +77,22 @@ public class AuthenticationController {
 		
 		if(authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_PATIENT"))) {
-			userRole = UserRole.PATIENT;
+			userRole = UserRole.ROLE_PATIENT;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_SUPPLIER"))) {
-			userRole = UserRole.SUPPLIER;
+			userRole = UserRole.ROLE_SUPPLIER;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_PHARMACY_ADMIN"))) {
-			userRole = UserRole.ADMIN;
+			userRole = UserRole.ROLE_PHARMACY_ADMIN;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_SYSTEM_ADMIN"))) {
-			userRole = UserRole.SYSTEM_ADMIN;
+			userRole = UserRole.ROLE_SYSTEM_ADMIN;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_DERMATOLOGIST"))) {
-			userRole = UserRole.DERMATOLOGIST;
+			userRole = UserRole.ROLE_DERMATOLOGIST;
 		} else if (authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_PHARMACIST"))) {
-			userRole = UserRole.PHARMACIST;
+			userRole = UserRole.ROLE_PHARMACIST;
 		}
 		
 	
@@ -127,10 +127,10 @@ public class AuthenticationController {
 		}
 		User user = null;
 		switch(userRequest.getRole()) {
-			case SUPPLIER:
+			case ROLE_SUPPLIER:
 				user = this.pharmacyService.addSupplier(userRequest);
 				break;
-			case SYSTEM_ADMIN:
+			case ROLE_SYSTEM_ADMIN:
 				user = this.pharmacyService.addSystemAdministrator(userRequest);	
 				break;
 		}

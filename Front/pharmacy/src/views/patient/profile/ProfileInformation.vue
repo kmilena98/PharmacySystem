@@ -2,7 +2,7 @@
     <div class="patient-information">
         <b-row>
             <b-col cols="8">
-                <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+                <b-form>
                     <b-form-group id="name-group" label="Ime:" label-for="name-input" class="text-left">
                         <b-form-input
                             id="name-input"
@@ -15,17 +15,35 @@
                     <b-form-group id="surname-group" label="Prezime:" label-for="surname-input" class="text-left">
                         <b-form-input
                             id="surname-input"
-                            v-model="form. surname"
+                            v-model="form.surname"
                             placeholder="Unesite prezime"
                             required>
                         </b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="address-group" label="Adresa, grad, država:" label-for="address-input" class="text-left">
+                    <b-form-group id="address-group" label="Adresa:" label-for="address-input" class="text-left">
                         <b-form-input
                             id="address-input"
                             v-model="form.address"
-                            placeholder="Unesite adresu, grad, državu"
+                            placeholder="Unesite adresu"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group id="city-group" label="Grad:" label-for="city-input" class="text-left">
+                        <b-form-input
+                            id="city-input"
+                            v-model="form.city"
+                            placeholder="Unesite grad"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group id="country-group" label="Država:" label-for="country-input" class="text-left">
+                        <b-form-input
+                            id="country-input"
+                            v-model="form.country"
+                            placeholder="Unesite državu"
                             required>
                         </b-form-input>
                     </b-form-group>
@@ -33,17 +51,17 @@
                     <b-form-group id="phone-group" label="Broj telefona:" label-for="phone-input" class="text-left">
                         <b-form-input
                             id="phone-input"
-                            v-model="form.phone"
+                            v-model="form.phoneNumber"
                             placeholder="Unesite broj telefona"
                             required>
                         </b-form-input>
                     </b-form-group>
 
                     <div class="buttons text-left">                        
-                        <b-button type="submit" variant="success" class="mr-2">
+                        <b-button @click="onSubmit" variant="success" class="mr-2">
                             <b-icon-check></b-icon-check>
                             Izmeni informacije</b-button>
-                        <b-button type="reset" variant="danger">
+                        <b-button @click="onCancel" variant="danger">
                             <b-icon-x></b-icon-x>
                             Otkaži
                         </b-button>
@@ -62,35 +80,54 @@
 import ChangePasswordModal from './ChangePasswordModal.vue';
 
 export default {
+    props: ['user'],
     data() {
         return {
-            form: {
-                email: '',
-                name: '',
-                food: null,
-                checked: []
-            },
-            foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-            show: true
+            form: {},
+            backup: {}
         }
+    },
+    mounted(){
+
+        this.$http
+            .get('/patient/' + this.$store.getters.getUserId)
+            .then( res => {
+                console.log(res)
+                this.form = JSON.parse(JSON.stringify(res.data))
+                this.backup = JSON.parse(JSON.stringify(res.data))
+            })
+
     },
     methods: {
         onSubmit(event) {
             event.preventDefault()
-            alert(JSON.stringify(this.form))
+            this.$http
+                .put('/patient/', 
+                    {
+                        name: this.form.name, 
+                        surname: this.form.surname, 
+                        city: this.form.city, 
+                        address: this.form.address, 
+                        country: this.form.country, 
+                        phoneNumber: this.form.phoneNumber, 
+                    })
+                .then( res => {
+                    if(res.status == 200){
+                        this.toast()
+                    }
+                })
         },
-        onReset(event) {
-            event.preventDefault()
-            // Reset our form values
-            this.form.email = ''
-            this.form.name = ''
-            this.form.food = null
-            this.form.checked = []
-            // Trick to reset/clear native browser form validation state
-            this.show = false
-            this.$nextTick(() => {
-                this.show = true
+        toast(){
+            this.$bvToast.toast(`Uspešno ste izmeni svoje informacije!`, {
+                title: 'Uspešno!',
+                variant: 'success',
+                autoHideDelay: 5000
             })
+            scroll(0,0)
+        },
+        onCancel(event) {
+            event.preventDefault()
+            this.form = JSON.parse(JSON.stringify(this.backup))
         }
     },
     components:{

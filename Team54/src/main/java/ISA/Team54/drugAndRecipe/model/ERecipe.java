@@ -14,24 +14,62 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import ISA.Team54.users.model.Patient;
 
 @Entity
 public class ERecipe {
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private int id;
-	 
-	 @Column(unique = false,nullable = true)
-	 private LocalDateTime dateOfIssue;
-	 
-	 @ManyToMany
-	 @JoinTable(name = "drugsInERecipe",joinColumns= @JoinColumn(name = "erecipe_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "drug_id",referencedColumnName= "id"))
-	 public List<Drug> drugs = new ArrayList<Drug>();
-	 
-	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	 private Patient patient; 
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(unique = false, nullable = true)
+	private LocalDateTime dateOfIssue;
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
+	@JoinTable(name = "drugsInERecipe", joinColumns = @JoinColumn(name = "erecipe_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
+	public List<Drug> drugs = new ArrayList<Drug>();
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Patient patient;
+
+	public ERecipe() {
+		super();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getDateOfIssue() {
+		return dateOfIssue;
+	}
+
+	public void setDateOfIssue(LocalDateTime dateOfIssue) {
+		this.dateOfIssue = dateOfIssue;
+	}
+
+	public List<Drug> getDrugs() {
+		return drugs;
+	}
+
+	public void setDrugs(List<Drug> drugs) {
+		this.drugs = drugs;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 
 }
