@@ -1,23 +1,24 @@
 package ISA.Team54.Examination.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class DefinedExaminationDTO {
-	private LocalDateTime examinationStart;
+	private Date examinationStart;
 	private int price;
 	public DefinedExaminationDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DefinedExaminationDTO(LocalDateTime examinationStart, int price) {
+	public DefinedExaminationDTO(Date examinationStart, int price) {
 		super();
 		this.examinationStart = examinationStart;
 		this.price = price;
 	}
-	public LocalDateTime getExaminationStart() {
+	public Date getExaminationStart() {
 		return examinationStart;
 	}
-	public void setExaminationStart(LocalDateTime examinationStart) {
+	public void setExaminationStart(Date examinationStart) {
 		this.examinationStart = examinationStart;
 	}
 	public int getPrice() {

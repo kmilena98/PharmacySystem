@@ -1,12 +1,13 @@
 package ISA.Team54.Examination.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ExaminationDTO {
-	int id;
+	long id;
 	String dermatologistName;
 	String dermatologistSurname;
-	LocalDateTime examinationStart;
+	Date examinationStart;
 	
 	
 	public ExaminationDTO() {
@@ -14,7 +15,7 @@ public class ExaminationDTO {
 	}
 
 
-	public ExaminationDTO(int id,String dermatologistName, String dermatologistSurname, LocalDateTime examinationStart) {
+	public ExaminationDTO(long id,String dermatologistName, String dermatologistSurname, Date examinationStart) {
 		super();
 		this.id = id;
 		this.dermatologistName = dermatologistName;
@@ -25,12 +26,12 @@ public class ExaminationDTO {
 
 	
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -55,12 +56,12 @@ public class ExaminationDTO {
 	}
 
 
-	public LocalDateTime getExaminationStart() {
+	public Date getExaminationStart() {
 		return examinationStart;
 	}
 
 
-	public void setExaminationStart(LocalDateTime examinationStart) {
+	public void setExaminationStart(Date examinationStart) {
 		this.examinationStart = examinationStart;
 	}
 	

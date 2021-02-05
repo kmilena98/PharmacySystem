@@ -3,11 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationStatus;
 import ISA.Team54.Examination.enums.ExaminationType;
+import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.repository.ExaminationRepository;
 import ISA.Team54.Examination.service.interfaces.ExaminationService;
@@ -15,10 +19,11 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
+import ISA.Team54.rating.model.Rating;
+import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.repository.PatientRepository;
-
-
+import ISA.Team54.users.repository.UserRepository;
 
 @Service
 public class ExaminationServiceImpl implements ExaminationService{
@@ -30,8 +35,10 @@ public class ExaminationServiceImpl implements ExaminationService{
 	private DrugRepository drugRepository;
 	@Autowired
 	private DrugService drugService;
+	@Autowired
+	private UserRepository userRepository;
 	@Override
-	public Examination getCurrentExaminationByDermatologistId(int dermatologistId) {
+	public Examination getCurrentExaminationByDermatologistId(Long dermatologistId) {
 		//,ExaminationStatus.Unfille nedostaje deo sa statusom 
 		List<Examination> dermatologistExaminations = examinationRepository.findByEmplyeedIdAndStatus(dermatologistId, ExaminationStatus.Filled);
 		if(dermatologistExaminations.size()<=0) {
@@ -39,7 +46,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 		}
 		Examination soonestExamination = dermatologistExaminations.get(0);
 		for(Examination examination : dermatologistExaminations) {
-			if(examination.getTerm().getStart().isBefore( soonestExamination.getTerm().getStart())) {
+			if(examination.getTerm().getStart().before( soonestExamination.getTerm().getStart())) {
 				soonestExamination = examination;	
 			}			
 		}
@@ -70,7 +77,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	}
 
 	@Override
-	public List<Examination> getAllExaminationsForDermatologist(int id) {
+	public List<Examination> getAllExaminationsForDermatologist(Long id) {
 		List<Examination> examinations = new ArrayList<Examination>();
 		for(Examination e : examinationRepository.findByEmplyeedIdAndStatus(id,ExaminationStatus.Filled)) {
 			Patient p = e.getPatient();
@@ -89,6 +96,38 @@ public class ExaminationServiceImpl implements ExaminationService{
 			}
 		}
 		return definedExaminations;
+	}
+	@Override
+	public List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id) {		
+		List<Examination> examinations = examinationRepository.getExaminationsForPharmacy(id, ExaminationType.DermatologistExamination, ExaminationStatus.Unfilled);
+		List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
+		List<Rating> ratings = new ArrayList<Rating>();
+		examinations.forEach(
+				e -> 
+				dermatologists.add((Dermatologist) userRepository.findById(e.getEmplyeedId()).orElse(null))
+				);
+		
+		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
+		ExaminationMapper mapper = new ExaminationMapper();
+		for(int i = 0; i < examinations.size(); i++) {
+			examinationDTOs.add(mapper.ExaminationToDermatologistExaminationDTO(examinations.get(i), dermatologists.get(i)));
+		}
+		
+		return examinationDTOs;
+	}
+
+
+	@Override
+	public void scheduleExamination(long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+		Examination examination = examinationRepository.findById(id).orElse(null);
+		if(examination != null) {
+			examination.setStatus(ExaminationStatus.Filled);
+			examination.setPatient(patient);
+			
+			examinationRepository.save(examination);
+		}				
 	}
 	
 }

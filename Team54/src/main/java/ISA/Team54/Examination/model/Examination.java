@@ -7,55 +7,67 @@ import javax.persistence.*;
 
 import ISA.Team54.Examination.enums.ExaminationStatus;
 import ISA.Team54.Examination.enums.ExaminationType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.Pharmacy;
 
 @Entity
 public class Examination {
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private int id;
-	 
-	 @Column(unique = false,nullable = true)
-	 private String diagnose;
-	 
-	 @Column(unique = false,nullable = false)
-	 private int price; 
-	 
-	 //duration in minutes
-	 @Column(unique = false,nullable = true)
-	 private int therapyDuration;
-	 
-	 @Enumerated(EnumType.STRING)
-	 private ExaminationType type;
-	 
-	 @Enumerated(EnumType.STRING)
-	 private ExaminationStatus status;
-	 
-	 @Column(unique = false,nullable = false)
-	 private int emplyeedId; 
-	 
-	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)	
-	 private Patient patient;
-	 
-	 @Embedded
-	 private Term term;
-	 
-	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
-	 private Pharmacy pharmacy;
-	 
-	 // da li ce trebati nova tabela ovde za kolicinu? --proveritiii
-	 @ManyToMany
-	 @JoinTable(name = "drugsInExamination",joinColumns= @JoinColumn(name = "examination_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "drug_id",referencedColumnName= "id"))
-	 public List<Drug> drugs = new ArrayList<Drug>();
 
-	public int getId() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@Column(unique = false, nullable = true)
+	private String diagnose;
+
+	@Column(unique = false, nullable = false)
+	private int price;
+
+	@Column(unique = false, nullable = true)
+	private Integer therapyDuration;
+
+	@Enumerated(EnumType.STRING)
+	private ExaminationType type;
+
+	@Enumerated(EnumType.STRING)
+	private ExaminationStatus status;
+
+	@Column(unique = false, nullable = false)
+	private long emplyeedId;
+
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Patient patient;
+
+	@Embedded
+	private Term term;
+
+	@JsonBackReference	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Pharmacy pharmacy;
+
+	// da li ce trebati nova tabela ovde za kolicinu? --proveritiii
+	@ManyToMany
+	@JoinTable(name = "drugsInExamination", joinColumns = @JoinColumn(name = "examination_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
+	public List<Drug> drugs;
+	
+
+	public Examination() {
+		super();
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(long id) {      
+		this.id = id;  
 	}
 
 	public String getDiagnose() {
@@ -74,7 +86,9 @@ public class Examination {
 		this.price = price;
 	}
 
-	
+	public void setTherapyDuration(Integer therapyDuration) {
+		this.therapyDuration = therapyDuration;
+	}
 
 	public ExaminationType getType() {
 		return type;
@@ -92,11 +106,12 @@ public class Examination {
 		this.status = status;
 	}
 
-	public int getEmplyeedId() {
+	public long getEmplyeedId() {
 		return emplyeedId;
 	}
 
-	public void setEmplyeedId(int emplyeedId) {
+	public void setEmplyeedId(long emplyeedId) {
+
 		this.emplyeedId = emplyeedId;
 	}
 
@@ -132,13 +147,4 @@ public class Examination {
 		this.drugs = drugs;
 	}
 
-	public int getTherapyDuration() {
-		return therapyDuration;
-	}
-
-	public void setTherapyDuration(int therapyDuration) {
-		this.therapyDuration = therapyDuration;
-	}
-	 
-	 
 }

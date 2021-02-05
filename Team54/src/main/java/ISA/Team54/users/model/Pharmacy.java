@@ -2,6 +2,7 @@ package ISA.Team54.users.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,9 +16,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.drugAndRecipe.model.DrugInPharmacy;
 import ISA.Team54.promotion.model.Promotion;
+import ISA.Team54.rating.model.Rating;
 
 @Entity
 public class Pharmacy {
@@ -30,12 +34,9 @@ public class Pharmacy {
 	@Column(unique = false, nullable = false)
 	private String address;
 	@Column(unique = false, nullable = true)
-	private String description;
-
-	public Pharmacy() {
-		super();
-	}
+	private String description;	
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<PharmacyAdministrator> pharmacyAdministrators;
 	
@@ -52,15 +53,25 @@ public class Pharmacy {
 	@JoinTable(name = "prescriptedPatientsToPharmacies", joinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id"))
 	public List<Patient> subscribedPatients = new ArrayList<Patient>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "dermatologistsInPharmacy", joinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id"))
-	public List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
+	public List<Dermatologist> dermatologists;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public List<Pharmacist> pharmacists = new ArrayList<Pharmacist>();
+	public List<Pharmacist> pharmacists;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Examination> examinations = new ArrayList<Examination>();
+	private List<Examination> examinations;
+	
+	@JsonManagedReference	
+	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Rating> ratings;
+	
+	public Pharmacy() {
+		super();
+	}
 
 	public Pharmacy(long id, String name, String address, String description,
 			List<PharmacyAdministrator> pharmacyAdministrators, List<Promotion> promotion,
@@ -159,6 +170,20 @@ public class Pharmacy {
 
 	public void setExaminations(List<Examination> examinations) {
 		this.examinations = examinations;
+	}
+	
+	public double getRatings() {
+		double rating = 0;
+		int count = 0;
+		for (Rating r : ratings) {
+			rating += r.getRating();
+			count++;
+		}
+		return count != 0 ? (double)rating/count : 0;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 	
 	

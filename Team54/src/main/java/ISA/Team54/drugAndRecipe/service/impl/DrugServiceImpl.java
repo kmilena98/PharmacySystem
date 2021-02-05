@@ -74,8 +74,8 @@ public class DrugServiceImpl implements DrugService {
 		return false;
 	}
 	
-	public IsAvalableDrugDTO findOrFindSubstitute(int drugId, int examinationId) {
-		Examination examination = examinationRepository.findById(examinationId);
+	public IsAvalableDrugDTO findOrFindSubstitute(long drugId, long examinationId) {
+		Examination examination = examinationRepository.findOneById(examinationId);
 		Patient patient = examination.getPatient();
 		IsAvalableDrugDTO availableDTO = new IsAvalableDrugDTO();
 		boolean isAvailable = isDrugAvailable((long)drugId,examination);

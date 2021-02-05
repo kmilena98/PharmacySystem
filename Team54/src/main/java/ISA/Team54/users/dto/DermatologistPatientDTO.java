@@ -1,32 +1,27 @@
 package ISA.Team54.users.dto;
 
 import java.time.LocalDateTime;
-
-import ISA.Team54.Examination.model.Term;
-
-import ISA.Team54.Examination.model.Term;
-
-import ISA.Team54.Examination.model.Term;
+import java.util.Date;
 
 public class DermatologistPatientDTO extends PatientDTO {
-	private LocalDateTime term;
+	private Date term;
 
 	public DermatologistPatientDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DermatologistPatientDTO(int id,String name, String surname,LocalDateTime term) {
+	public DermatologistPatientDTO(int id,String name, String surname,Date term) {
 		super(id, name, surname);
 		this.term = term;
 		// TODO Auto-generated constructor stub
 	}
 
-	public LocalDateTime getTerm() {
+	public Date getTerm() {
 		return term;
 	}
 
-	public void setTerm(LocalDateTime term) {
+	public void setTerm(Date term) {
 		this.term = term;
 	}
 	

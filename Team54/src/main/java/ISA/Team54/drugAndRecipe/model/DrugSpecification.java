@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,9 +33,13 @@ public class DrugSpecification {
 	@ManyToMany
 	@JoinTable(name = "ingredientInDrugSpecification",joinColumns= @JoinColumn(name = "drugSpecification_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "ingredient_id",referencedColumnName= "id"))	
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
 	
 	@Column(unique = false,nullable = false)
 	private String suggestedDose;	
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private Drug drug;
 	
 	public DrugSpecification() {
 		super();
@@ -78,11 +84,9 @@ public class DrugSpecification {
 		this.contraindications = contraindications;
 	}
 
-
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
-
 
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;

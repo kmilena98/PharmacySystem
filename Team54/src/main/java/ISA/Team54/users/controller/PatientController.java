@@ -57,7 +57,7 @@ public class PatientController {
 	// pacients that were examinated by dermatologist / dermatologistID
 	@GetMapping("examinatedPatients/{dermatologistId}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public List<DermatologistPatientDTO> loadBySurnameAndName(@PathVariable int dermatologistId){
+	public List<DermatologistPatientDTO> loadBySurnameAndName(@PathVariable Long dermatologistId){
 		List<DermatologistPatientDTO> dermatologistPatientsDTO = new ArrayList<DermatologistPatientDTO>();
 		List<Examination> dermatologistExaminations = examinationSerivce.getAllExaminationsForDermatologist(dermatologistId);
 		if(dermatologistExaminations != null) {

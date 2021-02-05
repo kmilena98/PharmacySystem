@@ -39,14 +39,14 @@ public class DrugController {
 	
 	@GetMapping("/isAvailableInPharmacy/{drugId}/{examinationId}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public IsAvalableDrugDTO isAvailable(@PathVariable int drugId,@PathVariable int examinationId){
+	public IsAvalableDrugDTO isAvailable(@PathVariable Long drugId,@PathVariable Long examinationId){
 		return drugService.findOrFindSubstitute(drugId,examinationId);
 	}
 	
 	@GetMapping("/drugSpecification/{drugId}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public DrugSpecificationDTO getDrugSpecification(@PathVariable int drugId){
-		DrugSpecification drugSpecification = drugService.getSpecificationForDrug((long) drugId);
+	public DrugSpecificationDTO getDrugSpecification(@PathVariable Long drugId){
+		DrugSpecification drugSpecification = drugService.getSpecificationForDrug(drugId);
 		return new DrugSpecificationMapper().DrugSpecificationIntoDrugSpecificationDTO(drugSpecification);
 	}
 }

@@ -35,6 +35,7 @@ public class Drug {
 	@ManyToMany(mappedBy="drugs")
 	private Set<ERecipe> erecipes;
 	
+
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private DrugSpecification drugSpecification;
 	

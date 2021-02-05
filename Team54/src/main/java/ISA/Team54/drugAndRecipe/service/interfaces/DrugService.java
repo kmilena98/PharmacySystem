@@ -10,7 +10,7 @@ import ISA.Team54.drugAndRecipe.model.DrugSpecification;
 public interface DrugService {
 	public List<Drug> getDrugsForPatient(Long id);
 	boolean isDrugAvailable(Long drugId, Examination examination);
-	IsAvalableDrugDTO findOrFindSubstitute(int drugId,int examinationId);
+	IsAvalableDrugDTO findOrFindSubstitute(long drugId,long examinationId);
 	void reduceDrugQuantityInPharmacy(long drugId, int pharmacyId,int quantity);
 	DrugSpecification getSpecificationForDrug(Long drugId);
 	List<Drug> getAllDrugs();
