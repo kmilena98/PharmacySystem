@@ -7,6 +7,7 @@
             <SupplierHeader v-if="userRole == 'ROLE_SUPPLIER'" />
             <PatientHeader v-else-if="userRole == 'ROLE_PATIENT'" />
             <UnregisteredHeader v-else-if="userRole == 'ROLE_UNREGISTERED'" />
+            <SystemAdminHeader v-else-if="userRole == 'ROLE_SYSTEM_ADMIN'" />
         </div>
     </nav>
 </template>
@@ -15,6 +16,7 @@
 import PatientHeader from "@/views/header/PatientHeader.vue";
 import SupplierHeader from "@/views/header/SupplierHeader.vue";
 import UnregisteredHeader from "@/views/header/UnregisteredHeader.vue";
+import SystemAdminHeader from "@/views/header/SystemAdminHeader.vue";
 
 export default {
     data: function() {
@@ -25,7 +27,9 @@ export default {
 	components: {
         PatientHeader,
         SupplierHeader,
-        UnregisteredHeader
+        UnregisteredHeader,
+        SystemAdminHeader
+
     },
     mounted(){
         this.userRole = this.$store.getters.getUserRole;

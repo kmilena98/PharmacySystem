@@ -51,7 +51,14 @@ const routes = [
     name: "DermatologisExaminations",
     component: () =>
       import("../views/pharmacy/DermatologistExaminations.vue")
-  }
+  },
+  {
+    path: "/systemAdmin-profile",
+    name: "SystemAdmin Profile",
+    component: () =>
+      import("../views/systemAdmin/profile/HomePage.vue")
+  },
+  
 ];
 
 const router = new VueRouter({
