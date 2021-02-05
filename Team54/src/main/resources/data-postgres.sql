@@ -37,24 +37,24 @@ values (4,'Trg Slobode 4','Subotica','Srbija','petar@gmail.com','Petar','$2y$10$
 		
 		
 /* filip@gmail.com, filip */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
-values (5,'Bulevar Mihajla Pupina 2','Beograd','Srbija','filip@gmail.com','Filip','$2y$10$Y8ssB0gdD8hGqvTmAeh6n.ZD7lpKoQkNYlKzUJrCCsjsTy73tGVJS',
-		'061985622','Filipovic', 120, 1,true);
+insert into patient(id,address, city, confirmed, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+values (5,'Bulevar Mihajla Pupina 2','Beograd', true,'Srbija','filip@gmail.com','Filip','$2y$10$Y8ssB0gdD8hGqvTmAeh6n.ZD7lpKoQkNYlKzUJrCCsjsTy73tGVJS',
+		'061985622','Filipovic', 120, 1);
 		
 /* mihajlo@gmail.com, mihajlo */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
-values (6,'Ruzveltova 34','Beograd','Srbija','mihajlo@gmail.com','Mihajlo','$2y$10$RsVLRg9b4gIw8IegArZGi.FGP3IkbG8/97D/TyYjSyslbEDSIzq2.',
-		'01147884','Mihajlovic', 10, 0,true);
+insert into patient(id,address, city, confirmed, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+values (6,'Ruzveltova 34','Beograd', true,'Srbija','mihajlo@gmail.com','Mihajlo','$2y$10$RsVLRg9b4gIw8IegArZGi.FGP3IkbG8/97D/TyYjSyslbEDSIzq2.',
+		'01147884','Mihajlovic', 10, 0);
 		
 /* ana@gmail.com, ana */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
-values (7,'Bulevar Oslobodjenja 56','Novi Sad','Srbija','ana@gmail.com','Ana','$2y$10$Ot3AbKBsBoZSRign2IFkI.vuY6iuUbKxGhtWJY39D9oH6OGJWbUFq',
-		'061985622','Anic', 0, 0,true);
+insert into patient(id,address, city, confirmed, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+values (7,'Bulevar Oslobodjenja 56','Novi Sad', true,'Srbija','ana@gmail.com','Ana','$2y$10$Ot3AbKBsBoZSRign2IFkI.vuY6iuUbKxGhtWJY39D9oH6OGJWbUFq',
+		'061985622','Anic', 0, 0);
 		
 /* kristina@gmail.com, kristina */
-insert into patient(id,address, city, country, email, name, password, phone_number, surname, loyalty_points, penalty_points,confirmed) 
-values (8,'Somborski bulevar 97','Zajecar','Srbija','kristina@gmail.com','Kristina','$2y$10$IZLi/JPnH2LrQ9TxyVVhZOpLCY.Z3ZJGp1szResXjLUOFCTb/4vum',
-		'061985622','Krstic', 27, 0,true);
+insert into patient(id,address, city, confirmed, country, email, name, password, phone_number, surname, loyalty_points, penalty_points) 
+values (8,'Somborski bulevar 97','Zajecar', true,'Srbija','kristina@gmail.com','Kristina','$2y$10$IZLi/JPnH2LrQ9TxyVVhZOpLCY.Z3ZJGp1szResXjLUOFCTb/4vum',
+		'061985622','Krstic', 27, 0);
 
 
 
@@ -89,13 +89,13 @@ values (18,'Ruzveltova 21','Zrenjanin','Srbija','mihajlo@gmail.com','Ivica','$2y
 /* --- SYSTEM_ADMINISTRATORS --- */
 		
 /* dejan@gmail.com, deki */
-insert into system_administrator(id,address, city, country, email, name, password, phone_number, surname) 
-values (11,'Bulevar Oslobodjenja 9','Novi Sad','Srbija','dejan@gmail.com','Dejan','$2y$10$c.hDMq1zCr96WdxerDedN.LwjiWQHUB/1nrpP6XGfLY.gninxZUqG',
+insert into system_administrator(id,address, city, confirmed, country, email, name, password, phone_number, surname) 
+values (11,'Bulevar Oslobodjenja 9','Novi Sad', true, 'Srbija','dejan@gmail.com','Dejan','$2y$10$c.hDMq1zCr96WdxerDedN.LwjiWQHUB/1nrpP6XGfLY.gninxZUqG',
 		'061385622','Nedeljkovic');
 		
 /* nemanja@gmail.com, neca */
-insert into system_administrator(id,address, city, country, email, name, password, phone_number, surname) 
-values (12,'Somborski bulevar 97','Zvornik','Srbija','nemanja@gmail.com','Nemanja','$2y$10$bRNOF2hrIy9CROZ8ZHcreumOotmoKt6JCxgb3PoigVz0p.VxATlBC',
+insert into system_administrator(id,address, city, confirmed,country, email, name, password, phone_number, surname) 
+values (12,'Somborski bulevar 97','Zvornik', true,'Srbija','nemanja@gmail.com','Nemanja','$2y$10$bRNOF2hrIy9CROZ8ZHcreumOotmoKt6JCxgb3PoigVz0p.VxATlBC',
 		'061981622','Jevtic');
 
 /* --- PHARMACY_ADMINISTRATORS --- */
@@ -114,18 +114,18 @@ values (14,'Somborski bulevar 90','Zrenjanin','Srbija','denis@gmail.com','Denis'
 /* --- SUPPLIER --- */
 		
 /* jovan@gmail.com, jovan */
-insert into supplier(id,address, city, country, email, name, password, phone_number, surname) 
-values (15,'Balzakova 2','Novi Sad','Srbija','jovan@gmail.com','Jovan','$2y$10$GnY077C6faJvHeE8nfEr.e3rFBxQfaY7mz62ChyKiRp/Nchpglw4m',
+insert into supplier(id,address, city, confirmed, country, email, name, password, phone_number, surname) 
+values (15,'Balzakova 2','Novi Sad', true,'Srbija','jovan@gmail.com','Jovan','$2y$10$GnY077C6faJvHeE8nfEr.e3rFBxQfaY7mz62ChyKiRp/Nchpglw4m',
 		'061385600','Cvijovic');
 		
 /* danijel@gmail.com, danijel */
-insert into supplier(id,address, city, country, email, name, password, phone_number, surname) 
-values (16,'Somborski bulevar 91','Zrenjanin','Srbija','danijel@gmail.com','Danijel','$2y$10$tmCL0qXq3J797yMJtd9xmuaaeOVYolsFPZfSPbhm/1rcoJL7DMDZO',
+insert into supplier(id,address, city,confirmed, country, email, name, password, phone_number, surname) 
+values (16,'Somborski bulevar 91','Zrenjanin', true,'Srbija','danijel@gmail.com','Danijel','$2y$10$tmCL0qXq3J797yMJtd9xmuaaeOVYolsFPZfSPbhm/1rcoJL7DMDZO',
 		'062981622','Novakovic');
 		
 /* natasa@gmail.com, nata */
-insert into supplier(id,address, city, country, email, name, password, phone_number, surname) 
-values (19,'Somborski bulevar 99','Zrenjanin','Srbija','natasa@gmail.com','Natasa','$2y$10$SDsigowv761RRb9KIuiYwedVzSWvI05uIiR1o7MTp9QcaXS3fgS/.',
+insert into supplier(id,address, city, confirmed, country, email, name, password, phone_number, surname) 
+values (19,'Somborski bulevar 99','Zrenjanin', true,'Srbija','natasa@gmail.com','Natasa','$2y$10$SDsigowv761RRb9KIuiYwedVzSWvI05uIiR1o7MTp9QcaXS3fgS/.',
 		'062941622','Subotic');
 		
 insert into rating(id, rating, dermatologist_id, pharmacist_id, pharmacy_id)
