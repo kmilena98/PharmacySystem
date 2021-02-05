@@ -1,0 +1,15 @@
+<template>    
+    <ul class="nav navbar-nav">
+        <li class="nav-item active"><a href="#" class="nav-link">Pregled apoteka</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Pregled lekova</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Moji pregledi</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Moji eRecepti</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Moji lekovi</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Pretplaćene apoteke</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Žalbe</a></li>
+        <b-nav-item-dropdown text="Mirko Mirković" right>
+          <b-dropdown-item href="#"><router-link to="/patient-profile">Moj profil</router-link></b-dropdown-item>
+          <b-dropdown-item href="#">Odjava</b-dropdown-item>
+        </b-nav-item-dropdown>
+    </ul>
+</template>

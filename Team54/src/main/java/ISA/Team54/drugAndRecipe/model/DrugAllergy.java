@@ -3,25 +3,35 @@ package ISA.Team54.drugAndRecipe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import ISA.Team54.users.model.Patient;
 
-@Entity
+
 public class DrugAllergy {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToOne()
-	private Drug drugs;
+	@OneToOne(fetch = FetchType.LAZY)
+	private Drug drug;	
 	
-	@OneToOne()
+	@OneToOne(fetch = FetchType.LAZY)
 	private Patient patient;
 
 	public DrugAllergy() {
@@ -31,7 +41,7 @@ public class DrugAllergy {
 	public DrugAllergy(long id, Drug drugs, Patient patient) {
 		super();
 		this.id = id;
-		this.drugs = drugs;
+		this.drug = drugs;
 		this.patient = patient;
 	}
 
@@ -43,12 +53,12 @@ public class DrugAllergy {
 		this.id = id;
 	}
 
-	public Drug getDrugs() {
-		return drugs;
+	public Drug getDrug() {
+		return drug;
 	}
 
-	public void setDrugs(Drug drugs) {
-		this.drugs = drugs;
+	public void setDrug(Drug drug) {
+		this.drug = drug;
 	}
 
 	public Patient getPatient() {
@@ -58,6 +68,10 @@ public class DrugAllergy {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+
+	
+	
+	
 	
 	
 }

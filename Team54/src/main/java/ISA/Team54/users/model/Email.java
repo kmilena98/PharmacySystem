@@ -2,25 +2,15 @@ package ISA.Team54.users.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-
-import ISA.Team54.exceptions.ValidationExeption;
-@Entity
+@Embeddable
 public class Email {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	
-	@OneToOne(mappedBy = "email",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private User user;
-	
-	@Column(unique = false,nullable = true)
 	private String email;
 
 	public Email(String email) {
@@ -28,7 +18,7 @@ public class Email {
 		this.email = email;
 		Validate();
 	}
-	
+
 	private boolean Validate() {
 		/*try {
 			if(email == null) {
@@ -40,6 +30,15 @@ public class Email {
 			
 		}		 */		
 		return true;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

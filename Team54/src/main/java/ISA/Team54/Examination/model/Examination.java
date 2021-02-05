@@ -3,18 +3,7 @@ package ISA.Team54.Examination.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import ISA.Team54.Examination.model.enums.ExaminationStatus;
 import ISA.Team54.Examination.model.enums.ExaminationType;
@@ -32,22 +21,22 @@ public class Examination {
 	 private String diagnose;
 	 
 	 @Column(unique = false,nullable = false)
-	 private int price;
+	 private int price; 
 	 
 	 //duration in minutes
-	 @Column(unique = false,nullable = false)
+	 @Column(unique = false,nullable = true)
 	 private int therapyDuration;
 	 
-	 @Column(unique = false,nullable = false)
+	 @Enumerated(EnumType.STRING)
 	 private ExaminationType type;
 	 
-	 @Column(unique = false,nullable = false)
+	 @Enumerated(EnumType.STRING)
 	 private ExaminationStatus status;
 	 
 	 @Column(unique = false,nullable = false)
 	 private int emplyeedId; 
 	 
-	 @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
+	 @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)	
 	 private Patient patient;
 	 
 	 @Embedded
