@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.model.Examination;
-import ISA.Team54.Examination.services.ExaminationService;
+import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.users.dto.PharmacyDTO;
 import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.PharmacyService;

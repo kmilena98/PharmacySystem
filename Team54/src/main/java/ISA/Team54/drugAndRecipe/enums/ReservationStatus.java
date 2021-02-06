@@ -1,4 +1,4 @@
-package ISA.Team54.drugAndRecipe.model.enums;
+package ISA.Team54.drugAndRecipe.enums;
 
 public enum ReservationStatus {
 	Reserved,

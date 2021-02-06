@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -33,15 +35,37 @@ public class Drug {
 	@ManyToMany(mappedBy="drugs")
 	private Set<ERecipe> erecipes;
 	
-	@OneToOne(mappedBy="drug",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private DrugSpecification drugSpecification;
+	
+	@ManyToMany
+	@JoinTable(name="substituteDrugs",
+	 joinColumns=@JoinColumn(name="mainDrugId"),
+	 inverseJoinColumns=@JoinColumn(name="substituteDrugId")
+	)
+	private List<Drug> mainDrugs;
+
+	@ManyToMany
+	@JoinTable(name="substituteDrugs",
+	 joinColumns=@JoinColumn(name="substituteDrugId"),
+	 inverseJoinColumns=@JoinColumn(name="mainDrugId")
+	)
+	private List<Drug> substituteDrugs;
 	
 	public Drug() {
 		super();
 	}
 
+	public Drug(long id, String name, String code, int loyalityPoints) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.loyalityPoints = loyalityPoints;
+	}
 	public long getId() {
-		return id;
+		return  id;
 	}
 
 	public void setId(long id) {
@@ -95,4 +119,23 @@ public class Drug {
 	public void setDrugSpecification(DrugSpecification drugSpecification) {
 		this.drugSpecification = drugSpecification;
 	}
+
+	public List<Drug> getMainDrugs() {
+		return mainDrugs;
+	}
+
+	public void setMainDrugs(List<Drug> mainDrugs) {
+		this.mainDrugs = mainDrugs;
+	}
+
+	public List<Drug> getSubstituteDrugs() {
+		return substituteDrugs;
+	}
+
+	public void setSubstituteDrugs(List<Drug> substituteDrugs) {
+		this.substituteDrugs = substituteDrugs;
+	}
+
+	
+	
 }

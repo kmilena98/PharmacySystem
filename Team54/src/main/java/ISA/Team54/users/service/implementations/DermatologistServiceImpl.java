@@ -1,5 +1,4 @@
 package ISA.Team54.users.service.implementations;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +18,10 @@ public class DermatologistServiceImpl implements DermatologistService {
 	public List<Dermatologist> findAll() {
 		return this.dermatologistRepository.findAll();
 	}
+
+	@Override
+	public Dermatologist findOneById(Long id) {
+		return dermatologistRepository.findOneById(id);
+	}	
 
 }

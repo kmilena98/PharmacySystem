@@ -57,8 +57,6 @@ values (8,'Somborski bulevar 97','Zajecar', true,'Srbija','kristina@gmail.com','
 		'061985622','Krstic', 27, 0);
 
 
-
-/* --- PHARMACIES --- */
 insert into pharmacy(id, address, description, name) values (1,'Narodnoog Fronta 12','gradska apoteka','Apoteka Novi Sad');
 insert into pharmacy(id, address, description, name) values (2,'Petra Kocica 3','gradska apoteka','Apoteka Sirmijum');
 
@@ -85,6 +83,7 @@ values (17,'Bulevar Mihajla Pupina 11','Zrenjanin','Srbija','mario@gmail.com','M
 insert into pharmacist(id,address, city, country, email, name, password, phone_number, surname, end_date,start_date,pharmacy_id) 
 values (18,'Ruzveltova 21','Zrenjanin','Srbija','mihajlo@gmail.com','Ivica','$2y$10$cavm.nwcllSXz6W8aPjtKuYrkafL9nSPaKDz45LVaHWmRMWJBZXp2',
 		'01147881','Novakov','2021-06-29','2021-01-21', 2);
+
 		
 /* --- SYSTEM_ADMINISTRATORS --- */
 		
@@ -127,6 +126,7 @@ values (16,'Somborski bulevar 91','Zrenjanin', true,'Srbija','danijel@gmail.com'
 insert into supplier(id,address, city, confirmed, country, email, name, password, phone_number, surname) 
 values (19,'Somborski bulevar 99','Zrenjanin', true,'Srbija','natasa@gmail.com','Natasa','$2y$10$SDsigowv761RRb9KIuiYwedVzSWvI05uIiR1o7MTp9QcaXS3fgS/.',
 		'062941622','Subotic');
+
 		
 insert into rating(id, rating, dermatologist_id, pharmacist_id, pharmacy_id)
 values (1, 4.7, 3, null,null);
@@ -167,14 +167,59 @@ insert into drug_specification(id, suggested_dose, drug_id) values (3, '1g', 3);
 insert into drug_specification(id, suggested_dose, drug_id) values (4, '10mg', 4);
 insert into drug_specification(id, suggested_dose, drug_id) values (5, '5mg', 5);
 
-insert into drug_allergies(drug_id, patient_id) values (1, 5);
-insert into drug_allergies(drug_id, patient_id) values (2, 5);
-insert into drug_allergies(drug_id, patient_id) values (3, 5);
-insert into drug_allergies(drug_id, patient_id) values (4, 6);
-insert into drug_allergies(drug_id, patient_id) values (4, 7);
+update drug set drug_specification_id = 1 where id = 1;
+update drug set drug_specification_id = 2 where id = 2;
+update drug set drug_specification_id = 3 where id = 3;
+update drug set drug_specification_id = 4 where id = 4;
+update drug set drug_specification_id = 5 where id = 5;
+
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(2,1);
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(3,1);
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(4,1);
+insert into substitute_drugs(substitute_drug_id,main_drug_id) values(5,2);
+
+insert into drug_allergies(drug_id, patient_id) values ( 1, 5);
+insert into drug_allergies(drug_id, patient_id) values ( 2, 5);
+insert into drug_allergies( drug_id, patient_id) values ( 3, 5);
+insert into drug_allergies(drug_id, patient_id) values ( 4, 6);
+insert into drug_allergies(drug_id, patient_id) values ( 4, 7);
+
+
+
+ /* -- INGREDIENTS --*/
+insert into ingredient values (1,'Amilorid');
+insert into ingredient values (2,'Hidrohortiazid');
+insert into ingredient values (3,'Escitaloparm');
+insert into ingredient values (4,'Vekluri');
+insert into ingredient values (5,'Ibuprofen');
+insert into ingredient values (6,'Piridoksin');
+insert into ingredient values (7,'Benfotiamni');
+/* -- INGREDIENTS IN DRUG SPECIFICATION --*/
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (1,1);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (1,2);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (1,3);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (2,4);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (2,5);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (4,1);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (3,2);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (3,3);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (5,4);
+insert into ingredient_in_drug_specification(drug_specification_id,ingredient_id) values (5,5);
+/* -- CONTRAINDICATIONS IN DRUG SPECIFICATION --*/
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (1,1);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (1,2);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (1,3);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (2,4);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (2,2);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (4,1);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (3,2);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (3,3);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (5,4);
+insert into contraindications_in_drug_specification(drug_specification_id,contraindication_id) values (5,3);
 
 insert into examination_loyalty_points(type, points) values ('DermatologistExamination', 15);
 insert into examination_loyalty_points(type, points) values ('PharmacistExamiantion', 10);
+
 
 insert into vacation_request( status, end_date, start_date, dermatologist_id, pharmacist_id) values ('Created','2021-09-11', '2021-08-21', 1, 9);
 insert into vacation_request( status, end_date, start_date, dermatologist_id, pharmacist_id) values ('Created','2021-10-15', '2021-09-26', 2, 10);
@@ -211,6 +256,7 @@ insert into orders( deadline, status, administrator_id) values ( '2021-05-08', '
 insert into orders( deadline, status, administrator_id) values ( '2021-01-22', 'Fulfilled', 14);
 insert into orders( deadline, status, administrator_id) values ( '2021-12-11', 'Fulfilled', 14);
 
+
 /*-- DERMATOLOGISTS IN PHARMACY --*/
 
 insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (1,1);
@@ -223,6 +269,7 @@ insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (2,3
 /*-- SCHEDULED EXAMINATIONS -DERMATOLOGIST  --*/
 
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
+
 values(null, 1, 1500, 'Filled', 30, '2021-06-01 12:00', -1, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 1, 1500, 'Filled', 30, '2021-06-07 12:00', -1, 'DermatologistExamination', 5, 1);
@@ -232,25 +279,30 @@ values(null, 1, 1500, 'Unfilled', 30, '2021-06-07 12:30', -1, 'DermatologistExam
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Ekcem', 1, 1400, 'Filled', 30, '2020-11-01 12:00', 7, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
+values(null, 1, 1500, 'Unfilled', 30, '2021-06-01 12:00', 30, 'DermatologistExamination', null, 1);
+insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Psorijaza', 1, 1400, 'Filled', 30, '2020-12-07 12:00', 5, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Osip', 1, 1500, 'Filled', 30, '2020-12-15 12:00', 10, 'DermatologistExamination', 6, 2);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 2, 1800, 'Filled', 30, '2021-06-01 12:00', -1, 'DermatologistExamination', 7, 1);
+
+values(null, 2, 1800, 'Filled', 30, '2021-06-01 12:00', 30, 'DermatologistExamination', 7, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 2, 1800, 'Filled', 30, '2021-06-01 14:30', -1, 'DermatologistExamination', 8, 2);
+values(null, 2, 1800, 'Filled', 30, '2021-06-01 14:30', 30, 'DermatologistExamination', 8, 2);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1800, 'Unfilled', 30, '2021-03-01 12:00', -1, 'DermatologistExamination', null, 2);
+values(null, 1, 1800, 'Unfilled', 30, '2021-03-01 12:00', 30, 'DermatologistExamination', null, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 3, 1400, 'Unfilled', 30, '2021-06-01 11:00', -1, 'DermatologistExamination', null, 1);
+values(null, 3, 1400, 'Unfilled', 30, '2021-06-01 11:00', 30, 'DermatologistExamination', null, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 3, 1400, 'Filled', 30, '2021-06-01 11:30', -1, 'DermatologistExamination', 5, 2);
+values(null, 3, 1400, 'Filled', 30, '2021-06-01 11:30', 30, 'DermatologistExamination', 5, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1750, 'Filled', 30, '2021-03-01 12:30', -1, 'DermatologistExamination', 6, 2);
+values(null, 1, 1750, 'Filled', 30, '2021-03-01 12:30', 30, 'DermatologistExamination', 6, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 4, 1750, 'Unfilled', 30, '2021-03-01 13:00', -1, 'DermatologistExamination', null, 1);
+values(null, 4, 1750, 'Unfilled', 30, '2021-03-01 13:00', 30, 'DermatologistExamination', null, 1);
+
+
 
 /*-- SCHEDULED EXAMINATIONS -PHARMACIST --*/
 
@@ -262,14 +314,14 @@ insert into examination(diagnose, emplyeed_id, price, status, duration, start, t
 values('Opis 3', 9, 1300, 'Filled', 30, '2020-07-21 09:00', 14, 'PharmacistExamination', 5, 1);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 9, 1300, 'Unfilled', 30, '2021-05-1 09:00', null, 'PharmacistExamination', null, 1);
+values(null, 9, 1300, 'Unfilled', 30, '2021-05-1 09:00', 30, 'PharmacistExamination', null, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', null, 'PharmacistExamination', null, 1);
+values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', 30, 'PharmacistExamination', null, 1);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 10, 1100, 'Unfilled', 30, '2021-05-1 10:30', null, 'PharmacistExamination', null, 2);
+values(null, 10, 1100, 'Unfilled', 30, '2021-05-1 10:30', 30, 'PharmacistExamination', null, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 18, 1200, 'Unfilled', 30, '2021-05-1 11:30', null, 'PharmacistExamination', null, 2);
+values(null, 18, 1200, 'Unfilled', 30, '2021-05-1 11:30', 30, 'PharmacistExamination', null, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Opis 4', 10, 1100, 'Filled', 30, '2020-11-18 10:30', 11, 'PharmacistExamination', 7, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
@@ -281,8 +333,6 @@ values('Opis 6', 10, 1250, 'Filled', 30, '2020-7-8 14:30', 3, 'PharmacistExamina
  
  	/* -- DRUG IN PHARMACY --*/
  /* drug_id, pharmacy_id, quantity, pricelist*/
-insert into drug_in_pharmacy values(1,1,20,null);
-insert into drug_in_pharmacy values(2,1,50,null);
 insert into drug_in_pharmacy values(3,1,30,null);
 insert into drug_in_pharmacy values(4,1,40,null);
 insert into drug_in_pharmacy values(5,1,10,null);
@@ -293,10 +343,7 @@ insert into drug_in_pharmacy values(5,2,80,null);
 
 
  	/* -- PRICELIST --*/
-insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (1, 1500,'2020-12-10 9:00','2021-12-01 9:00',1,1);
-insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
-values (2,1300,'2020-12-01 9:00','2021-12-01 9:00',2,1);
+
 insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
 values (3, 1400,'2020-12-01 9:00','2021-12-01 9:00',3,1);
 insert into pricelist(id, price,end_date,start_date,drug_in_pharmacy_drug_id, drug_in_pharmacy_pharmaci_id)
@@ -315,16 +362,12 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  
 	/* -- DRUG RESERVATION --*/
  
- insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-03-01 9:00',0,5,1,1);
-  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-04-01 13:00',1,6,2,1);
+
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-03-09 10:00',1,7,3,1);
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-02-06 11:00',2,5,4,1);
-  insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-02-25 17:00',0,6,1,1);
+
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-05-07 10:00',0,7,1,2);
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 

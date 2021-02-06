@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugAllergy;
-import ISA.Team54.drugAndRecipe.service.IDrugService;
+import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.dto.UserInfoDTO;
 import ISA.Team54.users.mappers.UserInfoMapper;
@@ -30,7 +31,7 @@ public class PatientServiceImpl implements PatientService {
 	private PatientRepository patientRepository;
 	
 	@Autowired
-	private IDrugService drugService;
+	private DrugService drugService;
 	
 	public List<User> findByName(String name) throws AccessDeniedException {
 		List<User> result = patientRepository.findByName(name);
@@ -67,6 +68,11 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public List<Patient> findAll() {
 		return patientRepository.findAll();
+	}
+
+	@Override
+	public Optional<Patient> findById(Long id) {
+		return patientRepository.findById(id);
 	}	
 	
 	public Patient findById(long id) {
