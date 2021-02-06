@@ -5,18 +5,20 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import ISA.Team54.Examination.enums.ExaminationStatus;
+import ISA.Team54.Examination.enums.ExaminationType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import ISA.Team54.Examination.model.enums.ExaminationStatus;
-import ISA.Team54.Examination.model.enums.ExaminationType;
+
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.Pharmacy;
 
 @Entity
 public class Examination {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -40,7 +42,7 @@ public class Examination {
 	private long emplyeedId;
 
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient patient;
 
 	@Embedded
@@ -84,11 +86,7 @@ public class Examination {
 		this.price = price;
 	}
 
-	public int getTherapyDuration() {
-		return therapyDuration;
-	}
-
-	public void setTherapyDuration(int therapyDuration) {
+	public void setTherapyDuration(Integer therapyDuration) {
 		this.therapyDuration = therapyDuration;
 	}
 
@@ -113,6 +111,7 @@ public class Examination {
 	}
 
 	public void setEmplyeedId(long emplyeedId) {
+
 		this.emplyeedId = emplyeedId;
 	}
 

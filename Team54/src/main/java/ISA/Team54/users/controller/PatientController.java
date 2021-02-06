@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ISA.Team54.Examination.model.Examination;
+import ISA.Team54.Examination.service.interfaces.ExaminationService;
+import ISA.Team54.users.dto.DermatologistPatientDTO;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
@@ -29,7 +32,8 @@ import ISA.Team54.users.service.interfaces.PatientService;
 public class PatientController {
 	@Autowired
 	private PatientService patientService;
-
+	@Autowired
+	private ExaminationService examinationSerivce;
 	
 	@GetMapping("patientBySurnameAndName/{surnameAndName}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
@@ -50,6 +54,18 @@ public class PatientController {
 		return patientsDTO;
 	}
 	
+	// pacients that were examinated by dermatologist / dermatologistID
+	@GetMapping("examinatedPatients/{dermatologistId}")
+	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<DermatologistPatientDTO> loadBySurnameAndName(@PathVariable Long dermatologistId){
+		List<DermatologistPatientDTO> dermatologistPatientsDTO = new ArrayList<DermatologistPatientDTO>();
+		List<Examination> dermatologistExaminations = examinationSerivce.getAllExaminationsForDermatologist(dermatologistId);
+		if(dermatologistExaminations != null) {
+			for(Examination examination : dermatologistExaminations) 
+				dermatologistPatientsDTO.add(new PatientMapper().PatientToDermatologistPatientDTO(examination,examination.getPatient()));
+		}		
+		return dermatologistPatientsDTO;
+	}
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('PATIENT')")
 	public Patient loadById(@PathVariable long id){
