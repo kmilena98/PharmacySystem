@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -146,6 +147,46 @@ public class ExaminationServiceImpl implements ExaminationService {
 
 			examinationRepository.save(examination);
 		}
+
+	}
+
+
+	@Override
+	public void cancelExamination(long id) throws Exception {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+		Examination examination = examinationRepository.findById(id).orElse(null);
+		if(examination != null) {
+			if(examination.getTerm().getStart().getTime() - new Date().getTime() > 24 * 60 * 60 * 1000) {
+				System.out.println(examination.getTerm().getStart().getTime());
+				System.out.println(new Date().getTime());
+				examination.setStatus(ExaminationStatus.Unfilled);
+				examination.setPatient(null);
+
+				examinationRepository.save(examination);
+			}else throw new ExaminationInvalidTimeLeft();
+		}else throw new Exception();
+	}
+
+
+	@Override
+	public List<DermatologistExaminationDTO> getFutureDermatologistExaminations() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+		List<Examination> examinations = examinationRepository.getFutureExaminations(patient.getId(), ExaminationType.DermatologistExamination, ExaminationStatus.Filled);
+		List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
+		examinations.forEach(
+				e ->
+						dermatologists.add((Dermatologist) userRepository.findById(e.getEmplyeedId()).orElse(null))
+		);
+
+		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
+		ExaminationMapper mapper = new ExaminationMapper();
+		for(int i = 0; i < examinations.size(); i++) {
+			examinationDTOs.add(mapper.ExaminationToDermatologistExaminationDTO(examinations.get(i), dermatologists.get(i)));
+		}
+
+		return examinationDTOs;
 	}
 
 	

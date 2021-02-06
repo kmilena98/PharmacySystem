@@ -41,7 +41,7 @@ public class Examination {
 	@Column(unique = false, nullable = false)
 	private long emplyeedId;
 
-	
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient patient;
 

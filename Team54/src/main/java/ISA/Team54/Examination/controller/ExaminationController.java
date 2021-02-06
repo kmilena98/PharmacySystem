@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
+import ISA.Team54.Examination.model.Examination;
+
 import ISA.Team54.Examination.dto.DefinedExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
@@ -35,9 +39,9 @@ import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.service.interfaces.DermatologistService;
 import ISA.Team54.users.service.interfaces.PatientService;
 
-@RestController
-@RequestMapping(value = "/examination", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ExaminationController { 
+@RestController 
+@RequestMapping(value="/examination",produces=MediaType.APPLICATION_JSON_VALUE)
+public class ExaminationController {
 	@Autowired
 	private ExaminationService examinationService;
 	@Autowired
@@ -46,60 +50,56 @@ public class ExaminationController {
 	private DrugService drugService;
 	@Autowired
 	private DermatologistService dermatologistSerivce;
-	
+
 	@GetMapping("/soonestExamination/{id}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public StartExaminationDTO loadSoonestExamination(@PathVariable Long id){ 
+	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public StartExaminationDTO loadSoonestExamination(@PathVariable Long id) {
 		Examination soonestExamination = examinationService.getCurrentExaminationByDermatologistId(id);
-		
+
 		ExaminationDTO soonestExaminationDTO = new ExaminationMapper().ExaminationToExaminationDTO(soonestExamination);
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
 		long patientId = soonestExamination.getPatient().getId();
-		for(Examination examination :examinationService.historyOfPatientExamination((long)patientId)) {
-			Dermatologist dermatologist = dermatologistSerivce.findOneById((long)examination.getEmplyeedId());
-			historyExaminations.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination,dermatologist));
+		for (Examination examination : examinationService.historyOfPatientExamination((long) patientId)) {
+			Dermatologist dermatologist = dermatologistSerivce.findOneById((long) examination.getEmplyeedId());
+			historyExaminations
+					.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination, dermatologist));
 		}
 		List<DrugDTO> drugsForPatient = new ArrayList<DrugDTO>();
 		List<Drug> eee = drugService.getDrugsForPatient((long) patientId);
-		for(Drug drug : drugService.getDrugsForPatient((long) patientId)) {
+		for (Drug drug : drugService.getDrugsForPatient((long) patientId)) {
 			drugsForPatient.add(new DrugMapper().DrugIntoDrugDTO(drug));
 		}
-		return new StartExaminationDTO(soonestExaminationDTO,historyExaminations,drugsForPatient);
+		return new StartExaminationDTO(soonestExaminationDTO, historyExaminations, drugsForPatient);
 	}
+
 	@GetMapping("/examinationHistory/{patientId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public List<ExaminationDTO> examinationHistory(@PathVariable int patientId){
+	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public List<ExaminationDTO> examinationHistory(@PathVariable int patientId) {
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
-		
-		for(Examination examination :examinationService.historyOfPatientExamination((long) patientId)) {
-			historyExaminations.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination,null));
+
+		for (Examination examination : examinationService.historyOfPatientExamination((long) patientId)) {
+			historyExaminations.add(new ExaminationMapper().ExaminationToExaminationDTOHistory(examination, null));
 		}
 		return historyExaminations;
 	}
-	
+
 	@GetMapping("/definedExaminations/{examinationId}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<DefinedExaminationDTO> getDefinedExaminations(@PathVariable Long examinationId){
 		List<DefinedExaminationDTO> definedExaminations = new ArrayList<DefinedExaminationDTO>();
-		
-		for(Examination examination :examinationService.getDefinedExaminations(examinationId)) {
+
+		for (Examination examination : examinationService.getDefinedExaminations(examinationId)) {
 			definedExaminations.add(new DefinedExamiantionMapper().examinationToDefinedExaminationDTO(examination));
 		}
 		return definedExaminations;
 	}
+
 	@GetMapping("/schedule/{id}")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public void scheduleExamination(@PathVariable long id) {
 		((ExaminationController) examinationService).scheduleExamination(id);
 	}
-	
-	 @PostMapping("/updateExamination")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	    public ResponseEntity<String> postBody(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
-	       examinationService.updateExamination(examinationInformationDTO);
-	       return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
-	    }
-	 
+
 	 @PostMapping("/scheduleExamination")
 		//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 		    public ResponseEntity<String> postBody(@RequestBody ScheduleExaminaitonDTO scheduleExamination) {	
@@ -108,4 +108,36 @@ public class ExaminationController {
 		      else
 		    	  return new ResponseEntity<>("Nije moguce zakazati pregled u izabranom terminu!",HttpStatus.BAD_REQUEST);  
 		    }
+
+
+	@GetMapping("/cancel/{id}")
+	@PreAuthorize("hasRole('ROLE_PATIENT')")
+	public ResponseEntity<String> cancelExamination(@PathVariable long id) {
+		try {
+			examinationService.cancelExamination(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (ExaminationInvalidTimeLeft e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@GetMapping("/future")
+	@PreAuthorize("hasRole('ROLE_PATIENT')")
+	public ResponseEntity<List<DermatologistExaminationDTO>> getFutureExamination() {
+		try {
+			List<DermatologistExaminationDTO> examinations = examinationService.getFutureDermatologistExaminations();
+			return new ResponseEntity<List<DermatologistExaminationDTO>>(examinations, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/updateExamination")
+	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public ResponseEntity<String> postBody(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
+		examinationService.updateExamination(examinationInformationDTO);
+		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
+	}
 }

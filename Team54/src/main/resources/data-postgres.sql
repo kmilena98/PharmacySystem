@@ -155,23 +155,17 @@ insert into user_authority( user_id, authority_id) values (15,6);
 insert into user_authority( user_id, authority_id) values (16,6);
 insert into user_authority( user_id, authority_id) values (19,6);		
 		
-insert into drug(id, name,code,loyality_points) values (1, 'Aspirin','231432', 5);
-insert into drug(id, name,code,loyality_points) values (2, 'Bensedin','125697', 3);
-insert into drug(id, name,code,loyality_points) values (3, 'Bisoprolol','365895', 4);
-insert into drug(id, name,code,loyality_points) values (4, 'Brufen','023547', 5);
-insert into drug(id, name,code,loyality_points) values (5, 'Probiotic','785493', 5);
+insert into drug(id, name,code,loyalty_points) values (1, 'Aspirin','231432', 5);
+insert into drug(id, name,code,loyalty_points) values (2, 'Bensedin','125697', 3);
+insert into drug(id, name,code,loyalty_points) values (3, 'Bisoprolol','365895', 4);
+insert into drug(id, name,code,loyalty_points) values (4, 'Brufen','023547', 5);
+insert into drug(id, name,code,loyalty_points) values (5, 'Probiotic','785493', 5);
 
 insert into drug_specification(id, suggested_dose, drug_id) values (1, '20mg', 1);
 insert into drug_specification(id, suggested_dose, drug_id) values (2, '300mg', 2);
 insert into drug_specification(id, suggested_dose, drug_id) values (3, '1g', 3);
 insert into drug_specification(id, suggested_dose, drug_id) values (4, '10mg', 4);
 insert into drug_specification(id, suggested_dose, drug_id) values (5, '5mg', 5);
-
-update drug set drug_specification_id = 1 where id = 1;
-update drug set drug_specification_id = 2 where id = 2;
-update drug set drug_specification_id = 3 where id = 3;
-update drug set drug_specification_id = 4 where id = 4;
-update drug set drug_specification_id = 5 where id = 5;
 
 insert into substitute_drugs(substitute_drug_id,main_drug_id) values(2,1);
 insert into substitute_drugs(substitute_drug_id,main_drug_id) values(3,1);
@@ -277,10 +271,9 @@ values('2021-07-06 7:00','2021-07-06 15:00',1,1);
 /*-- SCHEDULED EXAMINATIONS -DERMATOLOGIST  --*/
 
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-
 values(null, 1, 1500, 'Filled', 30, '2021-06-01 12:00', -1, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1500, 'Filled', 30, '2021-06-07 12:00', -1, 'DermatologistExamination', 5, 1);
+values(null, 1, 1500, 'Filled', 30, '2021-2-06 12:00', -1, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 1, 1500, 'Unfilled', 30, '2021-06-07 12:30', -1, 'DermatologistExamination', null, 2);
  

@@ -18,4 +18,6 @@ public interface ExaminationService {
 	void scheduleExamination(long id);
 	boolean canExaminationBeScheduled(Examination examination, Date start,Date end);
 	boolean scheduleExamination(Long examinationId,Date start);
+	void cancelExamination(long id) throws Exception;
+	List<DermatologistExaminationDTO> getFutureDermatologistExaminations();
 }
