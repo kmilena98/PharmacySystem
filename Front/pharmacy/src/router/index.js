@@ -103,7 +103,13 @@ const routes = [
     component: () =>
       import("../views/systemAdmin/users/SuppliersPage.vue")
   },
-  
+
+  {
+    path: "/myexaminations",
+    name: "MyExaminations",
+    component: () =>
+      import("../views/patient/examinations/MyExaminations.vue")
+  }
 ];
 
 const router = new VueRouter({

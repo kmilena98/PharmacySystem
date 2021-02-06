@@ -16,4 +16,6 @@ public interface ExaminationService {
 	public List<Examination> getDefinedExaminations(int examinationId);
 	List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id);
 	void scheduleExamination(long id);
+	void cancelExamination(long id) throws Exception;
+	List<DermatologistExaminationDTO> getFutureDermatologistExaminations();
 }

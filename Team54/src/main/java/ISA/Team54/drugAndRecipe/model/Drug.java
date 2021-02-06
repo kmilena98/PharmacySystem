@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import ISA.Team54.Examination.model.Examination;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Drug {
@@ -27,18 +29,18 @@ public class Drug {
 	@Column(unique = false,nullable = false)
 	private String code;
 	@Column(unique = false,nullable = true)
-	private int loyalityPoints;
+	private int loyaltyPoints;
 	
 	@ManyToMany(mappedBy="drugs")
 	private Set<Examination> examinations;
 	
 	@ManyToMany(mappedBy="drugs")
 	private Set<ERecipe> erecipes;
-	
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "drug",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private DrugSpecification drugSpecification;
-	
+
+	@JsonManagedReference
 	@ManyToMany
 	@JoinTable(name="substituteDrugs",
 	 joinColumns=@JoinColumn(name="mainDrugId"),
@@ -46,6 +48,7 @@ public class Drug {
 	)
 	private List<Drug> mainDrugs;
 
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name="substituteDrugs",
 	 joinColumns=@JoinColumn(name="substituteDrugId"),
@@ -57,12 +60,12 @@ public class Drug {
 		super();
 	}
 
-	public Drug(long id, String name, String code, int loyalityPoints) {
+	public Drug(long id, String name, String code, int loyaltyPoints) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.code = code;
-		this.loyalityPoints = loyalityPoints;
+		this.loyaltyPoints = loyaltyPoints;
 	}
 	public long getId() {
 		return  id;
@@ -89,11 +92,11 @@ public class Drug {
 	}
 
 	public int getLoyalityPoints() {
-		return loyalityPoints;
+		return loyaltyPoints;
 	}
 
-	public void setLoyalityPoints(int loyalityPoints) {
-		this.loyalityPoints = loyalityPoints;
+	public void setLoyalityPoints(int loyaltyPoints) {
+		this.loyaltyPoints = loyaltyPoints;
 	}
 
 	public Set<Examination> getExaminations() {
