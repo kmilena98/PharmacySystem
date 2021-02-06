@@ -118,7 +118,7 @@ public class AuthenticationController {
 	} 
 	
 	@PostMapping("/signupSupplierOrSystemAdmin")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> addSupplierOrSystemAdmin(@RequestBody UserRequestDTO userRequest, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(userRequest.getEmail());
@@ -140,7 +140,7 @@ public class AuthenticationController {
 	} 
 	
 	@PostMapping("/signupPharmacyAdmin")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> addPharmacyAdmin(@RequestBody PharmacyAdministratorRequestDTO pharmacyAdministratorRequestDTO, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(pharmacyAdministratorRequestDTO.getEmail());
@@ -157,7 +157,7 @@ public class AuthenticationController {
 
 
 	@PostMapping("/signupDermatologist")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> addDermatologist(@RequestBody DermatologistRequestDTO dermatologistRequestDTO, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(dermatologistRequestDTO.getEmail());

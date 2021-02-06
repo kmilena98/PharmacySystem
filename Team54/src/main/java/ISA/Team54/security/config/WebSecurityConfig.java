@@ -90,11 +90,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
 
-		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login","/pharmacy/addPharmacy","/examination/updateExamination");
+		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login","/pharmacy/addPharmacy","/examination/updateExamination","/auth/signupSupplierOrSystemAdmin","auth/signupDermatologist","/auth/signupPharmacyAdmin");
 		//web.ignoring().antMatchers(HttpMethod.POST, );
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
 				"/**/*.css", "/**/*.js","/api/patientBySurnameAndName/*","/api/allPatients/","/examination/soonestExamination/*","/examination/definedExaminations/**",
-				"/examination/examinationHistory/*","/api/examinatedPatients/*","/drugs/forPatient/*","/drugs/drugSpecification/**","/drugs/isAvailableInPharmacy/**");
+				"/examination/examinationHistory/*","/api/examinatedPatients/*","/drugs/forPatient/*","/drugs/drugSpecification/**","/drugs/isAvailableInPharmacy/**","/systemAdmin/allSystemAdmins","/pharmacyAdmin/allPharmacyAdmins","/dermatologist/allDermatologists","/supplier/allSuppliers","/pharmacy/allPharmacies");
 	}
 
 }

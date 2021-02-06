@@ -23,18 +23,7 @@ public class UserInfoDTO {
 		super();
 	}
 
-	public UserInfoDTO(String email, String firstName, String lastName, String address, String city, String country,
-			String phoneNumber) {
-		super();
-		this.id = 0;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
-		this.country = country;
-		this.phoneNumber = phoneNumber;
-	} 
+	
 	
 	public UserInfoDTO(long id,String email, String firstName, String lastName, String address, String city, String country,
 			String phoneNumber) {

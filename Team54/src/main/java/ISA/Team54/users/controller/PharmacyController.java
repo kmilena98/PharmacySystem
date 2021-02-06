@@ -38,7 +38,7 @@ public class PharmacyController {
 	}
 	
 	@GetMapping("/allPharmacies")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public  List<Pharmacy> findAll(){
 		return this.pharmacyService.findAll();
 	}

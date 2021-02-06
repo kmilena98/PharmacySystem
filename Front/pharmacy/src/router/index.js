@@ -78,11 +78,30 @@ const routes = [
     component: () =>
       import("../views/pharmacy/DermatologistExaminations.vue")
   },
+
   {
-    path: "/systemAdmin-profile",
-    name: "SystemAdmin Profile",
+    path: "/systemAdminsPage",
+    name: "System admins Page",
     component: () =>
-      import("../views/systemAdmin/profile/HomePage.vue")
+      import("../views/systemAdmin/users/SystemAdminsPage.vue")
+  },
+  {
+    path: "/pharmacyAdminsPage",
+    name: "Pharmacy admins Page",
+    component: () =>
+      import("../views/systemAdmin/users/PharmacyAdminsPage.vue")
+  },
+  {
+    path: "/dermatologistsPage",
+    name: "Dermatologists Page",
+    component: () =>
+      import("../views/systemAdmin/users/DermatologistsPage.vue")
+  },
+  {
+    path: "/suppliersPage",
+    name: "Suppliers Page",
+    component: () =>
+      import("../views/systemAdmin/users/SuppliersPage.vue")
   },
   
 ];

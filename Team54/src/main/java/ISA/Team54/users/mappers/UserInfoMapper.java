@@ -5,10 +5,10 @@ import ISA.Team54.users.model.User;
 
 public class UserInfoMapper {
 	
-/*	public static UserInfoDTO UserTOUserInfoDTO(User user) {
-			return new UserInfoDTO(user.getEmail(), user.getName(), user.getSurname(),
+	public static UserInfoDTO UserTOUserInfoDTO(User user) {
+			return new UserInfoDTO(user.getId(), user.getEmail(), user.getName(), user.getSurname(),
 					user.getAddress(), user.getCity(), user.getCountry(), user.getPhoneNumber());
-		} */
+		} 
 	
 	public static void UserInfoDTOTOUser(UserInfoDTO userInfoDTO,User user) {
 		user.setName(userInfoDTO.getFirstName());

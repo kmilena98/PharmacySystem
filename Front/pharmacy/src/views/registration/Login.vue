@@ -65,7 +65,7 @@ export default {
                     this.$store.commit('setUserRole',response.data.role);
                     this.$store.commit('setUserId',response.data.userId);
                     this.$store.commit('setJWT',response.data.accessToken);
-                    this.$router.push('patient-profile');     
+                    this.$router.push('systemAdminsPage');     
                 })                    
                 .catch(function (error) {
                     if(error.response.status === 401) {
