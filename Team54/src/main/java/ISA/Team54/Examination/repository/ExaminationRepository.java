@@ -11,11 +11,13 @@ import ISA.Team54.Examination.model.Examination;
 
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
 	public List<Examination> findAll();
+	public List<Examination> findByPatientId(Long patientId);
 	public List<Examination> findByEmplyeedIdAndStatus(Long id,ExaminationStatus es);
 	public List<Examination> findByTypeAndPatientIdAndStatus(ExaminationType type, Long id,ExaminationStatus es);
 	public Examination findById(int id);
 	public Examination findOneById(Long id);
-	public List<Examination> findByEmplyeedId(int id);
+	public List<Examination> findByEmplyeedId(Long id);
+	public List<Examination> findByEmplyeedIdAndPharmacyId(Long emplyeedId,Long pharmacyId);
 	public List<Examination> findByEmplyeedIdAndStatusAndPharmacyId(Long emplyeedId,ExaminationStatus es,Long pharmacyId);
 	@Query("SELECT e FROM Examination e where pharmacy_id = ?1 and type = ?2 and status = ?3 ")
 	List<Examination> getExaminationsForPharmacy(long id, ExaminationType type, ExaminationStatus status);

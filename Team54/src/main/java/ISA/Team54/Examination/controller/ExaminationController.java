@@ -1,6 +1,9 @@
 package ISA.Team54.Examination.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.Examination.dto.DefinedExaminationDTO;
-import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
+import ISA.Team54.Examination.dto.ScheduleExaminaitonDTO;
 import ISA.Team54.Examination.dto.StartExaminationDTO;
 import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
@@ -76,7 +79,7 @@ public class ExaminationController {
 	
 	@GetMapping("/definedExaminations/{examinationId}")
 	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public List<DefinedExaminationDTO> getDefinedExaminations(@PathVariable int examinationId){
+	public List<DefinedExaminationDTO> getDefinedExaminations(@PathVariable Long examinationId){
 		List<DefinedExaminationDTO> definedExaminations = new ArrayList<DefinedExaminationDTO>();
 		
 		for(Examination examination :examinationService.getDefinedExaminations(examinationId)) {
@@ -96,4 +99,13 @@ public class ExaminationController {
 	       examinationService.updateExamination(examinationInformationDTO);
 	       return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
 	    }
+	 
+	 @PostMapping("/scheduleExamination")
+		//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+		    public ResponseEntity<String> postBody(@RequestBody ScheduleExaminaitonDTO scheduleExamination) {	
+		      if(examinationService.scheduleExamination(scheduleExamination.getExaminationId(),scheduleExamination.getDate()))
+		       return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
+		      else
+		    	  return new ResponseEntity<>("Nije moguce zakazati pregled u izabranom terminu!",HttpStatus.BAD_REQUEST);  
+		    }
 }
