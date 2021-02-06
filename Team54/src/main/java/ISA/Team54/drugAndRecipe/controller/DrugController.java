@@ -49,4 +49,10 @@ public class DrugController {
 		DrugSpecification drugSpecification = drugService.getSpecificationForDrug(drugId);
 		return new DrugSpecificationMapper().DrugSpecificationIntoDrugSpecificationDTO(drugSpecification);
 	}
+	
+	@GetMapping("")
+	public List<Drug> getAll(){
+		return drugService.getAllDrugs();
+	}  
+	
 }

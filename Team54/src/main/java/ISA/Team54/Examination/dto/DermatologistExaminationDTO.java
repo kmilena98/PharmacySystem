@@ -8,17 +8,17 @@ import ISA.Team54.Examination.model.Term;
 public class DermatologistExaminationDTO {
 	private long examinationId;
 	private Date term;
-	private String dermatologist;
-	private double dermatologistRating;
+	private String employee;
+	private double employeeRating;
 	private double price;
 	
-	public DermatologistExaminationDTO(long examinationId, Term term, String dermatologist, double dermatologistRating,
+	public DermatologistExaminationDTO(long examinationId, Term term, String employee, double employeeRating,
 			double price) {
 		super();
 		this.examinationId = examinationId;
 		this.term = term.getStart();
-		this.dermatologist = dermatologist;
-		this.dermatologistRating = dermatologistRating;
+		this.employee = employee;
+		this.employeeRating = employeeRating;
 		this.price = price;
 	}
 
@@ -42,20 +42,20 @@ public class DermatologistExaminationDTO {
 		this.term = term;
 	}
 
-	public String getDermatologist() {
-		return dermatologist;
+	public String getEmployee() {
+		return this.employee;
 	}
 
-	public void setDermatologist(String dermatologist) {
-		this.dermatologist = dermatologist;
+	public void setEmployee(String employee) {
+		this.employee = employee;
 	}
 
-	public double getDermatologistRating() {
-		return dermatologistRating;
+	public double getEmployeeRating() {
+		return employeeRating;
 	}
 
-	public void setDermatologistRating(double dermatologistRating) {
-		this.dermatologistRating = dermatologistRating;
+	public void setEmployeeRating(double employeeRating) {
+		this.employeeRating = employeeRating;
 	}
 
 	public double getPrice() {
