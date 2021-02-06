@@ -1,14 +1,20 @@
+sudo: required
 language: java
 jdk: oraclejdk11
 
-services: postgresql
+services:
+  - postgresql
+
+before_install:
+  - chmod +x mvnw
 
 addons:
   sonarcloud:
-    organization: "team54-isa"
-    token:
-      secure: "Va7jOOO99Sp+l+BxM4rJu3RO1ycRPfJfBrJl1kLB4LYYWu4W1L3ewNqUNNGoYPSfhDhmuz20YT7pGnnFE/tD34wk064pAm2AEoHAdZa1947+aUqv7z/hBYPvjDxVj+WWkVMsWVxHhJlV9yZQdlH+AN8nB28P1FYEDHWwRPa3Kdqs00wXjgnlFRCCWJ1G27FnX4fKFlL0DY2pL8ud/kJtvyrXetJ6VfbkTHKAQdhE1L7ko86E7IxlUg7zoSyJdfAABNbDk1lMMZBN588wXnsbOFbNJ355XXfbWEOg3qrFfDww+p1I+ZK3pgbhf5fX8Ao+zJbTHhhnIrAwW8ZvVR1LW65knHtEl539osKyhdmY3PvMfsEGjVmDEf41TqkL+qgzHilCaIAuKTFwdTTZbuxLspKWE1Awozil1wFkfSIDbjSmzNNS4Uq0fxZjg7erKAShk6zsTvWMpfrtVOnmsBZBWex2yZcmTy2vkFTjj8p6Guv4BdEAY8zEEJ1Lkc/3d01Td1T6n9ZYNOv76gQgN7dWpdP/K6V96+6DnUvgmbjzJVVt7MfEgBk0fozEGby+kOwfOpf1CeRee5pYFi56UJlNzPIxF1j0oC/eylCTDdQDTvMreuYH+X65p9G/z2j73BAieaj6iISXHCQAcyokepltZ6QDA892O9aKGg14z7gG4W8=" # encrypted value of your token
+  organization: "team54-isa"
+  token: $SONAR_TOKEN
 
 script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=VasilijeBursac_PharmacySystem
+  - ./mvnw clean install -DskipTests=false -B
+  - ./mvnw sonar:sonar -Dsonar.projectKey=$PROJECT_KEY -Dsonar.organization=<naziv_organizacije> -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+
+dist: trusty
