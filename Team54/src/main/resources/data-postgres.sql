@@ -371,4 +371,11 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 12:00',8);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 10:00',5);
  insert into erecipe(date_of_issue,patient_id) values ('2020-12-01 9:00',5);
+ 
+  insert into loyalty_category(id, name, lower, upper, discount)
+ values (1, 'Bronze', 0, 50, 10);
+ insert into loyalty_category(id, name, lower, upper, discount)
+ values (2, 'Silver', 51, 100, 20);
+ insert into loyalty_category(id, name, lower, upper, discount)
+ values (3, 'Gold', 101, 10000, 30);
 
