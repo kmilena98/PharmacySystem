@@ -11,10 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import ISA.Team54.drugAndRecipe.model.enums.ReservationStatus;
+import ISA.Team54.drugAndRecipe.enums.ReservationStatus;
 import ISA.Team54.users.model.Patient;
 
 @Entity

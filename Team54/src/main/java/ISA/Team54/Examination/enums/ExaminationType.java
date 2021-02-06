@@ -1,4 +1,4 @@
-package ISA.Team54.Examination.model.enums;
+package ISA.Team54.Examination.enums;
 
 public enum ExaminationType {
 	DermatologistExamination,
