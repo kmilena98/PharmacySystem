@@ -75,6 +75,7 @@ public class ExaminationController {
 	@GetMapping("/examinationHistory/{patientId}")
 	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<ExaminationDTO> examinationHistory(@PathVariable int patientId) {
+		
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
 
 		for (Examination examination : examinationService.historyOfPatientExamination((long) patientId)) {

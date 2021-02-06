@@ -28,6 +28,7 @@ import ISA.Team54.rating.model.Rating;
 import ISA.Team54.sharedModel.DateRange;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.DermatologistRepository;
 import ISA.Team54.users.repository.PatientRepository;
 import ISA.Team54.users.repository.UserRepository;
@@ -71,7 +72,9 @@ public class ExaminationServiceImpl implements ExaminationService {
 
 	@Override
 	public List<Examination> historyOfPatientExamination(Long id) {
-		return examinationRepository.findByTypeAndPatientIdAndStatus(ExaminationType.DermatologistExamination, id,
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		int userId = (int) ((Patient) authentication.getPrincipal()).getId();
+		return examinationRepository.getHistoryExaminationsForPatient( id,ExaminationType.DermatologistExamination,
 				ExaminationStatus.Filled);
 	}
 
