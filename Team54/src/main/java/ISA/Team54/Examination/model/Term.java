@@ -1,6 +1,5 @@
 package ISA.Team54.Examination.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,7 @@ public class Term {
 	public Term() {
 		super();
 	}
-	public Term(int id, Date start, int duration) {
+	public Term(Date start, int duration) {
 		super();
 		this.start = start;
 		this.duration = duration;

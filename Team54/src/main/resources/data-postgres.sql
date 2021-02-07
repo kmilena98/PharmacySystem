@@ -260,6 +260,14 @@ insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (1,4
 insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (2,1);
 insert into dermatologists_in_pharmacy(pharmacy_id,dermatologist_id) values (2,3);
 
+
+insert into dermatologist_work_schedule(end_date,start_date,dermatologist_id,pharmacy_id)
+values('2021-06-01 7:00','2021-06-01 15:00',1,1);
+insert into dermatologist_work_schedule(end_date,start_date,dermatologist_id,pharmacy_id)
+values('2021-06-02 7:00','2021-06-02 15:00',1,1);
+insert into dermatologist_work_schedule(end_date,start_date,dermatologist_id,pharmacy_id)
+values('2021-07-06 7:00','2021-07-06 15:00',1,1);
+
 /*-- SCHEDULED EXAMINATIONS -DERMATOLOGIST  --*/
 
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
@@ -267,12 +275,12 @@ values(null, 1, 1500, 'Filled', 30, '2021-06-01 12:00', -1, 'DermatologistExamin
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 1, 1500, 'Filled', 30, '2021-2-06 12:00', -1, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1500, 'Unfilled', 30, '2021-06-07 12:30', -1, 'DermatologistExamination', null, 2);
+values(null, 1, 1500, 'Unfilled', 30, '2021-06-07 12:30', -1, 'DermatologistExamination', null, 1);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Ekcem', 1, 1400, 'Filled', 30, '2020-11-01 12:00', 7, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 1, 1500, 'Unfilled', 30, '2021-06-01 12:00', 30, 'DermatologistExamination', null, 1);
+values(null, 1, 1500, 'Unfilled', 30, '2021-06-01 13:00', 30, 'DermatologistExamination', null, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Psorijaza', 1, 1400, 'Filled', 30, '2020-12-07 12:00', 5, 'DermatologistExamination', 5, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)

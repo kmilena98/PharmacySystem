@@ -19,9 +19,9 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import ISA.Team54.Examination.model.Examination;
-import ISA.Team54.drugAndRecipe.model.DrugInPharmacy;
 import ISA.Team54.promotion.model.Promotion;
 import ISA.Team54.rating.model.Rating;
+import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 
 @Entity
 public class Pharmacy {
@@ -36,8 +36,12 @@ public class Pharmacy {
 	@Column(unique = false, nullable = true)
 	private String description;	
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<DermatologistWorkSchedule> dermatologistWorkingSchedules;
+
 	@Column(nullable = false)
 	private double pharmacistPrice;
+
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
