@@ -20,11 +20,15 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 	public List<Examination> findByEmplyeedIdAndStatusAndPharmacyId(Long emplyeedId,ExaminationStatus es,Long pharmacyId);
 
 	@Query("SELECT e FROM Examination e where pharmacy_id = ?1 and type = ?2 and status = ?3 ")
-	List<Examination> getExaminationsForPharmacy(long id, ExaminationType type, ExaminationStatus status);
+	List<Examination> getAllExaminationsForPharmacy(long id, ExaminationType type, ExaminationStatus status);
+	
+	@Query("SELECT e FROM Examination e where pharmacy_id = ?1 and type = ?2 and status = ?3 and cast(start as java.util.Date) = ?4 ")
+	List<Examination> getExaminationsForPharmacyForDate(long id, ExaminationType type, ExaminationStatus status, Date date);
 	
 	@Query("SELECT e FROM Examination e where patient_id = ?1 and type = ?2 and status = ?3 and start > CURRENT_TIMESTAMP") 
 	List<Examination> getFutureExaminations(long id, ExaminationType type, ExaminationStatus status);
 	
-	@Query("select e from Examination e where start >= ?1 and start <= ?2 and type = ?3 and status='Unfilled'")
-	public List<Examination> getFreeExaminationsForInterval(Date from, Date to, ExaminationType type);
+	@Query("select e from Examination e where cast(start as java.util.Date) = ?1 and type = ?2 and status='Unfilled'")
+	public List<Examination> getFreeExaminationsForInterval(Date term, ExaminationType type);
+	
 }

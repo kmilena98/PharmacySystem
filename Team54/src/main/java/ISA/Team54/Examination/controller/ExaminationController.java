@@ -36,6 +36,8 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
+import ISA.Team54.users.dto.PharmacyDTO;
+import ISA.Team54.users.mappers.PharmacyMapper;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.DermatologistService;
@@ -100,7 +102,7 @@ public class ExaminationController {
 	@GetMapping("/schedule/{id}")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public void scheduleExamination(@PathVariable long id) {
-		((ExaminationController) examinationService).scheduleExamination(id);
+		examinationService.scheduleExamination(id); 
 	}
 
 	@GetMapping("/cancel/{id}")
@@ -132,11 +134,5 @@ public class ExaminationController {
 	public ResponseEntity<String> postBody(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
 		examinationService.updateExamination(examinationInformationDTO);
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
-	}
-	
-	@PostMapping("/search")
-	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public List<Pharmacy> getExaminationsForDate(@RequestBody ExaminationSearchDTO examinationSearchDTO){
-		return examinationService.getFreePharmaciesForInterval(examinationSearchDTO.getFrom(), examinationSearchDTO.getTo(), examinationSearchDTO.getType());
-	}
+	}	
 }

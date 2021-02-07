@@ -5,27 +5,22 @@
             Zakaži konsultovanje
         </b-button>
 
-        <b-modal id="my-modal" hide-footer title="Zakazivanje savetovanja kod farmaceuta" @hidden="closeModal">
+        <b-modal id="my-modal" size="lg" hide-footer title="Zakazivanje savetovanja kod farmaceuta" @hidden="closeModal(true)">
             <div v-if="showPharmacy" class="pharmacy-selection">
                 <b-form>
-                    <b-form-group id="from-date-group" label="Datum od:" label-for="from-date-input">
-                        <b-form-datepicker id="from-date-input" v-model="fromDate" placeholder="Izaberite datum" class="mb-2"></b-form-datepicker>
-                        <b-form-timepicker v-model="fromTime" placeholder="Izaberite vreme" locale="en"></b-form-timepicker>
-                    </b-form-group>
-
-                    <b-form-group id="to-date-group" label="Datum do:" label-for="to-date-input">
-                        <b-form-datepicker id="to-date-input" v-model="toDate" placeholder="Izaberite datum" class="mb-2"></b-form-datepicker>
-                        <b-form-timepicker v-model="toTime" placeholder="Izaberite vreme" locale="en"></b-form-timepicker>
+                    <b-form-group id="date-group" label="Datum:" label-for="date-input">
+                        <b-form-datepicker id="date-input" v-model="date" placeholder="Izaberite datum" class="mb-2"></b-form-datepicker>
+                        <b-form-timepicker v-model="time" placeholder="Izaberite vreme" locale="en"></b-form-timepicker>
                     </b-form-group>
 
                     <b-button @click="findPharmacies()" block variant="success">
-                        Pretraži
+                        Pretraži apoteke
                     </b-button>
                 </b-form>
 
                 <b-table striped hover :items="pharmacyItems" :fields="pharmacyFields" class="mt-3">
-                    <template #cell(akcije)="">
-                        <b-button @click="showPharmacistsDialog()" size="sm" >
+                    <template #cell(akcije)="row">
+                        <b-button @click="showPharmacistsDialog(row)" size="sm" >
                             Pogledaj
                         </b-button>
                     </template>
@@ -40,8 +35,8 @@
                     <h6 class="h6 mt-1 ml-2">Slobodni farmaceuti</h6>
                 </div>                
                 <b-table striped hover :items="pharmacistItems" :fields="pharmacistFields" class="mt-3">
-                    <template #cell(akcije)="">
-                        <b-button size="sm" >
+                    <template #cell(akcije)="row">
+                        <b-button @click="scheduleExamination(row)" variant="success" size="sm" block>
                             Zakaži
                         </b-button>
                     </template>
@@ -57,62 +52,92 @@
 export default {
     data(){
         return {
-            pharmacyItems: [
-				{ime: 'Apoteka', grad: 'Novi Sad', ocena: 4.5, cena: '1500 din'},
-				{ime: 'Apoteka', grad: 'Novi Sad', ocena: 4.5, cena: '1500 din'},
-				{ime: 'Apoteka', grad: 'Novi Sad', ocena: 4.5, cena: '1500 din'},
-				{ime: 'Apoteka', grad: 'Novi Sad', ocena: 4.5, cena: '1500 din'},
-				{ime: 'Apoteka', grad: 'Novi Sad', ocena: 4.5, cena: '1500 din'}
-			],
+            pharmacyItems: [],
 			pharmacyFields:['ime', 'grad', {key: 'ocena', sortable: true}, {key: 'cena', sortable: true}, 'akcije'],
 
-            pharmacistItems: [
-				{ime: 'Apoteka', prezime: 'Novi Sad', ocena: 4.5},
-				{ime: 'Apoteka', prezime: 'Novi Sad', ocena: 4.5},
-				{ime: 'Apoteka', prezime: 'Novi Sad', ocena: 4.5},
-				{ime: 'Apoteka', prezime: 'Novi Sad', ocena: 4.5},
-				{ime: 'Apoteka', prezime: 'Novi Sad', ocena: 4.5},
-			],
+            pharmacistItems: [],
 			pharmacistFields:['ime', 'prezime', {key: 'ocena', sortable: true}, 'akcije'],
 
             showPharmacy: true,
             showPharmacist: false,
 
-            fromDate: '',
-            fromTime: '10:00',
-            toDate: '',
-            toTime: '12:00',
+            date: '',
+            time: ''
         }
     },
     methods:{
-        showPharmacistsDialog(){
+        showPharmacistsDialog(row){
             this.showPharmacy = false
             this.showPharmacist = true
+
+            this.$http
+                .post('pharmacy/examinations', {
+                    id: row.item.id,
+                    type: 'PharmacistExamination',
+                    date: new Date(this.date + ' ' + this.time).getTime()
+                })
+                .then( res => {
+                    console.log(res.data)
+                    if(res.status == 200){  
+                        let data = []
+                         res.data.forEach(element => {
+                            data.push({ 
+                                ime: element.employee.split(' ')[0], 
+                                prezime: element.employee.split(' ')[1], 
+                                ocena: element.employeeRating != 0 ? element.employeeRating : 'Nema ocenu',
+                                id: element.examinationId
+                            })
+                        });
+                        this.pharmacistItems = data
+                    }            
+                })
+
         },
-        closeModal(){
+        scheduleExamination(row){
+            this.$http
+                .get('examination/schedule/' + row.item.id)
+                .then( res => {
+                    if(res.status == 200){
+                        this.$bvModal.hide('my-modal')
+                        this.toast('Uspešno ste zakazali konsultovanje kod farmaceuta!', 'Uspešno', 'success')
+                        this.closeModal(true)
+                    }                        
+                })
+		},
+        closeModal(close = false){
             this.showPharmacy = true
             this.showPharmacist = false
+            if(close == true){
+                this.pharmacyItems = []
+                this.pharmacistItems = []
+                this.date = ''
+                this.time = ''
+            }           
         },
         findPharmacies(){            
-            if(this.fromDate == '' || this.toDate == '' || this.fromTime == '' || this.toTime == ''){
-                this.toast('Niste popunili sve datume! Molimo Vas popunite sva polja.', 'Neuspešno', 'danger')
-                return;
-            }
-
-            if(new Date(this.fromDate + ' ' + this.fromTime).getTime() > new Date(this.toDate + ' ' + this.toTime).getTime()){
-                this.toast('"Datum do" ne može biti manji od "Datum od".', 'Neuspešno', 'danger')
+            if(this.date == '' || this.time == ''){
+                this.toast('Niste popunili datum savetovanja! Molimo Vas popunite i datum i vreme.', 'Neuspešno', 'danger')
                 return;
             }
 
             this.$http
-                .post('examination/search', {
-                    from: new Date(this.fromDate + ' ' + this.fromTime).getTime(),
-                    to: new Date(this.toDate + ' ' + this.toTime).getTime(),
+                .post('pharmacy/search-examinations', {
+                    date: new Date(this.date + ' ' + this.time).getTime(),
                     type: 'PharmacistExamination'
                 })
                 .then( res => {
                     if(res.status == 200){  
-                        console.log(res.data)
+                        let data = []
+                         res.data.forEach(element => {
+                            data.push({ 
+                                ime: element.name, 
+                                grad: element.address, 
+                                ocena: element.rating != 0 ? element.rating : 'Nema ocenu',
+                                cena: element.pharmacistPrice + ' din',
+                                id: element.id
+                            })
+                        });
+                        this.pharmacyItems = data
                     }            
                 })
         },

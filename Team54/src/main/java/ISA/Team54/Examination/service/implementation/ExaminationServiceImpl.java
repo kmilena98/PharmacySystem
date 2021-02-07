@@ -101,9 +101,26 @@ public class ExaminationServiceImpl implements ExaminationService{
 		}
 		return definedExaminations;
 	}
+	
 	@Override
-	public List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id, ExaminationType type) {		
-		List<Examination> examinations = examinationRepository.getExaminationsForPharmacy(id, type, ExaminationStatus.Unfilled);
+	public List<DermatologistExaminationDTO> getAllExaminationsForPharmacy(long id, ExaminationType type) {		
+		List<Examination> examinations = examinationRepository.getAllExaminationsForPharmacy(id, type, ExaminationStatus.Unfilled);
+		List<User> employees = new ArrayList<User>();
+		examinations.forEach(
+				e -> employees.add(userRepository.findById(e.getEmplyeedId()).orElse(null))
+		);
+		
+		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
+		for(int i = 0; i < examinations.size(); i++) {
+			examinationDTOs.add(new ExaminationMapper().ExaminationToDermatologistExaminationDTO(examinations.get(i), employees.get(i), type));
+		}
+		
+		return examinationDTOs;
+	}
+	
+	@Override
+	public List<DermatologistExaminationDTO> getExaminationsForPharmacyAndDate(long id, ExaminationType type, Date date) {		
+		List<Examination> examinations = examinationRepository.getExaminationsForPharmacyForDate(id, type, ExaminationStatus.Unfilled, date);
 		List<User> employees = new ArrayList<User>();
 		examinations.forEach(
 				e -> employees.add(userRepository.findById(e.getEmplyeedId()).orElse(null))
@@ -167,15 +184,23 @@ public class ExaminationServiceImpl implements ExaminationService{
 	}
 
 	@Override
-	public List<Pharmacy> getFreePharmaciesForInterval(Date from, Date to, ExaminationType type) {
-		List<Examination> examinations =  examinationRepository.getFreeExaminationsForInterval(from, to , type);
+	public List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type) {
+		List<Examination> examinations =  examinationRepository.getFreeExaminationsForInterval(term , type);
+		System.out.println(term);
 		List<Pharmacy> pharmacies = new ArrayList<Pharmacy>();
-		System.out.println("tu");
-		for(int i = 0; i < examinations.size(); i++)
-			System.out.println(examinations.get(i).getId());
-		examinations.forEach( e -> pharmacies.add(e.getPharmacy()));
+		examinations.forEach( e -> {
+			if(isPharmacyUnique(e.getPharmacy(), pharmacies))
+				pharmacies.add(e.getPharmacy());
+		});
 		
 		return pharmacies;
 	}
 	
+	private boolean isPharmacyUnique(Pharmacy pharmacy, List<Pharmacy> pharmacies) {
+		for(int i = 0; i < pharmacies.size(); i++) {
+			if(pharmacies.get(i).getId() == pharmacy.getId())
+				return false;
+		}
+		return true;
+	}	
 }

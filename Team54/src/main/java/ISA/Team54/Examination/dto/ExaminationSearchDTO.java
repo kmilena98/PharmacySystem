@@ -5,33 +5,29 @@ import java.util.Date;
 import ISA.Team54.Examination.enums.ExaminationType;
 
 public class ExaminationSearchDTO {
-	private Date from;
-	private Date to;
+	private Date date;
 	private ExaminationType type;
 	
 	public ExaminationSearchDTO() {
 		super();
 	}
 	
-	public ExaminationSearchDTO(Date from, Date to, ExaminationType type) {
+	
+	public ExaminationSearchDTO(Date date, ExaminationType type) {
 		super();
-		this.from = from;
-		this.to = to;
+		this.date = date;
 		this.type = type;
 	}
-	
-	public Date getFrom() {
-		return from;
+
+	public Date getDate() {
+		return date;
 	}
-	public void setFrom(Date from) {
-		this.from = from;
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
-	public Date getTo() {
-		return to;
-	}
-	public void setTo(Date to) {
-		this.to = to;
-	}
+
+
 	public ExaminationType getType() {
 		return type;
 	}

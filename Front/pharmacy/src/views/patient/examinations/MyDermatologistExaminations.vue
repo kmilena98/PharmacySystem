@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <h6 class="h6 float-left mb-3">Prestojeći termini</h6>
-        <ScheduleModal class="float-right"/>        
+        <h6 class="h6 text-left mb-3">Prestojeći termini</h6>        
 
         <b-table ref="future" striped hover :items="futureData" :fields="fields">
             <template #cell(akcije)="row">
@@ -24,8 +23,6 @@
 </template>
 
 <script>
-
-import ScheduleModal from './ScheduleModal.vue'
 
 export default {
 	data() {
@@ -73,7 +70,7 @@ export default {
 						termin: new Date(element.term).toLocaleString(), 
 						dermatolog: element.employee, 
 						ocena: element.employeeRating != 0 ? element.employeeRating : 'Nema ocenu',
-						cena: element.price,
+						cena: element.price + ' din',
 						id: element.examinationId
 					})
 				});
@@ -96,9 +93,6 @@ export default {
 				});
 				this.pastData = data
             })*/
-	},
-    components:{
-        ScheduleModal
-    }
+	}
 }
 </script>

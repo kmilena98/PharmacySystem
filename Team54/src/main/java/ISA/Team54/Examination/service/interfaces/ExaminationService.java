@@ -16,9 +16,10 @@ public interface ExaminationService {
 	public void updateExamination(ExaminationInformationDTO examinationInformationDTO);
 	public List<Examination> getAllExaminationsForDermatologist(Long id);
 	public List<Examination> getDefinedExaminations(int examinationId);
-	List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id, ExaminationType type);
+	List<DermatologistExaminationDTO> getAllExaminationsForPharmacy(long id, ExaminationType type);
+	List<DermatologistExaminationDTO> getExaminationsForPharmacyAndDate(long id, ExaminationType type, Date date);
 	void scheduleExamination(long id);
 	void cancelExamination(long id) throws Exception;
 	List<DermatologistExaminationDTO> getFutureExaminations(ExaminationType type);
-	List<Pharmacy> getFreePharmaciesForInterval(Date from, Date to, ExaminationType type);
+	List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type);
 }
