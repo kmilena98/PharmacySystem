@@ -129,7 +129,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		List<Examination> examinations = examinationRepository.getExaminationsForPharmacy(id, type, ExaminationStatus.Unfilled);
 		List<User> employees = new ArrayList<User>();
 		examinations.forEach(
-				e -> employees.add(userRepository.findById(e.getEmplyeedId()).orElse(null))
+				e -> employees.add(userRepository.findOneById(e.getEmplyeedId()))
 		);
 		
 		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();

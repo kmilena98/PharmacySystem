@@ -105,7 +105,7 @@ public class ExaminationController {
 
 	 @PostMapping("/scheduleExamination")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-    public ResponseEntity<String> postBody(@RequestBody ScheduleExaminaitonDTO scheduleExamination) {	
+    public ResponseEntity<String> scheduleExamination(@RequestBody ScheduleExaminaitonDTO scheduleExamination) {	
       if(examinationService.scheduleExamination(scheduleExamination.getExaminationId(),scheduleExamination.getDate()))
        return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
       else
@@ -139,7 +139,7 @@ public class ExaminationController {
 
 	@PostMapping("/updateExamination")
 	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public ResponseEntity<String> postBody(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
+	public ResponseEntity<String> updateExamination(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
 		examinationService.updateExamination(examinationInformationDTO);
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
 	}
