@@ -65,65 +65,72 @@ export default {
     };
   },
 
-  methods: {
-    login(event) {
-      event.preventDefault();
-      this.$http
-        .post("auth/login", {
-          email: this.form.email,
-          password: this.form.password,
-        })
-        .then((response) => {
-          this.toast();
-          this.$store.commit("setUserRole", response.data.role);
-          this.$store.commit("setUserId", response.data.userId);
-          this.$store.commit("setJWT", response.data.accessToken);
+    methods: {
+        
+        login(event) {
+           event.preventDefault()
+            this.$http
+                .post('auth/login',{
+                    email : this.form.email,
+                    password : this.form.password
+                })
+                .then( (response) => {
+                    this.toast()                           
+                    this.$store.commit('setUserRole',response.data.role);
+                    this.$store.commit('setUserId',response.data.userId);
+                    this.$store.commit('setJWT',response.data.accessToken);
+                    localStorage.setItem("UserRole",response.data.role);
+                    localStorage.setItem("UserId",response.data.userId);
+                    localStorage.setItem("JWT",response.data.accessToken);
+                    
+                    if (response.data.role === "ROLE_PATIENT") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_SYSTEM_ADMIN") {
+                        this.$router.push("systemAdminsPage");
+                    }
+                    if (response.data.role === "ROLE_PHARMACY_ADMIN") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_DERMATOLOGIST") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_PHARMACIST") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_SUPPLIER") {
+                        this.$router.push("patient-profile");  
+                    }
+                   
+                    window.location.reload()
+                 
+                })                    
+                .catch(function (error) {
+                    if(error.response.status === 401) {
+                        alert('Ne postoji korisnik sa unetim podacima');
+                    }
+                });
+        },  
+        toast(){
+            this.$bvToast.toast(`Uspešno ste se ulogovali!`, {
+                title: 'Uspešno!',
+                variant: 'success',
+                autoHideDelay: 5000
+            })
+        },
+        onReset(event) {
+            event.preventDefault()
+            // Reset our form values
+            this.form.email = ''
+            this.form.password = ''   
+            // Trick to reset/clear native browser form validation state
+            this.show = false
+            this.$nextTick(() => {
+                this.show = true
+            })
+        }
 
-          if (response.data.role === "ROLE_PATIENT") {
-            this.$router.push("examination");
-          }
-          if (response.data.role === "ROLE_SYSTEM_ADMIN") {
-            this.$router.push("patient-profile");
-          }
-          if (response.data.role === "ROLE_PHARMACY_ADMIN") {
-            this.$router.push("patient-profile");
-          }
-          if (response.data.role === "ROLE_DERMATOLOGIST") {
-            this.$router.push("examination");
-          }
-          if (response.data.role === "ROLE_PHARMACIST") {
-            this.$router.push("patient-profile");
-          }
-          if (response.data.role === "ROLE_SUPPLIER") {
-            this.$router.push("patient-profile");
-          }
-         
-        })
-        .catch(function(error) {
-          if (error.response.status === 401) {
-            alert("Ne postoji korisnik sa unetim podacima");
-          }
-        });
     },
-    toast() {
-      this.$bvToast.toast(`Uspešno ste se ulogovali!`, {
-        title: "Uspešno!",
-        variant: "success",
-        autoHideDelay: 5000,
-      });
-    },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.password = "";
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
-    },
-  },
   components: {},
 };
 </script>

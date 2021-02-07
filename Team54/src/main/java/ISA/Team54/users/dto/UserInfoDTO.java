@@ -1,14 +1,10 @@
 package ISA.Team54.users.dto;
 
-import javax.persistence.Column;
+public class UserInfoDTO {
 
-import ISA.Team54.users.enums.UserRole;
-
-public class UserRequestDTO {
-
+	private long id;
+	
 	private String email;
-
-	private String password;
 
 	private String firstName;
 
@@ -20,35 +16,35 @@ public class UserRequestDTO {
 	
 	private String country;
 	
-	private String phoneNumber;	
-	
-	private UserRole role;
+	private String phoneNumber;
 
 	
-	public UserRequestDTO() {
+	public UserInfoDTO() {
 		super();
 	}
 
-	public UserRequestDTO(String email, String password, String firstName, String lastName, String address, String city,
-			String country, String phoneNumber, UserRole role) {
+	
+	
+	public UserInfoDTO(long id,String email, String firstName, String lastName, String address, String city, String country,
+			String phoneNumber) {
 		super();
+		
+		this.id = id;
 		this.email = email;
-		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.city = city;
 		this.country = country;
 		this.phoneNumber = phoneNumber;
-		this.role = role;
 	}
 
-	public UserRole getRole() {
-		return role;
+	public long getId() {
+		return id;
 	}
 
-	public void setRole(UserRole role) {
-		this.role = role;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -57,14 +53,6 @@ public class UserRequestDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getFirstName() {
@@ -82,7 +70,7 @@ public class UserRequestDTO {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -113,6 +101,6 @@ public class UserRequestDTO {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
+	}	
 	
 }

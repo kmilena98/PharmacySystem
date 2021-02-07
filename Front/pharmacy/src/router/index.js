@@ -3,8 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
-import Examination from "../views/dermatologistAndPharmacist/StartExamination.vue"
+import Examination from "../views/dermatologistAndPharmacist/dermatologist/StartExamination.vue"
 import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
+import SystemAdminsPage from "../views/systemAdmin/users/SystemAdminsPage.vue"
 
 Vue.use(VueRouter);
 
@@ -82,11 +83,43 @@ const routes = [
     component: () =>
       import("../views/pharmacy/DermatologistExaminations.vue")
   },
+
+  {
+    path: "/systemAdminsPage",
+    name: "SystemAdminsPage",
+    component: SystemAdminsPage
+      
+  },
+  {
+    path: "/pharmacyAdminsPage",
+    name: "PharmacyAdminsPage",
+    component: () =>
+      import("../views/systemAdmin/users/PharmacyAdminsPage.vue")
+  },
+  {
+    path: "/dermatologistsPage",
+    name: "DermatologistsPage",
+    component: () =>
+      import("../views/systemAdmin/users/DermatologistsPage.vue")
+  },
+  {
+    path: "/suppliersPage",
+    name: "SuppliersPage",
+    component: () =>
+      import("../views/systemAdmin/users/SuppliersPage.vue")
+  },
+
   {
     path: "/myexaminations",
     name: "MyExaminations",
     component: () =>
       import("../views/patient/examinations/MyExaminations.vue")
+  },
+  {
+    path: "/pharmaciesPage",
+    name: "Pharmacies",
+    component: () =>
+      import("../views/systemAdmin/PharmacyPage.vue")
   }
 ];
 

@@ -6,11 +6,11 @@
             </div>        
             <SupplierHeader v-if="userRole == 'ROLE_SUPPLIER'" />
             <PatientHeader v-else-if="userRole == 'ROLE_PATIENT'" />
-            <UnregisteredHeader v-else-if="userRole == 'ROLE_SYSTEM_ADMIN'" />
             <UnregisteredHeader v-else-if="userRole == 'ROLE_PHARMACY_ADMIN'" />
             <DermatologistHeader v-else-if="userRole == 'ROLE_DERMATOLOGIST'" />
             <PharmacistHeader v-else-if="userRole == 'ROLE_PHARMACIST'" />
             <UnregisteredHeader v-else-if="userRole == 'ROLE_UNREGISTERED'" />
+            <SystemAdminHeader v-else-if="userRole == 'ROLE_SYSTEM_ADMIN'" />
         </div>
     </nav>
 </template>
@@ -19,8 +19,10 @@
 import PatientHeader from "@/views/header/PatientHeader.vue";
 import SupplierHeader from "@/views/header/SupplierHeader.vue";
 import UnregisteredHeader from "@/views/header/UnregisteredHeader.vue";
+import SystemAdminHeader from "@/views/header/SystemAdminHeader.vue";
 import PharmacistHeader from "@/views/header/PharmacistHeader.vue";
 import DermatologistHeader from "@/views/header/DermatologistHeader.vue";
+
 
 export default {
     data: function() {
@@ -32,6 +34,7 @@ export default {
         PatientHeader,
         SupplierHeader,
         UnregisteredHeader,
+        SystemAdminHeader,
         PharmacistHeader,
         DermatologistHeader
     },
