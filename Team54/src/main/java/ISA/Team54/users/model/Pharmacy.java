@@ -40,6 +40,9 @@ public class Pharmacy {
 	@Column(unique = false, nullable = false)
 	private String country;
 	
+	@Column(nullable = false)
+	private double pharmacistPrice;
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<PharmacyAdministrator> pharmacyAdministrators;
@@ -199,6 +202,13 @@ public class Pharmacy {
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
 	}
-	
+
+	public double getPharmacistPrice() {
+		return pharmacistPrice;
+	}
+
+	public void setPharmacistPrice(double pharmacistPrice) {
+		this.pharmacistPrice = pharmacistPrice;
+	}
 	
 }

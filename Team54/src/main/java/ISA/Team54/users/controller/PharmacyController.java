@@ -1,5 +1,6 @@
 package ISA.Team54.users.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+
+import ISA.Team54.Examination.dto.ExaminationSearchDTO;
+import ISA.Team54.Examination.dto.ExaminationTypeDTO;
+import ISA.Team54.Examination.enums.ExaminationType;
+import ISA.Team54.Examination.model.Examination;
+
 import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.users.dto.PharmacyDTO;
+import ISA.Team54.users.dto.PharmacyExaminationDTO;
+import ISA.Team54.users.mappers.PharmacyMapper;
 import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.PharmacyService;
 
@@ -42,10 +51,32 @@ public class PharmacyController {
 		return this.pharmacyService.findAll();
 	}
 	
-	@GetMapping("{id}/dermatologist-examinations")
+	@PostMapping("/all-examinations")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public  ResponseEntity<List<DermatologistExaminationDTO>> getFreeDermatologistExaminationsForPharmacy(@PathVariable long id){
-		return new ResponseEntity<List<DermatologistExaminationDTO>>(examinationService.getExaminationsForPharmacy(id), HttpStatus.OK);	
+		return new ResponseEntity<List<DermatologistExaminationDTO>>(examinationService.getAllExaminationsForPharmacy(id, ExaminationType.DermatologistExamination), HttpStatus.OK);	
+	}
+
+	public  ResponseEntity<List<DermatologistExaminationDTO>> getAllExaminationsForPharmacy(@RequestBody PharmacyExaminationDTO examinationSearch){
+		List<DermatologistExaminationDTO> examinations = examinationService.getAllExaminationsForPharmacy(examinationSearch.getId(), examinationSearch.getType());
+		return new ResponseEntity<List<DermatologistExaminationDTO>>(examinations, HttpStatus.OK);	
+	}
+	
+	@PostMapping("/examinations")
+	@PreAuthorize("hasRole('ROLE_PATIENT')")
+	public  ResponseEntity<List<DermatologistExaminationDTO>> getExaminationsForPharmacyAndDate(@RequestBody PharmacyExaminationDTO examinationSearch){
+		List<DermatologistExaminationDTO> examinations = examinationService.getExaminationsForPharmacyAndDate(examinationSearch.getId(), examinationSearch.getType(), examinationSearch.getDate());
+		return new ResponseEntity<List<DermatologistExaminationDTO>>(examinations, HttpStatus.OK);	
+	}
+	
+	@PostMapping("/search-examinations")
+	@PreAuthorize("hasRole('ROLE_PATIENT')")
+	public ResponseEntity<List<PharmacyDTO>> getFreePharmaciesForInterval(@RequestBody ExaminationSearchDTO examinationSearchDTO){
+		List<Pharmacy> pharmacies=  examinationService.getFreePharmaciesForInterval(examinationSearchDTO.getDate(), examinationSearchDTO.getType());
+		List<PharmacyDTO> pharmacyDTOs = new ArrayList<PharmacyDTO>();
+		
+		pharmacies.forEach(p -> pharmacyDTOs.add(new PharmacyMapper().PharmacyToPharmacyDTO(p)));
+		return new ResponseEntity<List<PharmacyDTO>>(pharmacyDTOs, HttpStatus.OK);
 
 	}
 }

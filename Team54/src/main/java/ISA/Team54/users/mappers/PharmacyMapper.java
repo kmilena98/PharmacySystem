@@ -15,4 +15,13 @@ public class PharmacyMapper {
 		pharmacy.setCountry(pharmacyDTO.getCountry());
 		return pharmacy;						
 	}
+	
+	public PharmacyDTO PharmacyToPharmacyDTO(Pharmacy pharmacy) {
+		return new PharmacyDTO(
+				pharmacy.getId(),
+				pharmacy.getName(),
+				pharmacy.getAddress(),
+				pharmacy.getRatings(),
+				pharmacy.getPharmacistPrice());
+	}
 }

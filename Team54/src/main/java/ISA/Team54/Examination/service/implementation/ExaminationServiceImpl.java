@@ -24,6 +24,8 @@ import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.rating.model.Rating;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.model.Pharmacy;
+import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.PatientRepository;
 import ISA.Team54.users.repository.UserRepository;
 
@@ -99,20 +101,34 @@ public class ExaminationServiceImpl implements ExaminationService{
 		}
 		return definedExaminations;
 	}
+	
 	@Override
-	public List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id) {		
-		List<Examination> examinations = examinationRepository.getExaminationsForPharmacy(id, ExaminationType.DermatologistExamination, ExaminationStatus.Unfilled);
-		List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
-		List<Rating> ratings = new ArrayList<Rating>();
+	public List<DermatologistExaminationDTO> getAllExaminationsForPharmacy(long id, ExaminationType type) {		
+		List<Examination> examinations = examinationRepository.getAllExaminationsForPharmacy(id, type, ExaminationStatus.Unfilled);
+		List<User> employees = new ArrayList<User>();
 		examinations.forEach(
-				e -> 
-				dermatologists.add((Dermatologist) userRepository.findById(e.getEmplyeedId()).orElse(null))
-				);
+				e -> employees.add(userRepository.findById(e.getEmplyeedId()).orElse(null))
+		);
 		
 		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
-		ExaminationMapper mapper = new ExaminationMapper();
 		for(int i = 0; i < examinations.size(); i++) {
-			examinationDTOs.add(mapper.ExaminationToDermatologistExaminationDTO(examinations.get(i), dermatologists.get(i)));
+			examinationDTOs.add(new ExaminationMapper().ExaminationToDermatologistExaminationDTO(examinations.get(i), employees.get(i), type));
+		}
+		
+		return examinationDTOs;
+	}
+	
+	@Override
+	public List<DermatologistExaminationDTO> getExaminationsForPharmacyAndDate(long id, ExaminationType type, Date date) {		
+		List<Examination> examinations = examinationRepository.getExaminationsForPharmacyForDate(id, type, ExaminationStatus.Unfilled, date);
+		List<User> employees = new ArrayList<User>();
+		examinations.forEach(
+				e -> employees.add(userRepository.findById(e.getEmplyeedId()).orElse(null))
+		);
+		
+		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
+		for(int i = 0; i < examinations.size(); i++) {
+			examinationDTOs.add(new ExaminationMapper().ExaminationToDermatologistExaminationDTO(examinations.get(i), employees.get(i), type));
 		}
 		
 		return examinationDTOs;
@@ -140,35 +156,51 @@ public class ExaminationServiceImpl implements ExaminationService{
 		Examination examination = examinationRepository.findById(id).orElse(null);
 		if(examination != null) {
 			if(examination.getTerm().getStart().getTime() - new Date().getTime() > 24 * 60 * 60 * 1000) {
-				System.out.println(examination.getTerm().getStart().getTime());
-				System.out.println(new Date().getTime());
 				examination.setStatus(ExaminationStatus.Unfilled);
 				examination.setPatient(null);
 
 				examinationRepository.save(examination);
 			}else throw new ExaminationInvalidTimeLeft();
-		}else throw new Exception();
+		}else throw new Exception(); 
 	}
 
 
 	@Override
-	public List<DermatologistExaminationDTO> getFutureDermatologistExaminations() {
+	public List<DermatologistExaminationDTO> getFutureExaminations(ExaminationType type) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
-		List<Examination> examinations = examinationRepository.getFutureExaminations(patient.getId(), ExaminationType.DermatologistExamination, ExaminationStatus.Filled);
-		List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
+		List<Examination> examinations = examinationRepository.getFutureExaminations(patient.getId(), type, ExaminationStatus.Filled);
+		List<User> employees = new ArrayList<User>();
 		examinations.forEach(
-				e ->
-						dermatologists.add((Dermatologist) userRepository.findById(e.getEmplyeedId()).orElse(null))
+				e -> employees.add(userRepository.findById(e.getEmplyeedId()).orElse(null))
 		);
 
 		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
-		ExaminationMapper mapper = new ExaminationMapper();
 		for(int i = 0; i < examinations.size(); i++) {
-			examinationDTOs.add(mapper.ExaminationToDermatologistExaminationDTO(examinations.get(i), dermatologists.get(i)));
+			examinationDTOs.add(new ExaminationMapper().ExaminationToDermatologistExaminationDTO(examinations.get(i), employees.get(i), type));
 		}
 
 		return examinationDTOs;
 	}
+
+	@Override
+	public List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type) {
+		List<Examination> examinations =  examinationRepository.getFreeExaminationsForInterval(term , type);
+		System.out.println(term);
+		List<Pharmacy> pharmacies = new ArrayList<Pharmacy>();
+		examinations.forEach( e -> {
+			if(isPharmacyUnique(e.getPharmacy(), pharmacies))
+				pharmacies.add(e.getPharmacy());
+		});
+		
+		return pharmacies;
+	}
 	
+	private boolean isPharmacyUnique(Pharmacy pharmacy, List<Pharmacy> pharmacies) {
+		for(int i = 0; i < pharmacies.size(); i++) {
+			if(pharmacies.get(i).getId() == pharmacy.getId())
+				return false;
+		}
+		return true;
+	}	
 }

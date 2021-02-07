@@ -5,7 +5,7 @@
                     <b-tab title="Pregledi kod dermatologa" active>
                         <MyDermatologistExaminations />
                     </b-tab>
-                    <b-tab title="Pregledi kod farmaceuta">
+                    <b-tab title="Savetovanja kod farmaceuta">
                         <MyPharmacistExaminations />
                     </b-tab>
                 </b-tabs>
@@ -15,9 +15,12 @@
 
 <script>
 import MyDermatologistExaminations from './MyDermatologistExaminations.vue'
+import MyPharmacistExaminations from './MyPharmacistExaminations.vue'
+
 export default {
     components:{
-        MyDermatologistExaminations
+        MyDermatologistExaminations,
+        MyPharmacistExaminations
     }
 }
 </script>

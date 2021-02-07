@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ import ISA.Team54.users.dto.BasicPatientInfoDTO;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.dto.PatientDTO;
 import ISA.Team54.users.dto.UserInfoDTO;
+import ISA.Team54.users.exceptions.AllergyAlreadyAddedException;
 import ISA.Team54.users.mapper.PatientMapper;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.service.interfaces.PatientService;
@@ -94,8 +97,15 @@ public class PatientController {
 	
 	@PostMapping("/allergies/{id}")
 	@PreAuthorize("hasRole('PATIENT')")
-	public void addAllegy(@PathVariable long id){
-		patientService.addAllergy(id);
+	public ResponseEntity<String> addAllegy(@PathVariable long id){
+		try {
+			patientService.addAllergy(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}catch(AllergyAlreadyAddedException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	

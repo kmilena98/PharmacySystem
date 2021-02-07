@@ -74,14 +74,14 @@ export default {
         align-content: center;
     }
 
-    .loyalty-points{
+    /*.loyalty-points{
         border: 2px solid black;
         border-radius: 50%;
         width: 100px;
         height: 100px;
         text-align: center;
         align-self: center;
-    }
+    }*/
 
     .penalty-points > *{
         display: block;
