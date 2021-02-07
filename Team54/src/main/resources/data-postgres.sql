@@ -57,8 +57,8 @@ values (8,'Somborski bulevar 97','Zajecar', true,'Srbija','kristina@gmail.com','
 		'061985622','Krstic', 27, 0);
 
 
-insert into pharmacy(id, address, description, name) values (1,'Narodnoog Fronta 12','gradska apoteka','Apoteka Novi Sad');
-insert into pharmacy(id, address, description, name) values (2,'Petra Kocica 3','gradska apoteka','Apoteka Sirmijum');
+insert into pharmacy(id, address, description, name, pharmacist_price) values (1,'Narodnoog Fronta 12','gradska apoteka','Apoteka Novi Sad', 1100);
+insert into pharmacy(id, address, description, name, pharmacist_price) values (2,'Petra Kocica 3','gradska apoteka','Apoteka Sirmijum', 900);
 
 
 
@@ -307,9 +307,11 @@ insert into examination(diagnose, emplyeed_id, price, status, duration, start, t
 values('Opis 3', 9, 1300, 'Filled', 30, '2020-07-21 09:00', 14, 'PharmacistExamination', 5, 1);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 9, 1300, 'Unfilled', 30, '2021-05-1 09:00', 30, 'PharmacistExamination', null, 1);
+values(null, 9, 1300, 'Unfilled', 30, '2021-05-1 09:00', 0, 'PharmacistExamination', null, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', 30, 'PharmacistExamination', null, 1);
+values(null, 18, 1400, 'Unfilled', 30, '2021-05-1 09:00', 0, 'PharmacistExamination', null, 2);
+insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
+values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', 0, 'PharmacistExamination', null, 1);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 10, 1100, 'Unfilled', 30, '2021-05-1 10:30', 30, 'PharmacistExamination', null, 2);

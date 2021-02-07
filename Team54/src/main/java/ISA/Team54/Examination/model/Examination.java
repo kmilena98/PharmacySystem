@@ -49,7 +49,7 @@ public class Examination {
 	private Term term;
 
 	@JsonBackReference	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacy pharmacy;
 
 	// da li ce trebati nova tabela ovde za kolicinu? --proveritiii

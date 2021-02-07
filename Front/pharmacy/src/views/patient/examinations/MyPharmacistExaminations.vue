@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        <h6 class="h6 text-left mb-3">Prestojeći termini</h6>
+        <h6 class="h6 float-left text-left mt-1">Prestojeći termini</h6>
+
+        <ScheduleModal class="float-right mt-n2 mb-3"/>
+
         <b-table ref="future" striped hover :items="futureData" :fields="fields">
             <template #cell(akcije)="row">
                 <b-button @click="cancel(row)" size="sm" variant="danger" >
@@ -22,6 +25,8 @@
 </template>
 
 <script>
+import ScheduleModal from './ScheduleModal.vue'
+
 export default {
 	data() {
 		return {
@@ -59,14 +64,13 @@ export default {
 		this.$http
             .post('examination/future', {type: 'PharmacistExamination'})
             .then( res => {
-                console.log(res.data)
 				let data = []
                 res.data.forEach(element => {
 					data.push({ 
 						termin: new Date(element.term).toLocaleString(), 
 						farmaceut: element.employee, 
 						ocena: element.employeeRating != 0 ? element.employeeRating : 'Nema ocenu',
-						cena: element.price,
+						cena: element.price + ' din',
 						id: element.examinationId
 					})
 				});
@@ -89,6 +93,9 @@ export default {
 				});
 				this.pastData = data
             })*/
-	}
+	},
+    components:{
+        ScheduleModal
+    }
 }
 </script>
