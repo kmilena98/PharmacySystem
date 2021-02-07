@@ -20,4 +20,5 @@ public interface ExaminationService {
 	boolean scheduleExamination(Long examinationId,Date start);
 	void cancelExamination(long id) throws Exception;
 	List<DermatologistExaminationDTO> getFutureDermatologistExaminations();
+	boolean saveExamination(Long currentExaminationId,Long newExaminationId);
 }

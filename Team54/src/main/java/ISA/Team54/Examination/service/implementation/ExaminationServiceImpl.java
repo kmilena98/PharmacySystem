@@ -1,11 +1,9 @@
 package ISA.Team54.Examination.service.implementation;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +13,7 @@ import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationStatus;
 import ISA.Team54.Examination.enums.ExaminationType;
+import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.model.Term;
@@ -28,9 +27,10 @@ import ISA.Team54.rating.model.Rating;
 import ISA.Team54.sharedModel.DateRange;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
-import ISA.Team54.users.model.User;
+import ISA.Team54.users.model.Pharmacist;
 import ISA.Team54.users.repository.DermatologistRepository;
 import ISA.Team54.users.repository.PatientRepository;
+import ISA.Team54.users.repository.PharmacistRepository;
 import ISA.Team54.users.repository.UserRepository;
 import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 import ISA.Team54.vacationAndWorkingTime.repository.DermatologistWorkScheduleRepository;
@@ -50,6 +50,8 @@ public class ExaminationServiceImpl implements ExaminationService {
 	private UserRepository userRepository;
 	@Autowired
 	private DermatologistRepository dermatologistRepository;
+	@Autowired
+	private PharmacistRepository pharmacistRepository;
 	@Autowired 
 	private DermatologistWorkScheduleRepository dermatologistWorkScheduleRepository;
 
@@ -72,10 +74,13 @@ public class ExaminationServiceImpl implements ExaminationService {
 
 	@Override
 	public List<Examination> historyOfPatientExamination(Long id) {
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		int userId = (int) ((Patient) authentication.getPrincipal()).getId();
-		return examinationRepository.getHistoryExaminationsForPatient( id,ExaminationType.DermatologistExamination,
-				ExaminationStatus.Filled);
+		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Pharmacist pharmacist = pharmacistRepository.findOneById(((Dermatologist) authentication.getPrincipal()).getId());
+		if(pharmacist != null) {
+			examinaitonType = ExaminationType.PharmacistExamination;
+		}
+		return examinationRepository.getHistoryExaminationsForPatient( id,examinaitonType,ExaminationStatus.Filled);
 	}
 
 	@Override
@@ -123,7 +128,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 	@Override
 	public List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id) {
 		List<Examination> examinations = examinationRepository.getExaminationsForPharmacy(id,
-				ExaminationType.DermatologistExamination, ExaminationStatus.Unfilled);
+		ExaminationType.DermatologistExamination, ExaminationStatus.Unfilled);
 		List<Dermatologist> dermatologists = new ArrayList<Dermatologist>();
 		List<Rating> ratings = new ArrayList<Rating>();
 		examinations.forEach(
@@ -253,6 +258,15 @@ public class ExaminationServiceImpl implements ExaminationService {
 		newExamination.setPatient(examination.getPatient());
 		newExamination.setTerm(new Term(start,30));
 		newExamination.setPharmacy(examination.getPharmacy());
+		examinationRepository.save(newExamination);
+		return true;
+	}
+	
+	public boolean saveExamination(Long currentExaminationId,Long newExaminationId) {
+		Examination currentExamination = examinationRepository.findOneById(currentExaminationId);
+		Examination newExamination = examinationRepository.findOneById(newExaminationId);
+		newExamination.setStatus(ExaminationStatus.Filled);
+		newExamination.setPatient(currentExamination.getPatient());
 		examinationRepository.save(newExamination);
 		return true;
 	}

@@ -1,16 +1,22 @@
 <template>
   <div class="container">
     <notifications animation-type="velocity" />
-    <h4 class="h4 align-middle my-4">Profil korisnika</h4>
+    <h4 class="h4 align-middle my-4"></h4>
 
     <b-row>
       <b-col>
         <div id="app">
+        <h4> Izaberite zeljeni termin </h4>
           <b-table
             primary-key="id"
-            :tbody-transition-props="transProps"
+            
             :items="definedExaminations"
             :fields="Fields"
+           :select-mode="selectMode"
+            responsive="sm"
+            ref="selectableTable"
+            selectable
+             @row-selected="onRowSelected"
           ></b-table>
         </div>
       </b-col>
@@ -20,7 +26,7 @@
           <b-button v-on:click="open()" variant="outline-primary"
             >Unesite drugi termin</b-button
           >
-          <b-modal ref="my-modal" hide-footer title="Specifinacija leka">
+          <b-modal ref="my-modal" hide-footer title="Unesite zeljeni termin">
             <div class="d-block text-center">
               <b-row>
                 <b-col sm="3">
@@ -86,9 +92,34 @@ export default {
   methods: {
     open: function() {
       this.$refs["my-modal"].show();
-    },
+    },onRowSelected(items) {
+        this.selected = items
+           this.$axios
+        .post("http://localhost:9001/examination/saveExamination", {
+          currentExaminationId: 4,
+          newExaminationId : items[0].examinationId
+        })
+        .then((response) => {
+          this.message = response.data;
+          if (response.status == 200) {
+            this.$notify({
+              type: "success",
+              title: "Success",
+              text: this.message,
+              closeOnClick: true,
+            });
+          }
+        })
+         this.getDefExaminations(items[0])
+      },
     hideModal: function() {
       this.$refs["my-modal"].hide();
+    }, 
+    getDefExaminations: function(examination){
+          var newArray = this.definedExaminations.filter(function (examination2) {
+          return examination2.examinationId != examination.examinationId;
+        });
+          this.definedExaminations = newArray
     },
     submitModal: function() {
       let startDate = new Date(this.date);

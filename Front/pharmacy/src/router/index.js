@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
-
+import Examination from "../views/dermatologistAndPharmacist/StartExamination.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -51,11 +51,7 @@ const routes = [
   {
     path: "/examination",
     name: "startExamination",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/StartExamination.vue")
+    component: Examination
   },
   {
     path: "/newExamination",
