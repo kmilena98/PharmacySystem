@@ -61,11 +61,35 @@ export default {
                     password : this.form.password
                 })
                 .then( (response) => {
-                    this.toast()                            
+                    this.toast()                           
                     this.$store.commit('setUserRole',response.data.role);
                     this.$store.commit('setUserId',response.data.userId);
                     this.$store.commit('setJWT',response.data.accessToken);
-                    this.$router.push('systemAdminsPage');     
+                    localStorage.setItem("UserRole",response.data.role);
+                    localStorage.setItem("UserId",response.data.userId);
+                    localStorage.setItem("JWT",response.data.accessToken);
+                    
+                    if (response.data.role === "ROLE_PATIENT") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_SYSTEM_ADMIN") {
+                        this.$router.push("examination");
+                    }
+                    if (response.data.role === "ROLE_PHARMACY_ADMIN") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_DERMATOLOGIST") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_PHARMACIST") {
+                        this.$router.push("patient-profile");
+                    }
+                    if (response.data.role === "ROLE_SUPPLIER") {
+                        this.$router.push("patient-profile");  
+                    }
+                   
+                    window.location.reload()
+                 
                 })                    
                 .catch(function (error) {
                     if(error.response.status === 401) {

@@ -1,7 +1,7 @@
 <template>
     <div class="register">
         <b-form id = "form" @submit="onSubmit" @reset="onReset" v-if="show">
-            <b-form-group id="email-group" label="Email:" label-for="name-input" class="text-center">
+            <b-form-group id="email-group" label="Email:" label-for="email-input" class="text-center">
                 <b-form-input
                     class="text-center"
                     id="email-input"
@@ -73,7 +73,7 @@
                 </b-form-input>
             </b-form-group>
 
-            <b-form-group id="country-group" label="Drzava:" label-for="city-input" class="text-center">
+            <b-form-group id="country-group" label="Drzava:" label-for="country-input" class="text-center">
                 <b-form-input
                     class="text-center"
                     id="country-input"

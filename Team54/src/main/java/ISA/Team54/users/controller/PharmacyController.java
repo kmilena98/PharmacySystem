@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
-import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.users.dto.PharmacyDTO;
 import ISA.Team54.users.model.Pharmacy;
@@ -32,9 +31,9 @@ public class PharmacyController {
 	private ExaminationService examinationService;
 	
 	@PostMapping("/addPharmacy")
-	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public  ResponseEntity<Pharmacy>  addPharmacy(@RequestBody PharmacyDTO pharmacyDTO){
-		return new ResponseEntity<>(this.pharmacyService.addPharmacy(pharmacyDTO), HttpStatus.CREATED);	
+		return new ResponseEntity<>(this.pharmacyService.addPharmacy(pharmacyDTO), HttpStatus.OK);	
 	}
 	
 	@GetMapping("/allPharmacies")

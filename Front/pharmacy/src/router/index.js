@@ -81,25 +81,25 @@ const routes = [
 
   {
     path: "/systemAdminsPage",
-    name: "System admins Page",
+    name: "SystemAdminsPage",
     component: () =>
       import("../views/systemAdmin/users/SystemAdminsPage.vue")
   },
   {
     path: "/pharmacyAdminsPage",
-    name: "Pharmacy admins Page",
+    name: "PharmacyAdminsPage",
     component: () =>
       import("../views/systemAdmin/users/PharmacyAdminsPage.vue")
   },
   {
     path: "/dermatologistsPage",
-    name: "Dermatologists Page",
+    name: "DermatologistsPage",
     component: () =>
       import("../views/systemAdmin/users/DermatologistsPage.vue")
   },
   {
     path: "/suppliersPage",
-    name: "Suppliers Page",
+    name: "SuppliersPage",
     component: () =>
       import("../views/systemAdmin/users/SuppliersPage.vue")
   },
@@ -109,6 +109,12 @@ const routes = [
     name: "MyExaminations",
     component: () =>
       import("../views/patient/examinations/MyExaminations.vue")
+  },
+  {
+    path: "/pharmaciesPage",
+    name: "Pharmacies",
+    component: () =>
+      import("../views/systemAdmin/PharmacyPage.vue")
   }
 ];
 

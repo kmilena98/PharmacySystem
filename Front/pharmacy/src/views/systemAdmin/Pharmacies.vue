@@ -1,5 +1,5 @@
 <template>
-  <div id="systemAdmins-table">
+  <div id="pharmacies-table">
         <b-table id = "table" striped hover primary-key="id" :tbody-transition-props="transProps" :items="items" :fields="fields"></b-table>
   </div>
 </template>
@@ -8,13 +8,10 @@ export default {
   data() {
     return {
       fields: [   
-        { key: "email", sortable: true },
-        { key: "firstName", sortable: true },
-        { key: "lastName", sortable: true },
+        { key: "name", sortable: true },
         { key: "address", sortable: true },
         { key: "city", sortable: true },
         { key: "country", sortable: true },
-         { key: "phoneNumber", sortable: true }
       ],
       transProps: {
         name: "flip-list"
@@ -23,16 +20,15 @@ export default {
     };
   },created() {
             // GET request for examination information
-            this.$axios.get("http://localhost:9001/systemAdmin/allSystemAdmins")
+            this.$axios.get("pharmacy/allPharmacies")
             .then(response => { 
-                
+               
                 this.items = response.data;
             
             })
             .catch(error => {
             this.errorMessage = error.message;
-            console.error("There was an error!", error);}
-            );}
+            console.error("There was an error!", error);});}
 };
 </script>
 <style>

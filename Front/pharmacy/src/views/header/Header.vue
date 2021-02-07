@@ -21,7 +21,7 @@ import SystemAdminHeader from "@/views/header/SystemAdminHeader.vue";
 export default {
     data: function() {
         return{
-            userRole: 'ROLE_SYSTEM_ADMIN'
+            userRole: 'ROLE_UNREGISTERED'
         }
     },
 	components: {
@@ -32,7 +32,8 @@ export default {
 
     },
     mounted(){
-       // this.userRole = this.$store.getters.getUserRole;
+        
+        this.userRole = localStorage.getItem("UserRole");
     }
 };
 </script>

@@ -2,7 +2,7 @@
 <template>
     <div class="register">
         <b-form id = "form" @submit="onSubmit" @reset="onReset" v-if="show">
-            <b-form-group id="email-group" label="Email:" label-for="name-input" class="text-center">
+            <b-form-group id="email-group" label="Email:" label-for="email-input" class="text-center">
                 <b-form-input
                     class="text-center"
                     id="email-input"
@@ -74,7 +74,7 @@
                 </b-form-input>
             </b-form-group>
 
-            <b-form-group id="country-group" label="Drzava:" label-for="city-input" class="text-center">
+            <b-form-group id="country-group" label="Drzava:" label-for="country-input" class="text-center">
                 <b-form-input
                     class="text-center"
                     id="country-input"
@@ -92,13 +92,12 @@
                     placeholder="Unesite broj telefona "
                     required>
                 </b-form-input>
+            </b-form-group>          
+            <b-form-group id="pharmacies-group" label="Apoteka:" label-for="pharmacy-input" class="text-center">
+                 <select v-model="selected" >
+                    <option v-for="pharmacy in pharmacies" v-bind:key = "pharmacy" v-bind:value="pharmacy.id">{{pharmacy.name}}</option>
+                </select>
             </b-form-group>
-
-            
-            
-          
-
-
 
             <div class="buttons text-center">                        
                 <b-button type="submit" variant="success" class="mr-2">
@@ -129,9 +128,10 @@ export default {
                 city: '',
                 country: '',
                 phone: '',
-                pharmacyId : 0
+            
             },
             pharmacies : [],
+            selected: '',
             passwordError : false,
             show: true,
          
@@ -155,11 +155,11 @@ export default {
                     city : this.user.city,
                     country : this.user.country,
                     phoneNumber : this.user.phone,
-                    pharmacyId : this.user.pharmacyId
+                    pharmacyId : this.selected.value
             })
             .then( () => {
                   this.toast()  
-               
+    
                 })                    
                 .catch(function (error) {
                     if(error.response.status === 500) {

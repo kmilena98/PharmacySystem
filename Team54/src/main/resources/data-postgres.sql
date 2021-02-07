@@ -57,8 +57,8 @@ values (8,'Somborski bulevar 97','Zajecar', true,'Srbija','kristina@gmail.com','
 		'061985622','Krstic', 27, 0);
 
 
-insert into pharmacy(id, address, description, name) values (1,'Narodnoog Fronta 12','gradska apoteka','Apoteka Novi Sad');
-insert into pharmacy(id, address, description, name) values (2,'Petra Kocica 3','gradska apoteka','Apoteka Sirmijum');
+insert into pharmacy(id, name, address, city, country) values (1,'Apoteka Novi Sad', 'Narodnoog Fronta 12','Novi Sad', 'Srbija');
+insert into pharmacy(id, name, address, city, country) values (2,'Apoteka Sirmijum', 'Petra Kocica 3','Zrenjanin ', 'Srbija');
 
 
 
