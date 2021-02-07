@@ -322,7 +322,7 @@ values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', 30, 'PharmacistExamina
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 10, 1100, 'Unfilled', 30, '2021-05-1 10:30', 30, 'PharmacistExamination', null, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 18, 1200, 'Unfilled', 30, '2021-05-1 11:30', 30, 'PharmacistExamination', null, 2);
+values(null, 18, 1200, 'Filled', 30, '2021-05-1 11:30', 30, 'PharmacistExamination', 5, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Opis 4', 10, 1100, 'Filled', 30, '2020-11-18 10:30', 11, 'PharmacistExamination', 7, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)

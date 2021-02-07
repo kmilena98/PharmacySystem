@@ -48,14 +48,16 @@ export default {
 	},
 	mounted(){
 		this.$http
-            .get('pharmacy/1/dermatologist-examinations')
+            .post('pharmacy/1/dermatologist-examinations', {
+				type: 'DermatologistExamination'
+			})
             .then( res => {
 				let data = []
                 res.data.forEach(element => {
 					data.push({ 
 						termin: new Date(element.term).toLocaleString(), 
-						dermatolog: element.dermatologist, 
-						ocena: element.dermatologistRating != 0 ? element.dermatologistRating : 'Nema ocenu',
+						dermatolog: element.employee, 
+						ocena: element.employeeRating != 0 ? element.employeeRating : 'Nema ocenu',
 						cena: element.price,
 						id: element.examinationId
 						})

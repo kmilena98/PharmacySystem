@@ -17,6 +17,7 @@ import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.dto.BasicPatientInfoDTO;
+import ISA.Team54.users.exceptions.AllergyAlreadyAddedException;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.PatientRepository;
@@ -114,12 +115,17 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public void addAllergy(long id) {
+	public void addAllergy(long id) throws Exception {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
 		
 		Drug allergy = drugService.findById(id);		
 		List<Drug> drugAllergies = patient.getDrugAllergies();
+		
+		for(int i = 0; i < drugAllergies.size(); i++) {
+			if(drugAllergies.get(i).getId() == id)
+				throw new AllergyAlreadyAddedException();
+		}
 		drugAllergies.add(allergy);
 		patientRepository.save(patient);		
 	}
