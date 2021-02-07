@@ -2,10 +2,14 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
             <div class="navbar-header">                
-                <a class="navbar-brand" href="#"><router-link to="/">Apoteka Isabela</router-link></a>
+            <a class="navbar-brand" href="#"><router-link to="/">Apoteka Isabela</router-link></a>
             </div>        
             <SupplierHeader v-if="userRole == 'ROLE_SUPPLIER'" />
             <PatientHeader v-else-if="userRole == 'ROLE_PATIENT'" />
+            <UnregisteredHeader v-else-if="userRole == 'ROLE_SYSTEM_ADMIN'" />
+            <UnregisteredHeader v-else-if="userRole == 'ROLE_PHARMACY_ADMIN'" />
+            <DermatologistHeader v-else-if="userRole == 'ROLE_DERMATOLOGIST'" />
+            <PharmacistHeader v-else-if="userRole == 'ROLE_PHARMACIST'" />
             <UnregisteredHeader v-else-if="userRole == 'ROLE_UNREGISTERED'" />
             <SystemAdminHeader v-else-if="userRole == 'ROLE_SYSTEM_ADMIN'" />
         </div>
@@ -16,7 +20,12 @@
 import PatientHeader from "@/views/header/PatientHeader.vue";
 import SupplierHeader from "@/views/header/SupplierHeader.vue";
 import UnregisteredHeader from "@/views/header/UnregisteredHeader.vue";
+<<<<<<< HEAD
 import SystemAdminHeader from "@/views/header/SystemAdminHeader.vue";
+=======
+import PharmacistHeader from "@/views/header/PharmacistHeader.vue";
+import DermatologistHeader from "@/views/header/DermatologistHeader.vue";
+>>>>>>> develop
 
 export default {
     data: function() {
@@ -28,11 +37,18 @@ export default {
         PatientHeader,
         SupplierHeader,
         UnregisteredHeader,
+<<<<<<< HEAD
         SystemAdminHeader
 
     },
     mounted(){
         
+=======
+        PharmacistHeader,
+        DermatologistHeader
+    },
+    mounted(){
+>>>>>>> develop
         this.userRole = localStorage.getItem("UserRole");
     }
 };

@@ -80,6 +80,7 @@ public class Dermatologist extends User{
 
 	public void setPharmacy(List<Pharmacy> pharmacy) {
 		this.pharmacys = pharmacy;
-	}	
+	}
+
 	
 }

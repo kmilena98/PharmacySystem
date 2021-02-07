@@ -1,55 +1,69 @@
 <template>
-    <div class="loginClass">
-            <b-form id = "form" @submit="login" @reset="onReset" v-if="show" class = "text-center">
-                <b-form-group id="email-group" label="Email:" label-for="email-input" class="text-center">
-                    <b-form-input                      
-                        id="email-input"
-                        class="text-center"
-                        v-model="form.email"
-                        placeholder="Unesite email"
-                        required>
-                    </b-form-input>
-                </b-form-group>
+  <div class="loginClass">
+    <b-form
+      id="form"
+      @submit="login"
+      @reset="onReset"
+      v-if="show"
+      class="text-center"
+    >
+      <b-form-group
+        id="email-group"
+        label="Email:"
+        label-for="email-input"
+        class="text-center"
+      >
+        <b-form-input
+          id="email-input"
+          class="text-center"
+          v-model="form.email"
+          placeholder="Unesite email"
+          required
+        >
+        </b-form-input>
+      </b-form-group>
 
-                <b-form-group id="password-group" label="Lozinka:" label-for="password-input" class="text-center">
-                    <b-form-input
-                        type="password"
-                        class="text-center"
-                        id="password-input"
-                        v-model="form.password"
-                        placeholder="Unesite lozinku"
-                        required>
-                    </b-form-input>
-                </b-form-group>          
-                <div class="buttons text-center">                        
-                    <b-button type="submit" variant="success" class="mr-2">
-                        <b-icon-check></b-icon-check>
-                        Uloguj se
-                    </b-button>
-                    <b-button type="reset" variant="danger">
-                        <b-icon-x></b-icon-x>
-                        Otkaži
-                    </b-button>
-                </div>
-                        
-            </b-form>
-    </div>
+      <b-form-group
+        id="password-group"
+        label="Lozinka:"
+        label-for="password-input"
+        class="text-center"
+      >
+        <b-form-input
+          type="password"
+          class="text-center"
+          id="password-input"
+          v-model="form.password"
+          placeholder="Unesite lozinku"
+          required
+        >
+        </b-form-input>
+      </b-form-group>
+      <div class="buttons text-center">
+        <b-button type="submit" variant="success" class="mr-2">
+          <b-icon-check></b-icon-check>
+          Uloguj se
+        </b-button>
+        <b-button type="reset" variant="danger">
+          <b-icon-x></b-icon-x>
+          Otkaži
+        </b-button>
+      </div>
+    </b-form>
+  </div>
 </template>
 
 <script>
-
-
 export default {
-    data() {
-        return {
-            form: {
-                email: '',
-                password: ''
-            },
-            show: true
-        }
-    },
-
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+      },
+      show: true,
+    };
+  },
 
     methods: {
         
@@ -115,17 +129,15 @@ export default {
                 this.show = true
             })
         }
+
     },
-    components:{
-      
-    }
-}
+  components: {},
+};
 </script>
 
 <style scoped>
-    #form {
-        width : 40%;
-        margin : auto
-    }
+#form {
+  width: 40%;
+  margin: auto;
+}
 </style>
-

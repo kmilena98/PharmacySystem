@@ -10,6 +10,7 @@ import ISA.Team54.users.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByEmail( String email );
+	User findOneById(Long id);
 	List<User> findByName(String name);
 	List<User> findBySurname(String surname);
 	@Query("SELECT u FROM User u WHERE upper(u.name) = ?1 and upper(u.surname) = ?2")
