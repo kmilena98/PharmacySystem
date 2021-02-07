@@ -20,5 +20,5 @@ public interface PatientService {
     Optional<Patient> findById(Long id);
     List<Drug> getPatientAllergies(long id);
     void deletePatientAllergy(long id);
-    void addAllergy(long id);
+    void addAllergy(long id) throws Exception;
 }

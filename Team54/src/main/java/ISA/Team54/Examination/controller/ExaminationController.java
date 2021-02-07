@@ -23,6 +23,7 @@ import ISA.Team54.Examination.dto.DefinedExaminationDTO;
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
+import ISA.Team54.Examination.dto.ExaminationTypeDTO;
 import ISA.Team54.Examination.dto.StartExaminationDTO;
 import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
@@ -71,7 +72,7 @@ public class ExaminationController {
 	}
 
 	@GetMapping("/examinationHistory/{patientId}")
-	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST', 'PATIENT')")
 	public List<ExaminationDTO> examinationHistory(@PathVariable int patientId) {
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
 
@@ -111,11 +112,11 @@ public class ExaminationController {
 		}
 	}
 
-	@GetMapping("/future")
+	@PostMapping("/future")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<List<DermatologistExaminationDTO>> getFutureExamination() {
+	public ResponseEntity<List<DermatologistExaminationDTO>> getFutureExamination(@RequestBody ExaminationTypeDTO type) {
 		try {
-			List<DermatologistExaminationDTO> examinations = examinationService.getFutureDermatologistExaminations();
+			List<DermatologistExaminationDTO> examinations = examinationService.getFutureExaminations(type.getType());
 			return new ResponseEntity<List<DermatologistExaminationDTO>>(examinations, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

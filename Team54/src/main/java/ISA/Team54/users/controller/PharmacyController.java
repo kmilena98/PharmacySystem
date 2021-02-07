@@ -10,10 +10,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+import ISA.Team54.Examination.dto.ExaminationTypeDTO;
+import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.users.dto.PharmacyDTO;
@@ -36,9 +39,9 @@ public class PharmacyController {
 		return new ResponseEntity<>(this.pharmacyService.addPharmacy(pharmacyDTO), HttpStatus.CREATED);	
 	}
 	
-	@GetMapping("{id}/dermatologist-examinations")
+	@PostMapping("{id}/dermatologist-examinations")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public  ResponseEntity<List<DermatologistExaminationDTO>> getFreeDermatologistExaminationsForPharmacy(@PathVariable long id){
-		return new ResponseEntity<List<DermatologistExaminationDTO>>(examinationService.getExaminationsForPharmacy(id), HttpStatus.OK);	
+	public  ResponseEntity<List<DermatologistExaminationDTO>> getFreeDermatologistExaminationsForPharmacy(@PathVariable long id, @RequestBody ExaminationTypeDTO type){
+		return new ResponseEntity<List<DermatologistExaminationDTO>>(examinationService.getExaminationsForPharmacy(id, type.getType()), HttpStatus.OK);	
 	}
 }
