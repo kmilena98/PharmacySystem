@@ -314,7 +314,7 @@ values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', 30, 'PharmacistExamina
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 10, 1100, 'Unfilled', 30, '2021-05-1 10:30', 30, 'PharmacistExamination', null, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 18, 1200, 'Unfilled', 30, '2021-05-1 11:30', 30, 'PharmacistExamination', null, 2);
+values(null, 18, 1200, 'Filled', 30, '2021-05-1 11:30', 30, 'PharmacistExamination', 5, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values('Opis 4', 10, 1100, 'Filled', 30, '2020-11-18 10:30', 11, 'PharmacistExamination', 7, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
@@ -371,4 +371,11 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 12:00',8);
  insert into erecipe(date_of_issue,patient_id) values ('2021-01-01 10:00',5);
  insert into erecipe(date_of_issue,patient_id) values ('2020-12-01 9:00',5);
+ 
+  insert into loyalty_category(id, name, lower, upper, discount)
+ values (1, 'Bronze', 0, 50, 10);
+ insert into loyalty_category(id, name, lower, upper, discount)
+ values (2, 'Silver', 51, 100, 20);
+ insert into loyalty_category(id, name, lower, upper, discount)
+ values (3, 'Gold', 101, 10000, 30);
 

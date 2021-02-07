@@ -1,8 +1,6 @@
 <template>
     <div class="container">
-        <h6 class="h6 float-left mb-3">Prestojeći termini</h6>
-        <ScheduleModal class="float-right"/>        
-
+        <h6 class="h6 text-left mb-3">Prestojeći termini</h6>
         <b-table ref="future" striped hover :items="futureData" :fields="fields">
             <template #cell(akcije)="row">
                 <b-button @click="cancel(row)" size="sm" variant="danger" >
@@ -24,17 +22,12 @@
 </template>
 
 <script>
-
-import ScheduleModal from './ScheduleModal.vue'
-
 export default {
 	data() {
 		return {
 			futureData: [],
 			pastData: [],
-			fields:['termin', 'dermatolog', {key:'ocena', sortable:true}, {key:'cena', sortable:true}, 'akcije'],
-
-            showModal: false
+			fields:['termin', 'farmaceut', {key:'ocena', sortable:true}, {key:'cena', sortable:true}, 'akcije'],
 		}
 	},
     methods:{
@@ -43,14 +36,14 @@ export default {
                 .get('examination/cancel/' + row.item.id)
                 .then( res => {
                     if(res.status == 200){
-                        this.toast('Uspešno ste otkazali pregled!', 'Uspešno', 'success')
+                        this.toast('Uspešno ste otkazali savetovanje!', 'Uspešno', 'success')
                         this.futureData.splice(row.index, 1)
                         this.$refs.future.refresh()
                     }            
                 })
                 .catch( (error) => {
                     if(error.response.status == 400){
-                        this.toast('Ne možete otkazati pregled do kojeg je ostalo manje od 24h!', 'Neuspešno', 'danger')
+                        this.toast('Ne možete otkazati savetovanje do kojeg je ostalo manje od 24h!', 'Neuspešno', 'danger')
                     }else this.toast('Desila se greška! Molimo pokušajte kasnije','Neuspešno', 'danger')  
                 })
 		},
@@ -64,14 +57,14 @@ export default {
 	},
     mounted(){
 		this.$http
-            .post('examination/future', {type: 'DermatologistExamination'})
+            .post('examination/future', {type: 'PharmacistExamination'})
             .then( res => {
                 console.log(res.data)
 				let data = []
                 res.data.forEach(element => {
 					data.push({ 
 						termin: new Date(element.term).toLocaleString(), 
-						dermatolog: element.employee, 
+						farmaceut: element.employee, 
 						ocena: element.employeeRating != 0 ? element.employeeRating : 'Nema ocenu',
 						cena: element.price,
 						id: element.examinationId
@@ -96,9 +89,6 @@ export default {
 				});
 				this.pastData = data
             })*/
-	},
-    components:{
-        ScheduleModal
-    }
+	}
 }
 </script>

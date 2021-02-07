@@ -150,7 +150,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 
 	@Override
 	public List<DermatologistExaminationDTO> getFutureExaminations(ExaminationType type) {
-		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
 		List<Examination> examinations = examinationRepository.getFutureExaminations(patient.getId(), type, ExaminationStatus.Filled);
 		List<User> employees = new ArrayList<User>();
@@ -161,15 +161,9 @@ public class ExaminationServiceImpl implements ExaminationService{
 		List<DermatologistExaminationDTO> examinationDTOs = new ArrayList<DermatologistExaminationDTO>();
 		for(int i = 0; i < examinations.size(); i++) {
 			examinationDTOs.add(new ExaminationMapper().ExaminationToDermatologistExaminationDTO(examinations.get(i), employees.get(i), type));
-		}*/
+		}
 
-		return null;
-	}
-
-	@Override
-	public List<DermatologistExaminationDTO> getExaminationsForPharmacy(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return examinationDTOs;
 	}
 
 	@Override
