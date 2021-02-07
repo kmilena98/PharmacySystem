@@ -1,5 +1,6 @@
 package ISA.Team54.Examination.controller;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,9 @@ import ISA.Team54.Examination.dto.DefinedExaminationDTO;
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
+import ISA.Team54.Examination.dto.ExaminationSearchDTO;
 import ISA.Team54.Examination.dto.StartExaminationDTO;
+import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
@@ -33,6 +36,7 @@ import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.model.Dermatologist;
+import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.DermatologistService;
 import ISA.Team54.users.service.interfaces.PatientService;
 
@@ -114,12 +118,13 @@ public class ExaminationController {
 	@GetMapping("/future")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<List<DermatologistExaminationDTO>> getFutureExamination() {
-		try {
+		/*try {
 			List<DermatologistExaminationDTO> examinations = examinationService.getFutureDermatologistExaminations();
 			return new ResponseEntity<List<DermatologistExaminationDTO>>(examinations, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		}*/
+		return null;
 	}
 
 	@PostMapping("/updateExamination")
@@ -127,5 +132,11 @@ public class ExaminationController {
 	public ResponseEntity<String> postBody(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
 		examinationService.updateExamination(examinationInformationDTO);
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
+	}
+	
+	@PostMapping("/search")
+	@PreAuthorize("hasRole('ROLE_PATIENT')")
+	public List<Pharmacy> getExaminationsForDate(@RequestBody ExaminationSearchDTO examinationSearchDTO){
+		return examinationService.getFreePharmaciesForInterval(examinationSearchDTO.getFrom(), examinationSearchDTO.getTo(), examinationSearchDTO.getType());
 	}
 }

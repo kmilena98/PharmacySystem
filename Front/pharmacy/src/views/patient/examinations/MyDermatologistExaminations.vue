@@ -1,6 +1,8 @@
 <template>
     <div class="container">
-        <h6 class="h6 text-left mb-3">Prestojeći termini</h6>
+        <h6 class="h6 float-left mb-3">Prestojeći termini</h6>
+        <ScheduleModal class="float-right"/>        
+
         <b-table ref="future" striped hover :items="futureData" :fields="fields">
             <template #cell(akcije)="row">
                 <b-button @click="cancel(row)" size="sm" variant="danger" >
@@ -22,12 +24,17 @@
 </template>
 
 <script>
+
+import ScheduleModal from './ScheduleModal.vue'
+
 export default {
 	data() {
 		return {
 			futureData: [],
 			pastData: [],
 			fields:['termin', 'dermatolog', {key:'ocena', sortable:true}, {key:'cena', sortable:true}, 'akcije'],
+
+            showModal: false
 		}
 	},
     methods:{
@@ -72,6 +79,9 @@ export default {
 				this.futureData = data
                 console.log(this.futureData)
             })
-	}
+	},
+    components:{
+        ScheduleModal
+    }
 }
 </script>

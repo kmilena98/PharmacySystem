@@ -1,5 +1,6 @@
 package ISA.Team54.Examination.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,7 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 	
 	@Query("SELECT e FROM Examination e where patient_id = ?1 and type = ?2 and status = ?3 and start > CURRENT_TIMESTAMP") 
 	List<Examination> getFutureExaminations(long id, ExaminationType type, ExaminationStatus status);
+	
+	@Query("select e from Examination e where start >= ?1 and start <= ?2 and type = ?3 and status='Unfilled'")
+	public List<Examination> getFreeExaminationsForInterval(Date from, Date to, ExaminationType type);
 }
