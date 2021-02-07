@@ -1,5 +1,6 @@
 package ISA.Team54.Examination.controller;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,8 +28,10 @@ import ISA.Team54.Examination.dto.ExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.dto.NewExaminationDTO;
 import ISA.Team54.Examination.dto.ScheduleExaminaitonDTO;
+import ISA.Team54.Examination.dto.ExaminationSearchDTO;
 import ISA.Team54.Examination.dto.ExaminationTypeDTO;
 import ISA.Team54.Examination.dto.StartExaminationDTO;
+import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
@@ -37,7 +40,10 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
+import ISA.Team54.users.dto.PharmacyDTO;
+import ISA.Team54.users.mappers.PharmacyMapper;
 import ISA.Team54.users.model.Dermatologist;
+import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.DermatologistService;
 import ISA.Team54.users.service.interfaces.PatientService;
 
@@ -100,7 +106,7 @@ public class ExaminationController {
 	@GetMapping("/schedule/{id}")
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public void scheduleExamination(@PathVariable long id) {
-		((ExaminationController) examinationService).scheduleExamination(id);
+		examinationService.scheduleExamination(id); 
 	}
 
 	 @PostMapping("/scheduleExamination")

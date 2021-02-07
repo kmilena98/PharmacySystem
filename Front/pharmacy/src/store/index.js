@@ -5,9 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+<<<<<<< HEAD
 		userRole: localStorage.getItem("UserRole"),
 		userId: localStorage.getItem("UserId"),
 		JWT: localStorage.getItem("JWT")
+=======
+		userRole: 'ROLE_PHARMACIST',
+		userId: 9,
+		JWT: 'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzcHJpbmctc2VjdXJpdHktZXhhbXBsZSIsInN1YiI6ImRpbWl0cmlqZUBnbWFpbC5jb20iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MTI3MTU5NTEsImV4cCI6MTYxMzAxNTk1MX0.pXApl6T8yt4tnNjbdiLjvz7BXY19C0x77kxHDzRdwRPbjqGVtLKRUSo35RmaIe1de__Ehap11b_H0aKB7yQ8Ew'
+
+>>>>>>> develop
 	},
 	mutations: {
 		setUserRole(state,newRole) {

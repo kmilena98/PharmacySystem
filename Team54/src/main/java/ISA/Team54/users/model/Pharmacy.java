@@ -38,6 +38,10 @@ public class Pharmacy {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DermatologistWorkSchedule> dermatologistWorkingSchedules;
+
+	@Column(nullable = false)
+	private double pharmacistPrice;
+
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -188,6 +192,13 @@ public class Pharmacy {
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
 	}
-	
+
+	public double getPharmacistPrice() {
+		return pharmacistPrice;
+	}
+
+	public void setPharmacistPrice(double pharmacistPrice) {
+		this.pharmacistPrice = pharmacistPrice;
+	}
 	
 }

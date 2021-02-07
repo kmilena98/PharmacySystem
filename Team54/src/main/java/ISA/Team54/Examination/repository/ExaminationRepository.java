@@ -1,5 +1,6 @@
 package ISA.Team54.Examination.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,8 +25,15 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 	List<Examination> getHistoryExaminationsForPatient(long id, ExaminationType type, ExaminationStatus status);
 	
 	@Query("SELECT e FROM Examination e where pharmacy_id = ?1 and type = ?2 and status = ?3 ")
-	List<Examination> getExaminationsForPharmacy(long id, ExaminationType type, ExaminationStatus status);
+	List<Examination> getAllExaminationsForPharmacy(long id, ExaminationType type, ExaminationStatus status);
+	
+	@Query("SELECT e FROM Examination e where pharmacy_id = ?1 and type = ?2 and status = ?3 and cast(start as java.util.Date) = ?4 ")
+	List<Examination> getExaminationsForPharmacyForDate(long id, ExaminationType type, ExaminationStatus status, Date date);
 	
 	@Query("SELECT e FROM Examination e where patient_id = ?1 and type = ?2 and status = ?3 and start > CURRENT_TIMESTAMP") 
 	List<Examination> getFutureExaminations(long id, ExaminationType type, ExaminationStatus status);
+	
+	@Query("select e from Examination e where cast(start as java.util.Date) = ?1 and type = ?2 and status='Unfilled'")
+	public List<Examination> getFreeExaminationsForInterval(Date term, ExaminationType type);
+	
 }
