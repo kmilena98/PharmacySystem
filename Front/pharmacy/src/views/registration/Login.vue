@@ -87,7 +87,7 @@ export default {
                         this.$router.push("patient-profile");
                     }
                     if (response.data.role === "ROLE_SYSTEM_ADMIN") {
-                        this.$router.push("examination");
+                        this.$router.push("systemAdminsPage");
                     }
                     if (response.data.role === "ROLE_PHARMACY_ADMIN") {
                         this.$router.push("patient-profile");

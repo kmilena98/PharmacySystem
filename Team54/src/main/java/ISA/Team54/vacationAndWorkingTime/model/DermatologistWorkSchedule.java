@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import ISA.Team54.sharedModel.DateRange;
 import ISA.Team54.users.model.Dermatologist;
@@ -30,6 +31,7 @@ public class DermatologistWorkSchedule {
 	@OneToOne()
 	private Dermatologist dermatologist;
 	
+	@JsonBackReference	
 	@OneToOne()
 	private Pharmacy pharmacy;
 	

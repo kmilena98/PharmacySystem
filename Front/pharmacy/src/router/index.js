@@ -3,8 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
-import Examination from "../views/dermatologistAndPharmacist/StartExamination.vue"
+import Examination from "../views/dermatologistAndPharmacist/dermatologist/StartExamination.vue"
 import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
+import SystemAdminsPage from "../views/systemAdmin/users/SystemAdminsPage.vue"
 
 Vue.use(VueRouter);
 
@@ -86,8 +87,8 @@ const routes = [
   {
     path: "/systemAdminsPage",
     name: "SystemAdminsPage",
-    component: () =>
-      import("../views/systemAdmin/users/SystemAdminsPage.vue")
+    component: SystemAdminsPage
+      
   },
   {
     path: "/pharmacyAdminsPage",

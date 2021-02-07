@@ -40,13 +40,13 @@ public class PharmacyController {
 	private ExaminationService examinationService;
 	
 	@PostMapping("/addPharmacy")
-	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public  ResponseEntity<Pharmacy>  addPharmacy(@RequestBody PharmacyDTO pharmacyDTO){
 		return new ResponseEntity<>(this.pharmacyService.addPharmacy(pharmacyDTO), HttpStatus.OK);	
 	}
 	
 	@GetMapping("/allPharmacies")
-	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public  List<Pharmacy> findAll(){
 		return this.pharmacyService.findAll();
 	}
