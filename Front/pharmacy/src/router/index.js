@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
+import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     component: PatientProfile
   },
   {
+    path: "/issue-drug",
+    name: "Issue drug",
+    component: IssueDrug
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
@@ -38,7 +44,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/MyPatients.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/MyPatients.vue")
   }, {
     path: "/searchedPatients",
     name: "searchedPatients",
@@ -46,7 +52,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/SearchedPatients.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/SearchedPatients.vue")
   },
   {
     path: "/examination",
@@ -55,7 +61,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/StartExamination.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/StartExamination.vue")
   },
   {
     path: "/newExamination",
@@ -64,7 +70,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/NewExamination.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/NewExamination.vue")
   },
   {
     path: "/pharmacies",

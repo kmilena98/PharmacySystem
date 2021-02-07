@@ -357,7 +357,7 @@ values (9, 1300,'2020-12-01 9:00','2021-12-01 9:00',5,2);
  
 
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
- values ('2021-03-09 10:00',1,7,3,1);
+ values ('2021-03-09 10:00',0,7,3,1);
   insert into drug_reservation(reservation_to_date,status,patient_id,reserved_drug_drug_id,reserved_drug_pharmaci_id) 
  values ('2021-02-06 11:00',2,5,4,1);
 

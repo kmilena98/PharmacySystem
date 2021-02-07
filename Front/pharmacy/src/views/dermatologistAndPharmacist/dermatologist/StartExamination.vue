@@ -252,7 +252,6 @@ export default {
       },
         submit : function(){
            
-           
             this.$axios.post("http://localhost:9001/examination/updateExamination", {id: this.examinationId,therapyDuration: this.therapyDuration, diagnosis: this.text, drugs : this.therapy})
                 .then(response => {this.message = response.data
                  this.$notify({
@@ -260,9 +259,7 @@ export default {
                 title: 'Success',
                 text: this.message,              
                 closeOnClick : true
-            })
-
-                });
+            })});
             
         }
     }
