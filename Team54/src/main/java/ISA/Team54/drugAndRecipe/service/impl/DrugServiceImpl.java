@@ -20,6 +20,7 @@ import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.repository.DrugsInPharmacyRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.repository.PatientRepository;
 
 @Service

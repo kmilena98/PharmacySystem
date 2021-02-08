@@ -1,5 +1,6 @@
 package ISA.Team54.users.service.interfaces;
 
+import ISA.Team54.drugAndRecipe.dto.DrugWithPharmacyDTO;
 import java.util.List;
 
 import ISA.Team54.users.dto.DermatologistRequestDTO;
@@ -23,6 +24,6 @@ public interface PharmacyService {
 	Pharmacist addPharmacist(PharmacistRequestDTO pharmacistRequestDTO);
 	Supplier addSupplier(UserRequestDTO userRequest);
 	Pharmacy addPharmacy(PharmacyDTO pharmacyDTO);
+	Pharmacy getPharmacyById(long pharmacyId);
 	List<Pharmacy> findAll();
-
 }

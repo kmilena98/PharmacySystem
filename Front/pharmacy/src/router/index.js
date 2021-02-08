@@ -129,6 +129,12 @@ const routes = [
     component: PharmacyAdminProfile
   },
   {
+    path: "/mydrugs",
+    name: "MyDrugs",
+    component: () =>
+      import("../views/patient/drugs/Drugs.vue")
+  },
+  {
     path: "/pharmaciesPage",
     name: "Pharmacies",
     component: () =>
