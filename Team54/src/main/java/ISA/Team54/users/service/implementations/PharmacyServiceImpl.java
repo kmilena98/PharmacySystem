@@ -3,6 +3,7 @@ package ISA.Team54.users.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Autowired
 	private SupplierRepository supplierRepository;
 	
+	@Lazy
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 

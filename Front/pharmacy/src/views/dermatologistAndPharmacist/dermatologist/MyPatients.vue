@@ -21,7 +21,7 @@ export default {
     };
   },created() {
             // GET request for examination information
-            this.$axios.get("http://localhost:9001/api/examinatedPatients/"+1)
+            this.$axios.get("http://localhost:9001/patient/examinatedPatients/"+1)
             .then(response => this.items = response.data)
             .catch(error => {
             this.errorMessage = error.message;

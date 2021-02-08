@@ -59,10 +59,10 @@ public class ExaminationController {
 	@Autowired
 	private DermatologistService dermatologistSerivce;
 
-	@GetMapping("/soonestExamination/{id}")
+	@GetMapping("/soonestExamination")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public StartExaminationDTO loadSoonestExamination(@PathVariable Long id) {
-		Examination soonestExamination = examinationService.getCurrentExaminationByDermatologistId(id);
+	public StartExaminationDTO loadSoonestExamination() {
+		Examination soonestExamination = examinationService.getCurrentExaminationByDermatologistId();
 
 		ExaminationDTO soonestExaminationDTO = new ExaminationMapper().ExaminationToExaminationDTO(soonestExamination);
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
@@ -78,6 +78,19 @@ public class ExaminationController {
 			drugsForPatient.add(new DrugMapper().DrugIntoDrugDTO(drug));
 		}
 		return new StartExaminationDTO(soonestExaminationDTO, historyExaminations, drugsForPatient);
+	}
+	
+	@GetMapping("/isPatientAppropriate/{patientId}")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST', 'PATIENT')")
+	public  ResponseEntity<String> IsPatientAppropriate(@PathVariable Long patientId) {
+		int isPatientAppropriate = examinationService.isPatientAppropriate(patientId);
+		if(isPatientAppropriate==1)
+			 return new ResponseEntity<>("Izabrali ste odgovarajuceg pacijenta!",HttpStatus.OK);
+		else if(isPatientAppropriate==0) {
+			 return new ResponseEntity<>("Izabrani pacijent nema trenutno zakazano!",HttpStatus.BAD_REQUEST);
+		}else {
+			return new ResponseEntity<>("Izabrani pacijent nema trenutno zakazano!",HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@GetMapping("/examinationHistory/{patientId}")
@@ -144,7 +157,7 @@ public class ExaminationController {
 	}
 
 	@PostMapping("/updateExamination")
-	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public ResponseEntity<String> updateExamination(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
 		examinationService.updateExamination(examinationInformationDTO);
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
