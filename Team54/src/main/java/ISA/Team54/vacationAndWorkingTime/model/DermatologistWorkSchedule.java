@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Pharmacy;
 @Entity

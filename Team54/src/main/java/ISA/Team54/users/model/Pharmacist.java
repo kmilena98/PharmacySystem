@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import ISA.Team54.rating.model.Rating;
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
 import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
 
