@@ -5,7 +5,7 @@
           <b-col sm = "4">
           </b-col>
           <b-col sm = "4">
-            <label for="example-datepicker"><b>Izaberite datum pocetka odmora/odsustva</b></label>
+            <label for="example-datepicker">Izaberite datum pocetka odmora/odsustva</label>
             <b-form-datepicker id="example-datepicker" v-model="start" class="mb-2" required></b-form-datepicker>
           </b-col>
       </b-row>
@@ -13,7 +13,7 @@
           <b-col sm = "4">
           </b-col>
           <b-col sm = "4">
-            <label for="example-datepicker"><b>Izaberite datum zavrsetka odmora/odsustva</b></label>
+            <label for="example-datepicker">Izaberite datum zavrsetka odmora/odsustva</label>
             <b-form-datepicker id="example-datepicker" v-model="end" class="mb-2" required></b-form-datepicker>
           </b-col>
       </b-row>
