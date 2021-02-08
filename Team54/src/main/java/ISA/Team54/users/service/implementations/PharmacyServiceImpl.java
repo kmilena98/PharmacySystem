@@ -3,9 +3,11 @@ package ISA.Team54.users.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ISA.Team54.drugAndRecipe.dto.DrugWithPharmacyDTO;
 import ISA.Team54.security.Authority;
 import ISA.Team54.users.dto.DermatologistRequestDTO;
 import ISA.Team54.users.dto.PharmacistRequestDTO;
@@ -47,13 +49,14 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Autowired
 	private SupplierRepository supplierRepository;
-	
+
+	@Lazy
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private AuthorityService authService;
-	
+
 	@Autowired
 	private PharmacyRepository pharmacyRepository;
 	
@@ -89,7 +92,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		UserMapper.UserRequestDTOToUser(userRequest,supplier);	
 		supplier.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		List<Authority> auth = authService.findByname("ROLE_SUPPLIER");
-		supplier.setAuthorities(auth);
+		supplier.setAuthorities(auth); 
 		return supplierRepository.save(supplier);			
 	}
 
@@ -118,6 +121,11 @@ public class PharmacyServiceImpl implements PharmacyService {
 	public Pharmacist addPharmacist(PharmacistRequestDTO pharmacistRequestDTO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Pharmacy getPharmacyById(long pharmacyId) {
+		return pharmacyRepository.findById(pharmacyId);
 	}
 	
 }

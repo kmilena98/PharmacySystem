@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
+import ISA.Team54.exceptions.InvalidTimeLeft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,8 +21,6 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
-import ISA.Team54.rating.model.Rating;
-import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.model.User;
@@ -160,7 +158,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 				examination.setPatient(null);
 
 				examinationRepository.save(examination);
-			}else throw new ExaminationInvalidTimeLeft();
+			}else throw new InvalidTimeLeft();
 		}else throw new Exception(); 
 	}
 
