@@ -2,7 +2,7 @@ package ISA.Team54.vacationAndWorkingTime.model;
 
 import javax.persistence.*;
 
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Pharmacist;
 import ISA.Team54.vacationAndWorkingTime.enums.VacationRequestStatus;

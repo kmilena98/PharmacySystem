@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Pharmacist;
 import ISA.Team54.users.repository.DermatologistRepository;
