@@ -2,16 +2,9 @@
 
   <div>
   <notifications animation-type="velocity"/>
-   <b-modal ref="my-modal" hide-footer title="Unesite zeljeni termin">
+   <b-modal ref="my-modal" hide-footer title="Da li je pacijent dosao na pregled?">
             <div class="d-block text-center">
-              <b-row>
-                <b-col sm="3">
-                  <b-form-input type="date" v-model="date"></b-form-input>
-                </b-col>
-                <b-col sm="3">
-                  <b-form-input type="time" v-model="time"></b-form-input>
-                </b-col>
-              </b-row>
+              
             </div>
             <b-row>
               <b-col>
@@ -20,7 +13,7 @@
                   variant="outline-primary"
                   block
                   @click="hideModal"
-                  >Close</b-button
+                  >NE</b-button
                 >
               </b-col>
               <b-col>
@@ -28,8 +21,8 @@
                   class="mt-3"
                   variant="success"
                   block
-                  @click="submitModal"
-                  >Submit</b-button
+                  @click="startIt"
+                  >DA</b-button
                 >
               </b-col>
             </b-row>
@@ -46,10 +39,10 @@
             
             :items="items"
             :fields="Fields"
-           :select-mode="selectMode"
+             selectable
+           :select-mode="single"
             responsive="sm"
-            ref="selectableTable"
-            selectable
+            ref='selectableTable'
              @row-selected="onRowSelected"
           ></b-table>
   </div>
@@ -63,8 +56,9 @@ export default {
         Fields: [
         { key: "name" , sortable: true },
         { key: "surname", sortable: true },
-      ],
-                imeIPrezime : ''};
+      ], imeIPrezime : '',
+         choosedPatient :'',
+      };
     },
      created() {
   // GET request using axios with error handling
@@ -100,44 +94,81 @@ export default {
         })},
         subtract: function(dec){
             this.age -= dec;
+        },startExamination:function(){
+            this.$axios
+            .get("http://localhost:9001/examination/isPatientAppropriate/"+this.choosedPatient.id)
+          .then((response) => {
+            this.message = response.data;
+            if (response.status == 200) {
+              this.open()
+
+              this.$notify({
+                type: "success",
+                title: "Success",
+                text: this.message,
+                closeOnClick: true,
+              });
+            }else{
+              this.$notify({
+                type: "error",
+                title: "Error",
+                text: this.message,
+                closeOnClick: true,
+              });
+          }
+        }).catch((error) => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+          this.$notify({
+          type: "error",
+                title: "Error",
+                text: "Izabrani pacijent nema trenutno zakazan pregled!",
+                closeOnClick: true,
+          });
+           this.$refs.selectableTable.clearSelected();
+        });
         },
         updateXY: function(event){
             this.x = event.offsetX;
             this.y = event.offsetY;
         },onRowSelected(items) {
-         
-        this.selected = items
-           this.$axios
-        .post("http://localhost:9001/examination/saveExamination", {
-          currentExaminationId: 4,
-          newExaminationId : items[0].examinationId
-        })
+          this.choosedPatient = items[0]
+          this.startExamination()
+          this.selected = items
+           
+      
+         this.getDefExaminations(items[0])
+        }, open: function() {
+            this.$refs["my-modal"].show();
+        }, startIt:function(){
+             this.$router.push("examination");
+        }, hideModal: function() {
+          this.$refs.selectableTable.clearSelected();
+          this.$refs["my-modal"].hide();
+               this.$axios
+        .post("http://localhost:9001/patient/addPenaltyPoint/"+this.choosedPatient.id)
         .then((response) => {
           this.message = response.data;
           if (response.status == 200) {
-             this.open()
-             
             this.$notify({
               type: "success",
               title: "Success",
               text: this.message,
               closeOnClick: true,
             });
-          }else{
-            this.$notify({
-              type: "error",
-              title: "Error",
-              text: "Ovaj pacijent nema trenutno zakazan pregled",
-              closeOnClick: true,
-            });
           }
-        })
-         this.getDefExaminations(items[0])
-      }, open: function() {
-            this.$refs["my-modal"].show();
-        }, hideModal: function() {
-          this.$refs["my-modal"].hide();
-        }, 
+        }).catch((error) => {
+            this.errorMessage = error.message;
+            console.error("There was an error!", error);
+            this.$notify({
+            type: "error",
+            title: "Error",
+            text: "Moslo je do greske. Molimo pokusajte kasnije!",
+            closeOnClick: true,
+          });
+           this.$refs.selectableTable.clearSelected();
+        });
+        },
     }
 }
 </script>

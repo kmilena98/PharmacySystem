@@ -50,6 +50,7 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 	}
 	public Drug isDrugReservationAvailable(long reservationId) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		try {
 		Pharmacist pharmacist = pharmacistRepository.findOneById(((Pharmacist) authentication.getPrincipal()).getId());
 		DrugReservation drugReservation = drugReservationRepository.findOneByIdAndReservedDrugDrugInPharmacyIdPharmaciIdAndStatus(reservationId,pharmacist.getPharmacy().getId(),ReservationStatus.Reserved);
 		if(drugReservation == null) {
@@ -60,5 +61,8 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 		}
 		//sellDrug(drugReservation.getId());
 		return drugRepository.findOneById(drugReservation.getReservedDrug().getDrugInPharmacyId().getDrugId());
+		}catch(Exception e) {
+			return null;
+		}
 	}
 }

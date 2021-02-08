@@ -19,7 +19,7 @@
       </b-row>
     </b-modal>
 
-    <b-modal ref="specification-modal" hide-footer title="Zamenski lekovi">
+    <b-modal ref="specification-modal" hide-footer title="Specifikacija leka">
       <b-row>
         <b-col>
           <h5> Preporucena doza : {{this.dose}}</h5>
@@ -72,6 +72,9 @@
                     <b-tab title="Istorija poseta dermatologa">
                         <b-table striped hover :items="items"></b-table>
                     </b-tab>
+                    <b-tab title = "Zakazivanje pregleda">
+                     <NewExamination />
+                    </b-tab>  
                     <b-tab title="Terapija">
                        <b-row>
                        <b-col>
@@ -129,6 +132,7 @@
 </template>
 
 <script>
+import NewExamination from './NewExamination.vue';
 export default {
     data(){
        return{   Fields: [
@@ -154,7 +158,7 @@ export default {
     },
      created() {
             // GET request for examination information
-            this.$axios.get("http://localhost:9001/examination/soonestExamination/"+1)
+            this.$axios.get("http://localhost:9001/examination/soonestExamination/")
             .then(response => {this.examination = response.data
                                 this.name = this.examination.soonestExamination.dermatologistName
                                 this.surname = this.examination.soonestExamination.dermatologistSurname
@@ -168,6 +172,8 @@ export default {
             console.error("There was an error!", error);});
             
         
+    }, components:{
+        NewExamination
     },methods: {
         add : function(item){
              this.$axios.get("http://localhost:9001/drugs/isAvailableInPharmacy/"+ item.id+"/"+this.examinationId)
