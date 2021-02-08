@@ -12,6 +12,7 @@ public interface UserService {
     List<User> findAll ();
     List<User> findByName(String name);
     List<User> findBySurname(String surname);
+    void changePassword(String oldPassword, String newPassword);
 	
 
 }

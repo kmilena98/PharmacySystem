@@ -1,5 +1,5 @@
 <template>
-    <div class="patient-information">
+    <div class="pharmacy-admin-information">
         <b-row>
             <b-col cols="8">
                 <b-form>
@@ -89,14 +89,12 @@ export default {
     },
     mounted(){
 
-        this.$http
-            .get('/patient/' + this.$store.getters.getUserId)
+         this.$http
+            .get('/pharmacyAdmin/' + this.$store.getters.getUserId)
             .then( res => {
-                console.log(res)
                 this.form = JSON.parse(JSON.stringify(res.data))
                 this.backup = JSON.parse(JSON.stringify(res.data))
             })
-
     },
     methods: {
         onSubmit(event) {
@@ -135,13 +133,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-    .penalty-points{
-       text-align: middle;
-    }
-
-    .penalty-points > span{
-        display: block;
-    }
-</style>

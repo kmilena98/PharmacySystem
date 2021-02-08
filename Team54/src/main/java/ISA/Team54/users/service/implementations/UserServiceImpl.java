@@ -2,13 +2,20 @@ package ISA.Team54.users.service.implementations;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ISA.Team54.users.model.Patient;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.UserRepository;
 import ISA.Team54.users.service.interfaces.AuthorityService;
@@ -25,6 +32,11 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private AuthorityService authService;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	protected final Log LOGGER = LogFactory.getLog(getClass());
 
 	@Override
 	public User findByUsername(String username) throws UsernameNotFoundException {
@@ -50,6 +62,22 @@ public class UserServiceImpl implements UserService {
 	public List<User> findBySurname(String surname) throws AccessDeniedException {
 		List<User> result = userRepository.findBySurname(surname);
 		return result;		
+	}
+
+	@Override
+	public void changePassword(String oldPassword, String newPassword) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User currentUser = userRepository.findByEmail(((User) authentication.getPrincipal()).getEmail());
+		
+		if (authenticationManager != null) {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(currentUser.getEmail(), oldPassword));
+		} else {
+			return;
+		}
+		
+		
+		currentUser.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.save(currentUser);
 	}	
 	
 /*	@Override

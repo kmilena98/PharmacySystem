@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
+import PharmacyAdminProfile from  "../views/pharmacyAdmin/profile/PharmacyAdminProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -83,7 +84,12 @@ const routes = [
     name: "MyExaminations",
     component: () =>
       import("../views/patient/examinations/MyExaminations.vue")
-  }
+  },
+  {
+    path: "/pharmacy-admin-profile",
+    name: "Pharmacy Admin Profile",
+    component: PharmacyAdminProfile
+  },
 ];
 
 const router = new VueRouter({
