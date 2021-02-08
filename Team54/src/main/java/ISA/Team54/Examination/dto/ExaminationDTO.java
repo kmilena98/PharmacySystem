@@ -1,6 +1,5 @@
 package ISA.Team54.Examination.dto;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ExaminationDTO {

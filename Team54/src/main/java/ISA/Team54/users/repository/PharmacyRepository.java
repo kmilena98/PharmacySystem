@@ -10,5 +10,4 @@ import ISA.Team54.users.model.Pharmacy;
 @Repository
 public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 	Pharmacy findById( long id );
-	Pharmacy save(Pharmacy pharmacy);
 }

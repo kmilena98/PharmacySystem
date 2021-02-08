@@ -62,8 +62,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	@Override
 	public Pharmacy addPharmacy(PharmacyDTO pharmacyDTO) {
-		Pharmacy pharmacy = PharmacyMapper.PharmacyDTOToPharmacy(pharmacyDTO);
-		return pharmacyRepository.save(pharmacy);		
+		return pharmacyRepository.save(PharmacyMapper.PharmacyDTOToPharmacy(pharmacyDTO));		
 	} 
 	
 	@Override
@@ -126,6 +125,10 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public Pharmacy getPharmacyById(long pharmacyId) {
 		return pharmacyRepository.findById(pharmacyId);
+	}
+
+	public List<Pharmacy> findAll() {
+		return this.pharmacyRepository.findAll();
 	}
 	
 }

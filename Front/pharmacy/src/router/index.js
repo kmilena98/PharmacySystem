@@ -3,6 +3,10 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
+import Examination from "../views/dermatologistAndPharmacist/dermatologist/StartExamination.vue"
+import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
+import SystemAdminsPage from "../views/systemAdmin/users/SystemAdminsPage.vue"
+import Vacation from "../views/dermatologistAndPharmacist/ScheduleVacation.vue"
 
 Vue.use(VueRouter);
 
@@ -23,6 +27,11 @@ const routes = [
     component: PatientProfile
   },
   {
+    path: "/issue-drug",
+    name: "Issue drug",
+    component: IssueDrug
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
@@ -38,7 +47,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/MyPatients.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/MyPatients.vue")
   }, {
     path: "/searchedPatients",
     name: "searchedPatients",
@@ -46,16 +55,19 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/SearchedPatients.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/SearchedPatients.vue")
   },
   {
     path: "/examination",
     name: "startExamination",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/StartExamination.vue")
+    component: Examination
+
+  },
+  {
+    path: "/vacation",
+    name: "scheduleVacation",
+    component: Vacation
+
   },
   {
     path: "/newExamination",
@@ -64,7 +76,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/NewExamination.vue")
+      import(/* webpackChunkName: "about" */ "../views/dermatologistAndPharmacist/dermatologist/NewExamination.vue")
   },
   {
     path: "/pharmacies",
@@ -78,6 +90,32 @@ const routes = [
     component: () =>
       import("../views/pharmacy/DermatologistExaminations.vue")
   },
+
+  {
+    path: "/systemAdminsPage",
+    name: "SystemAdminsPage",
+    component: SystemAdminsPage
+      
+  },
+  {
+    path: "/pharmacyAdminsPage",
+    name: "PharmacyAdminsPage",
+    component: () =>
+      import("../views/systemAdmin/users/PharmacyAdminsPage.vue")
+  },
+  {
+    path: "/dermatologistsPage",
+    name: "DermatologistsPage",
+    component: () =>
+      import("../views/systemAdmin/users/DermatologistsPage.vue")
+  },
+  {
+    path: "/suppliersPage",
+    name: "SuppliersPage",
+    component: () =>
+      import("../views/systemAdmin/users/SuppliersPage.vue")
+  },
+
   {
     path: "/myexaminations",
     name: "MyExaminations",
@@ -89,6 +127,12 @@ const routes = [
     name: "MyDrugs",
     component: () =>
       import("../views/patient/drugs/Drugs.vue")
+  },
+  {
+    path: "/pharmaciesPage",
+    name: "Pharmacies",
+    component: () =>
+      import("../views/systemAdmin/PharmacyPage.vue")
   }
 ];
 

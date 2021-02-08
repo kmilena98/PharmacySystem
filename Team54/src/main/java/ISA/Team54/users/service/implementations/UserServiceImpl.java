@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.UserRepository;
 import ISA.Team54.users.service.interfaces.AuthorityService;
@@ -41,6 +40,18 @@ public class UserServiceImpl implements UserService {
 		List<User> result = userRepository.findAll();
 		return result;
 	}
+/*	public List<User> findAllByRole() throws AccessDeniedException {
+		List<User> result = userRepository.findAll();
+		for (User user : result) {
+			
+		} 
+		return result;
+	}
+	
+	public List<User> findAllByRole() throws AccessDeniedException {
+		List<User> result = userRepository.findAllByRole(UserRole userRole);
+		return result;
+	} */
 
 	public List<User> findByName(String name) throws AccessDeniedException {
 		List<User> result = userRepository.findByName(name);

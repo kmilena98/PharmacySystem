@@ -29,10 +29,9 @@ public class VacationRequest {
 		super();
 	}
 
-	public VacationRequest(Long id, DateRange timePeriod, VacationRequestStatus status, Dermatologist dermatologist,
+	public VacationRequest( DateRange timePeriod, VacationRequestStatus status, Dermatologist dermatologist,
 			Pharmacist pharmacist) {
 		super();
-		this.id = id;
 		this.timePeriod = timePeriod;
 		this.status = status;
 		this.dermatologist = dermatologist;

@@ -1,8 +1,10 @@
 package ISA.Team54.drugAndRecipe.controller;
 
+import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.dto.DrugReservationDTO;
 import ISA.Team54.drugAndRecipe.dto.DrugReservationRequestDTO;
 import ISA.Team54.drugAndRecipe.dto.DrugWithPharmacyDTO;
+import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.mapper.DrugReservationMapper;
 import ISA.Team54.drugAndRecipe.mapper.DrugWithPharmacyMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
@@ -14,6 +16,9 @@ import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.exceptions.InvalidTimeLeft;
 import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.PharmacyService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -93,4 +98,26 @@ public class DrugReservationController {
 
         return new ResponseEntity<List<DrugWithPharmacyDTO>>(drugsWithPharmacies, HttpStatus.OK);
     }
+
+    @GetMapping("reservedDrugs/{drugReservationId}")
+    @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+    public ResponseEntity<DrugDTO> reservedDrugs(@PathVariable long drugReservationId){
+        Drug reservedDrug = drugReservationService.isDrugReservationAvailable(drugReservationId);
+        if(reservedDrug==null) {
+            return 	new ResponseEntity<DrugDTO>(HttpStatus.BAD_REQUEST);
+        }
+        return 	new ResponseEntity<DrugDTO>(new DrugMapper().DrugIntoDrugDTO(reservedDrug),HttpStatus.OK);
+    }
+
+    @PostMapping("/sellDrug/{reservationId}")
+    @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+    public ResponseEntity<String> sellDrug(@PathVariable long reservationId) {
+        try {
+            drugReservationService.sellDrug(reservationId);
+        }catch(Exception e) {
+            return new ResponseEntity<>("Doslo je do greske!", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
+    }
+
 }

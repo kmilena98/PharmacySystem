@@ -1,6 +1,5 @@
 package ISA.Team54.users.service.implementations;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -13,11 +12,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ISA.Team54.Examination.enums.ExaminationStatus;
+import ISA.Team54.Examination.model.Examination;
+import ISA.Team54.Examination.repository.ExaminationRepository;
+import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.drugAndRecipe.model.Drug;
-import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
-import ISA.Team54.users.dto.BasicPatientInfoDTO;
+import ISA.Team54.users.dto.UserInfoDTO;
 import ISA.Team54.users.exceptions.AllergyAlreadyAddedException;
+import ISA.Team54.users.mappers.UserInfoMapper;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.PatientRepository;
@@ -28,9 +31,12 @@ public class PatientServiceImpl implements PatientService {
 	
 	@Autowired
 	private PatientRepository patientRepository;
-	
+	@Autowired 
+	private ExaminationService examinationService;
 	@Autowired
 	private DrugService drugService;
+	@Autowired
+	private ExaminationRepository examinationRepository;
 	
 	public List<User> findByName(String name) throws AccessDeniedException {
 		List<User> result = patientRepository.findByName(name);
@@ -78,24 +84,19 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = patientRepository.findById(id);
 		return patient;
 	}
-	
-	public void updatePatient(BasicPatientInfoDTO dto) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
-		patient.setName(dto.getName());
-		patient.setSurname(dto.getSurname());
-		patient.setAddress(dto.getAddress());
-		patient.setCity(dto.getCity());
-		patient.setCountry(dto.getCountry());
-		
+	@Override
+	public void updatePatient(UserInfoDTO dto) {
+		Patient patient = patientRepository.findById(dto.getId());
+		UserInfoMapper.UserInfoDTOTOUser(dto, patient);
 		patientRepository.save(patient); 		
-	}
-	
+	} 
+		
+	@Override
 	public List<Drug> getPatientAllergies(long id){
 		Patient patient = patientRepository.findById(id);
 		System.out.println(patient.getDrugAllergies());
 		return patient.getDrugAllergies();
-	}
+	} 
 
 	@Override
 	public void deletePatientAllergy(long id) {
@@ -124,9 +125,19 @@ public class PatientServiceImpl implements PatientService {
 		
 		for(int i = 0; i < drugAllergies.size(); i++) {
 			if(drugAllergies.get(i).getId() == id)
-				throw new AllergyAlreadyAddedException();
+				throw new AllergyAlreadyAddedException(); 
 		}
 		drugAllergies.add(allergy);
 		patientRepository.save(patient);		
 	}
+
+	@Override
+	public void addPenaltyPointForPatient(Long id) {
+		Examination canceledExamination = examinationService.getCurrentExaminationByDermatologistId();
+		Patient patient = patientRepository.findOneById(id);
+		patient.setPenaltyPoints(patient.getPenaltyPoints()+1);
+		canceledExamination.setStatus(ExaminationStatus.Canceled);
+		examinationRepository.save(canceledExamination);
+		patientRepository.save(patient);
+	} 
 }

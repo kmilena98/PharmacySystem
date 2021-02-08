@@ -79,4 +79,5 @@ public class DrugReservation {
 	public void setReservedDrug(DrugInPharmacy reservedDrug) {
 		this.reservedDrug = reservedDrug;
 	}
+	
 }

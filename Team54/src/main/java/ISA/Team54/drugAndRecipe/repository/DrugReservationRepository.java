@@ -1,5 +1,6 @@
 package ISA.Team54.drugAndRecipe.repository;
 
+import ISA.Team54.drugAndRecipe.enums.ReservationStatus;
 import ISA.Team54.drugAndRecipe.model.DrugReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +13,6 @@ public interface DrugReservationRepository extends JpaRepository<DrugReservation
 
     List<DrugReservation> findAllByPatientId(long id);
     void deleteById(long id);
+    DrugReservation findOneByIdAndReservedDrugDrugInPharmacyIdPharmaciIdAndStatus(long id, long reservedDrugPharmaciId, ReservationStatus status);
+    DrugReservation findOneById(long id);
 }

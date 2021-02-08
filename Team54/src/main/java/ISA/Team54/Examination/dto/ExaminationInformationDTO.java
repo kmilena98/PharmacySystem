@@ -5,7 +5,7 @@ import java.util.List;
 import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 
 public class ExaminationInformationDTO {
-	public int id;
+	public Long id;
 	public int therapyDuration;
 	public String diagnosis;
 	public List<DrugDTO> drugs;
@@ -14,7 +14,7 @@ public class ExaminationInformationDTO {
 		super();
 	}
 
-	public ExaminationInformationDTO(int id, int therapyDuration, String diagnosis, List<DrugDTO> drugs) {
+	public ExaminationInformationDTO(Long id, int therapyDuration, String diagnosis, List<DrugDTO> drugs) {
 		super();
 		this.id = id;
 		this.therapyDuration = therapyDuration;
@@ -22,10 +22,10 @@ public class ExaminationInformationDTO {
 		this.drugs = drugs;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getDiagnosis() {

@@ -35,7 +35,7 @@ public class DrugController {
 	
 	@Autowired
 	private DrugService drugService;
-	
+
 	@Autowired
 	private PharmacyService pharmacyService;
 
@@ -43,7 +43,7 @@ public class DrugController {
 	private DrugInPharmacyService drugInPharmacyService;
 	
 	@GetMapping("forPatient/{patientId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<DrugDTO> drugsForPatient(@PathVariable int patientId){
 		List<DrugDTO> drugsForPatient = new ArrayList<DrugDTO>();
 		for(Drug drug : drugService.getDrugsForPatient((long) patientId)) {
@@ -53,13 +53,13 @@ public class DrugController {
 	}
 	
 	@GetMapping("/isAvailableInPharmacy/{drugId}/{examinationId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public IsAvalableDrugDTO isAvailable(@PathVariable Long drugId,@PathVariable Long examinationId){
 		return drugService.findOrFindSubstitute(drugId,examinationId);
 	}
 	
 	@GetMapping("/drugSpecification/{drugId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public DrugSpecificationDTO getDrugSpecification(@PathVariable Long drugId){
 		DrugSpecification drugSpecification = drugService.getSpecificationForDrug(drugId);
 		return new DrugSpecificationMapper().DrugSpecificationIntoDrugSpecificationDTO(drugSpecification);
