@@ -10,7 +10,7 @@
         <li class="nav-item"><a href="#" class="nav-link">Odsustva</a></li>
         <b-nav-item-dropdown v-bind:text = "pharmacyAdmin.name + ' ' + pharmacyAdmin.surname" right>
           <b-dropdown-item href="#"><router-link to="/pharmacy-admin-profile">Moj profil</router-link></b-dropdown-item>
-          <b-dropdown-item href="#">Odjava</b-dropdown-item>
+          <b-dropdown-item href="#" @click="logout">Odjava</b-dropdown-item>
         </b-nav-item-dropdown>
     </ul>
 </template>
@@ -28,6 +28,15 @@ export default {
             .then( res => {
                 this.pharmacyAdmin = JSON.parse(JSON.stringify(res.data))
             })
+    },
+    methods:{
+        logout : function(){
+        localStorage.setItem("UserRole","ROLE_UNREGISTERED")
+        localStorage.removeItem("UserId")
+        localStorage.removeItem("JWT")
+        this.$router.push("Registration");
+        window.location.reload()
+        }
     }
 }
 </script>
