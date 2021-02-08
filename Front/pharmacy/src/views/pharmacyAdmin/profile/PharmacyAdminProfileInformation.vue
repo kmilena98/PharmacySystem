@@ -101,29 +101,35 @@ export default {
         onSubmit(event) {
             event.preventDefault()
             this.$http
-                .put('/patient/', 
+                .put('api/user/', 
                     {
                         name: this.form.name, 
                         surname: this.form.surname, 
-                        city: this.form.city, 
                         address: this.form.address, 
+                        city: this.form.city, 
                         country: this.form.country, 
                         phoneNumber: this.form.phoneNumber, 
                     })
                 .then( res => {
                     if(res.status == 200){
-                        this.toast()
+                        this.toast('success', 'Uspešno!', `Uspešno ste izmenili svoje informacije!`)
+                        window.location.reload()
                     }
                 })
+                .catch(() => 
+                        this.toast('danger', 'Neuspešno!', 'Greška pri izmeni ličnih informacija!')
+                    )
         },
-        toast(){
-            this.$bvToast.toast(`Uspešno ste izmenili svoje informacije!`, {
-                title: 'Uspešno!',
-                variant: 'success',
+
+        toast(variant, title, message){
+            this.$bvToast.toast(message, {
+                title: title,
+                variant: variant,
                 autoHideDelay: 5000
             })
             scroll(0,0)
         },
+        
         onCancel(event) {
             event.preventDefault()
             this.form = JSON.parse(JSON.stringify(this.backup))

@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ISA.Team54.users.dto.UserInfoDTO;
+import ISA.Team54.users.mappers.UserInfoMapper;
+import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.User;
 import ISA.Team54.users.repository.UserRepository;
 import ISA.Team54.users.service.interfaces.AuthorityService;
@@ -90,6 +93,14 @@ public class UserServiceImpl implements UserService {
 		
 		currentUser.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.save(currentUser);
+	}
+
+	@Override
+	public void updateUserInfo(UserInfoDTO userInfoDTO) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = userRepository.findOneById(((User) authentication.getPrincipal()).getId());
+		UserInfoMapper.UserInfoDTOTOUser(userInfoDTO, user);
+		userRepository.save(user); 
 	}	
 	
 /*	@Override

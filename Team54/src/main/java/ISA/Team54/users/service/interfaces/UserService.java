@@ -2,8 +2,7 @@ package ISA.Team54.users.service.interfaces;
 
 import java.util.List;
 
-import ISA.Team54.users.dto.UserRequestDTO;
-import ISA.Team54.users.model.Patient;
+import ISA.Team54.users.dto.UserInfoDTO;
 import ISA.Team54.users.model.User;
 
 public interface UserService {
@@ -13,6 +12,7 @@ public interface UserService {
     List<User> findByName(String name);
     List<User> findBySurname(String surname);
     void changePassword(String oldPassword, String newPassword);
+    void updateUserInfo(UserInfoDTO userInfoDTO);
 	
 
 }
