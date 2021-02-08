@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import ISA.Team54.exceptions.InvalidTimeLeft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,7 +18,6 @@ import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationStatus;
 import ISA.Team54.Examination.enums.ExaminationType;
-import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.model.Term;
@@ -237,7 +237,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 				examination.setPatient(null);
 
 				examinationRepository.save(examination);
-			}else throw new ExaminationInvalidTimeLeft();
+			}else throw new InvalidTimeLeft();
 		}else throw new Exception(); 
 	}
 
