@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import ISA.Team54.shared.model.SendEmail;
+import ISA.Team54.shared.model.EmailForm;
 import ISA.Team54.shared.service.interfaces.EmailService;
 
 @Service

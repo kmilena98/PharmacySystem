@@ -1,14 +1,14 @@
 package ISA.Team54.shared.model;
 
-public class SendEmail {
+public class EmailForm {
 	private String sendTo;
 	private String subject;
 	private String text;
-	public SendEmail() {
+	public EmailForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SendEmail(String sendTo, String subject, String text) {
+	public EmailForm(String sendTo, String subject, String text) {
 		super();
 		this.sendTo = sendTo;
 		this.subject = subject;

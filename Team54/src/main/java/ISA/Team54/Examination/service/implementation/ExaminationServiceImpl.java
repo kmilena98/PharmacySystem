@@ -28,7 +28,7 @@ import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.shared.model.DateRange;
-import ISA.Team54.shared.model.SendEmail;
+import ISA.Team54.shared.model.EmailForm;
 import ISA.Team54.shared.service.interfaces.EmailService;
 import ISA.Team54.users.enums.UserRole;
 import ISA.Team54.users.model.Dermatologist;
@@ -46,11 +46,6 @@ import ISA.Team54.vacationAndWorkingTime.repository.DermatologistWorkScheduleRep
 @Service
 public class ExaminationServiceImpl implements ExaminationService {
 	final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
-	@Autowired
-	private JavaMailSender javaMailSender;
-
-	@Autowired
-	private Environment env;
 	@Autowired
 	private ExaminationRepository examinationRepository;
 	@Autowired
@@ -326,7 +321,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		newExamination.setPatient(examination.getPatient());
 		newExamination.setTerm(new Term(start,30));
 		newExamination.setPharmacy(examination.getPharmacy());
-		emailService.sendEmail("mdjurisic98@gmail.com","Proba slanja maila","Nema odustajanja!!!");
+		emailService.sendEmail("tim54isa@gmail.com","ZAKAZAN PREGLED","Vas pregled je zakazan za"+newExamination.getTerm().getStart());
 		examinationRepository.save(newExamination);
 		
 		return true;
