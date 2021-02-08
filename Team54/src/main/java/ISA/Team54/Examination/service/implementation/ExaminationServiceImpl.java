@@ -76,10 +76,14 @@ public class ExaminationServiceImpl implements ExaminationService {
 	public List<Examination> historyOfPatientExamination(Long id) {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Pharmacist pharmacist = pharmacistRepository.findOneById(((Dermatologist) authentication.getPrincipal()).getId());
-		if(pharmacist != null) {
+		try {
+		Pharmacist pharmacist = pharmacistRepository.findOneById(((Pharmacist) authentication.getPrincipal()).getId());
+		if(pharmacist != null) 
 			examinaitonType = ExaminationType.PharmacistExamination;
+		}catch(Exception e) {
+			
 		}
+		
 		return examinationRepository.getHistoryExaminationsForPatient( id,examinaitonType,ExaminationStatus.Filled);
 	}
 

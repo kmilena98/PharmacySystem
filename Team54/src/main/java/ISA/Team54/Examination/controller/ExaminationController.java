@@ -144,7 +144,7 @@ public class ExaminationController {
 	}
 
 	@PostMapping("/updateExamination")
-	// @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public ResponseEntity<String> updateExamination(@RequestBody ExaminationInformationDTO examinationInformationDTO) {
 		examinationService.updateExamination(examinationInformationDTO);
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
