@@ -183,7 +183,7 @@ public class AuthenticationController {
 
 	
 	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	@PreAuthorize("hasAnyRole('PATIENT','SUPPLIER','DERMATOLOGIST','PHARMACIST','PHARMACY_ADMIN','SYSTEM_ADMIN')")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
 		userService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
 
