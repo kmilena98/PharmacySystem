@@ -1,12 +1,15 @@
 package ISA.Team54.Examination.service.implementation;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationStatus;
@@ -21,14 +24,14 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
-import ISA.Team54.rating.model.Rating;
 import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.users.enums.UserRole;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
 import ISA.Team54.users.model.Pharmacist;
-import ISA.Team54.users.repository.DermatologistRepository;
 import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.model.User;
+import ISA.Team54.users.repository.DermatologistRepository;
 import ISA.Team54.users.repository.PatientRepository;
 import ISA.Team54.users.repository.PharmacistRepository;
 import ISA.Team54.users.repository.UserRepository;
@@ -55,31 +58,75 @@ public class ExaminationServiceImpl implements ExaminationService {
 	@Autowired 
 	private DermatologistWorkScheduleRepository dermatologistWorkScheduleRepository;
 
+	private Long getCurrentEmployedId() {
+		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return ((User) authentication.getPrincipal()).getId();
+	} 
+	private UserRole getCurrentRole() {
+		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		try {
+			Pharmacist pharmacist = pharmacistRepository.findOneById(((Pharmacist) authentication.getPrincipal()).getId());
+			if(pharmacist != null) 
+				return UserRole.ROLE_PHARMACIST;
+		}catch(Exception e) {
+			
+		}
+		return UserRole.ROLE_DERMATOLOGIST;
+	} 
+	
 	@Override
-	public Examination getCurrentExaminationByDermatologistId(Long dermatologistId) {
+	public Examination getCurrentExaminationByDermatologistId() {
 		// ,ExaminationStatus.Unfille nedostaje deo sa statusom
-		List<Examination> dermatologistExaminations = examinationRepository.findByEmplyeedIdAndStatus(dermatologistId,
+		List<Examination> dermatologistExaminations = examinationRepository.findByEmplyeedIdAndStatus(getCurrentEmployedId(),
 				ExaminationStatus.Filled);
 		if (dermatologistExaminations.size() <= 0) {
 			return null;
 		}
-		Examination soonestExamination = dermatologistExaminations.get(0);
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.HOUR, -1);
+		Date oneHourBack = cal.getTime();
+		Examination soonestExamination = null;
+		for(Examination examination : dermatologistExaminations) {
+			if (examination.getTerm().getStart().after(oneHourBack)) {
+				soonestExamination = examination;
+				break;
+			}
+		}
+		if(soonestExamination == null) {
+			return null;
+		}
 		for (Examination examination : dermatologistExaminations) {
-			if (examination.getTerm().getStart().before(soonestExamination.getTerm().getStart())) {
+			if (examination.getTerm().getStart().before(soonestExamination.getTerm().getStart()) &&examination.getTerm().getStart().after(oneHourBack)) {
 				soonestExamination = examination;
 			}
 		}
 		return soonestExamination;
+	}
+	
+	public int isPatientAppropriate(Long patientId) {
+		try {
+			if(getCurrentExaminationByDermatologistId().getPatient().getId() == patientId)
+				return 1;
+			else return 0;
+		}catch(Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public List<Examination> historyOfPatientExamination(Long id) {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Pharmacist pharmacist = pharmacistRepository.findOneById(((Dermatologist) authentication.getPrincipal()).getId());
-		if(pharmacist != null) {
+		try {
+		Pharmacist pharmacist = pharmacistRepository.findOneById(((Pharmacist) authentication.getPrincipal()).getId());
+		if(pharmacist != null) 
 			examinaitonType = ExaminationType.PharmacistExamination;
+		}catch(Exception e) {
+			
 		}
+		
 		return examinationRepository.getHistoryExaminationsForPatient( id,examinaitonType,ExaminationStatus.Filled);
 	}
 

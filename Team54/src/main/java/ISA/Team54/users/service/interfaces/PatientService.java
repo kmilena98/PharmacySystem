@@ -22,4 +22,5 @@ public interface PatientService {
     List<Drug> getPatientAllergies(long id);
     void deletePatientAllergy(long id);
     void addAllergy(long id) throws Exception;
+    void addPenaltyPointForPatient(Long id);
 }

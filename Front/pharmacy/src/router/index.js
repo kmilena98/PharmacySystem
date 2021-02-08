@@ -7,6 +7,7 @@ import PharmacyAdminProfile from  "../views/pharmacyAdmin/profile/PharmacyAdminP
 import Examination from "../views/dermatologistAndPharmacist/dermatologist/StartExamination.vue"
 import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
 import SystemAdminsPage from "../views/systemAdmin/users/SystemAdminsPage.vue"
+import Vacation from "../views/dermatologistAndPharmacist/ScheduleVacation.vue"
 
 Vue.use(VueRouter);
 
@@ -61,6 +62,12 @@ const routes = [
     path: "/examination",
     name: "startExamination",
     component: Examination
+
+  },
+  {
+    path: "/vacation",
+    name: "scheduleVacation",
+    component: Vacation
 
   },
   {

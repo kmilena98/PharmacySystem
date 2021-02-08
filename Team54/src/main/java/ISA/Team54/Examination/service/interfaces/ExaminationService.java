@@ -9,7 +9,7 @@ import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.users.model.Pharmacy;
 
 public interface ExaminationService {
-	public Examination getCurrentExaminationByDermatologistId(Long dermatologistId);
+	public Examination getCurrentExaminationByDermatologistId();
 	public List<Examination> historyOfPatientExamination(Long id);
 	public void updateExamination(ExaminationInformationDTO examinationInformationDTO);
 	public List<Examination> getAllExaminationsForDermatologist(Long id);
@@ -23,4 +23,5 @@ public interface ExaminationService {
 	boolean saveExamination(Long currentExaminationId,Long newExaminationId);
 	List<DermatologistExaminationDTO> getFutureExaminations(ExaminationType type);
 	List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type);
+	int isPatientAppropriate(Long patientId);
 }

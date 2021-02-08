@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,15 +19,18 @@ import ISA.Team54.drugAndRecipe.mapper.DrugSpecificationMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugSpecification;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
+import ISA.Team54.users.service.interfaces.PharmacyService;
 
 @RestController
 @RequestMapping(value = "/drugs", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DrugController {
 	@Autowired
 	private DrugService drugService;
+	@Autowired
+	private PharmacyService pharmacyService;
 	
 	@GetMapping("forPatient/{patientId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<DrugDTO> drugsForPatient(@PathVariable int patientId){
 		List<DrugDTO> drugsForPatient = new ArrayList<DrugDTO>();
 		for(Drug drug : drugService.getDrugsForPatient((long) patientId)) {
@@ -38,7 +40,7 @@ public class DrugController {
 	}
 	
 	@GetMapping("/isAvailableInPharmacy/{drugId}/{examinationId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public IsAvalableDrugDTO isAvailable(@PathVariable Long drugId,@PathVariable Long examinationId){
 		return drugService.findOrFindSubstitute(drugId,examinationId);
 	}

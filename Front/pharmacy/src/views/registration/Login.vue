@@ -93,7 +93,7 @@ export default {
                         this.$router.push("patient-profile");
                     }
                     if (response.data.role === "ROLE_DERMATOLOGIST") {
-                        this.$router.push("patient-profile");
+                        this.$router.push("examination");
                     }
                     if (response.data.role === "ROLE_PHARMACIST") {
                         this.$router.push("patient-profile");

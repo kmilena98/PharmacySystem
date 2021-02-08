@@ -40,7 +40,7 @@ public class PatientController {
 	private ExaminationService examinationSerivce;
 	
 	@GetMapping("patientBySurnameAndName/{surnameAndName}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<PatientDTO> loadBySurnameAndName(@PathVariable String surnameAndName){
 		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
 		for(User user : this.patientService.findBySurnameAndName(surnameAndName)) 
@@ -48,9 +48,18 @@ public class PatientController {
 		return patientsDTO;
 	}
 	
-
+	@PostMapping("/addPenaltyPoint/{patientId}")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	public ResponseEntity<String> addPenaltyPoints(@PathVariable Long patientId){
+		try {
+			patientService.addPenaltyPointForPatient(patientId);
+			return new ResponseEntity<>("Penalty poenti pacijenta su uspesno izmenjeni!",HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} 
+	}
 	@GetMapping("/allPatients/")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<PatientDTO> loadPatients(){
 		List<PatientDTO> patientsDTO = new ArrayList<PatientDTO>();
 		for(User user : this.patientService.findAll()) 
@@ -58,9 +67,10 @@ public class PatientController {
 		return patientsDTO;
 	}
 	
+	
 	// pacients that were examinated by dermatologist / dermatologistID
 	@GetMapping("examinatedPatients/{dermatologistId}")
-	//@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public List<DermatologistPatientDTO> loadBySurnameAndName(@PathVariable Long dermatologistId){
 		List<DermatologistPatientDTO> dermatologistPatientsDTO = new ArrayList<DermatologistPatientDTO>();
 		List<Examination> dermatologistExaminations = examinationSerivce.getAllExaminationsForDermatologist(dermatologistId);
