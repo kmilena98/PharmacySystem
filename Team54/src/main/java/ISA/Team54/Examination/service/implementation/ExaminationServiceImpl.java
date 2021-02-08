@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,9 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.repository.DrugRepository;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
+import ISA.Team54.shared.model.SendEmail;
+import ISA.Team54.shared.service.interfaces.EmailService;
 import ISA.Team54.users.enums.UserRole;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Patient;
@@ -42,6 +47,11 @@ import ISA.Team54.vacationAndWorkingTime.repository.DermatologistWorkScheduleRep
 public class ExaminationServiceImpl implements ExaminationService {
 	final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
 	@Autowired
+	private JavaMailSender javaMailSender;
+
+	@Autowired
+	private Environment env;
+	@Autowired
 	private ExaminationRepository examinationRepository;
 	@Autowired
 	private PatientRepository patientRepository;
@@ -57,6 +67,8 @@ public class ExaminationServiceImpl implements ExaminationService {
 	private PharmacistRepository pharmacistRepository;
 	@Autowired 
 	private DermatologistWorkScheduleRepository dermatologistWorkScheduleRepository;
+	@Autowired 
+	private EmailService emailService;
 
 	private Long getCurrentEmployedId() {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
@@ -145,7 +157,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		examination.setTherapyDuration(examinationInformationDTO.getTherapyDuration());
 		examination.setDiagnose(examinationInformationDTO.getDiagnosis());
 		examination.setStatus(ExaminationStatus.Filled);
-
+		emailService.sendEmail("tim54isa@gmail.com","Proba slanja maila","Ja sam drugi poslati mail sa isa projekta!");
 		examinationRepository.save(examination);
 	}
 
@@ -314,7 +326,9 @@ public class ExaminationServiceImpl implements ExaminationService {
 		newExamination.setPatient(examination.getPatient());
 		newExamination.setTerm(new Term(start,30));
 		newExamination.setPharmacy(examination.getPharmacy());
+		emailService.sendEmail("mdjurisic98@gmail.com","Proba slanja maila","Nema odustajanja!!!");
 		examinationRepository.save(newExamination);
+		
 		return true;
 	}
 	
