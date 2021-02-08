@@ -53,6 +53,18 @@ public class UserServiceImpl implements UserService {
 		List<User> result = userRepository.findAll();
 		return result;
 	}
+/*	public List<User> findAllByRole() throws AccessDeniedException {
+		List<User> result = userRepository.findAll();
+		for (User user : result) {
+			
+		} 
+		return result;
+	}
+	
+	public List<User> findAllByRole() throws AccessDeniedException {
+		List<User> result = userRepository.findAllByRole(UserRole userRole);
+		return result;
+	} */
 
 	public List<User> findByName(String name) throws AccessDeniedException {
 		List<User> result = userRepository.findByName(name);

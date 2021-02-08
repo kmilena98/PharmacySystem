@@ -1,7 +1,5 @@
 package ISA.Team54.users.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -11,16 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
-import org.springframework.security.core.GrantedAuthority;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
 import ISA.Team54.rating.model.Rating;
 import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
+import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
 
 @Entity
 public class Dermatologist extends User{
@@ -33,6 +28,7 @@ public class Dermatologist extends User{
 	
 	@OneToMany(mappedBy="dermatologist",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<DermatologistWorkSchedule> workSchedules;
+	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Pharmacy> pharmacys;
@@ -80,6 +76,7 @@ public class Dermatologist extends User{
 
 	public void setPharmacy(List<Pharmacy> pharmacy) {
 		this.pharmacys = pharmacy;
-	}	
+	}
+
 	
 }

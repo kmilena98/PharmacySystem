@@ -75,7 +75,7 @@
                     <b-tab title="Terapija">
                        <b-row>
                        <b-col>
-                       <h5><b>Postavi dijagnozu</b></h5>
+                       <h5>Postavi dijagnozu</h5>
                             <b-form-textarea
                                   id="textarea"
                                   v-model="text"
@@ -100,7 +100,7 @@
                        
                        <b-row>
                           <b-col>
-                            <h5><b>Lista lekova</b></h5>
+                            <h5>Lista lekova</h5>
                             <div v-for="(item) in allDrugs" :key="item">
                                 <input v-model="item.name" >
                                 <button  v-on:click="getSpec(item.id)">Specifikacija</button>
@@ -109,7 +109,7 @@
                           </b-col>
 
                           <b-col>
-                            <h5><b>Lekovi za terapiju</b></h5>
+                            <h5>Lekovi za terapiju</h5>
                             <div v-for="(item, index) in therapy" :key="item">
                                 <input v-model="item.name" >
                                 <button v-on:click="subtract(item,index)">Ukloni</button>
@@ -252,7 +252,6 @@ export default {
       },
         submit : function(){
            
-           
             this.$axios.post("http://localhost:9001/examination/updateExamination", {id: this.examinationId,therapyDuration: this.therapyDuration, diagnosis: this.text, drugs : this.therapy})
                 .then(response => {this.message = response.data
                  this.$notify({
@@ -260,9 +259,7 @@ export default {
                 title: 'Success',
                 text: this.message,              
                 closeOnClick : true
-            })
-
-                });
+            })});
             
         }
     }

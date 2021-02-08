@@ -1,6 +1,5 @@
 package ISA.Team54.users.dto;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class DermatologistPatientDTO extends PatientDTO {
@@ -23,13 +22,5 @@ public class DermatologistPatientDTO extends PatientDTO {
 
 	public void setTerm(Date term) {
 		this.term = term;
-	}
-	
-	
-
-	
-	
-	
-	
-	
+	}	
 }

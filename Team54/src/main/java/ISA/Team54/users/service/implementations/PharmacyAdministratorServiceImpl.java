@@ -1,5 +1,9 @@
 package ISA.Team54.users.service.implementations;
 
+
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +21,10 @@ public class PharmacyAdministratorServiceImpl implements PharmacyAdministratorSe
 	public PharmacyAdministrator findById(Long id) {
 		return pharmacyAdministratorRepository.findOneById(id);
 	}
-
+	
+	@Override
+	public List<PharmacyAdministrator> findAll() {
+		return this.pharmacyAdministratorRepository.findAll();
+	}
 }
+

@@ -11,9 +11,9 @@ Vue.prototype.$axios = axios
 
 export default new Vuex.Store({
 	state: {
-		userRole: 'ROLE_PHARMACY_ADMIN',
-		userId: 13,
-		JWT: 'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzcHJpbmctc2VjdXJpdHktZXhhbXBsZSIsInN1YiI6Im1pbGVuYUBnbWFpbC5jb20iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MTI3NDYxNzksImV4cCI6MTYxMzA0NjE3OX0.-esdmJ6l4IzPIqURvbEGbc9RPRPjHB_OrPn2aViN7xU6PqaZawj-N1-58vugoLnN-7Ao4wIrzDQX4-4z3ZrJtA'
+		userRole: localStorage.getItem("UserRole"),
+		userId: localStorage.getItem("UserId"),
+		JWT: localStorage.getItem("JWT"),
 
 	},
 	mutations: {
