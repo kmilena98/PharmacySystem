@@ -3,6 +3,7 @@ package ISA.Team54.users.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Lazy
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User findById(Long id) throws AccessDeniedException {
-		User u = userRepository.findById(id).orElseGet(null);
+		User u = userRepository.findById(id).orElse(null);
 		return u;
 	}
 

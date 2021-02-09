@@ -128,10 +128,14 @@ values (19,'Somborski bulevar 99','Zrenjanin', true,'Srbija','natasa@gmail.com',
 		'062941622','Subotic');
 
 		
-insert into rating(id, rating, dermatologist_id, pharmacist_id, pharmacy_id)
-values (1, 4.7, 3, null,null);
-insert into rating(id, rating, dermatologist_id, pharmacist_id, pharmacy_id)
-values (2, 5, 3, null,null);
+insert into rating(rating, dermatologist_id, pharmacist_id, pharmacy_id, patient_id)
+values (4.7, 3, null,null, 5);
+insert into rating(rating, dermatologist_id, pharmacist_id, pharmacy_id, patient_id)
+values (5, 3, null,null, 5);
+insert into rating(rating, dermatologist_id, pharmacist_id, pharmacy_id, patient_id)
+values (4, null, 10,null, 5);
+insert into rating(rating, dermatologist_id, pharmacist_id, pharmacy_id, patient_id)
+values (3, null, 9,null, 7);
 		
 insert into user_authority( user_id, authority_id) values (1,4);
 insert into user_authority( user_id, authority_id) values (2,4);
