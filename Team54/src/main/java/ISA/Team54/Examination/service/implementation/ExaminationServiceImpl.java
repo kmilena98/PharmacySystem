@@ -15,9 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+import ISA.Team54.Examination.dto.ExaminationForCalendarDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationStatus;
 import ISA.Team54.Examination.enums.ExaminationType;
+import ISA.Team54.Examination.mapper.ExaminationForCalendarMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.model.Term;
@@ -67,12 +69,12 @@ public class ExaminationServiceImpl implements ExaminationService {
 	@Autowired 
 	private EmailService emailService;
 
-	private Long getCurrentEmployedId() {
+	public Long getCurrentEmployedId() {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return ((User) authentication.getPrincipal()).getId();
 	} 
-	private UserRole getCurrentRole() {
+	public UserRole getCurrentRole() {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		try {
@@ -96,9 +98,11 @@ public class ExaminationServiceImpl implements ExaminationService {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.HOUR, -1);
 		Date oneHourBack = cal.getTime();
+		cal.add(Calendar.HOUR, +5);
+		Date fourHoursFront = cal.getTime();
 		Examination soonestExamination = null;
 		for(Examination examination : dermatologistExaminations) {
-			if (examination.getTerm().getStart().after(oneHourBack)) {
+			if (examination.getTerm().getStart().before(fourHoursFront) && examination.getTerm().getStart().after(oneHourBack)) {
 				soonestExamination = examination;
 				break;
 			}
@@ -181,7 +185,6 @@ public class ExaminationServiceImpl implements ExaminationService {
 		examination.setTherapyDuration(examinationInformationDTO.getTherapyDuration());
 		examination.setDiagnose(examinationInformationDTO.getDiagnosis());
 		examination.setStatus(ExaminationStatus.Filled);
-		emailService.sendEmail("tim54isa@gmail.com","Proba slanja maila","Ja sam drugi poslati mail sa isa projekta!");
 		examinationRepository.save(examination);
 	}
 
@@ -350,7 +353,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		newExamination.setPatient(examination.getPatient());
 		newExamination.setTerm(new Term(start,30));
 		newExamination.setPharmacy(examination.getPharmacy());
-		emailService.sendEmail("tim54isa@gmail.com","ZAKAZAN PREGLED","Vas pregled je zakazan za"+newExamination.getTerm().getStart());
+		emailService.sendEmail("tim54isa@gmail.com","ZAKAZAN PREGLED","Vas naredni pregled je zakazan : "+newExamination.getTerm().getStart());
 		examinationRepository.save(newExamination);
 		
 		return true;
@@ -362,6 +365,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		newExamination.setStatus(ExaminationStatus.Filled);
 		newExamination.setPatient(currentExamination.getPatient());
 		examinationRepository.save(newExamination);
+		emailService.sendEmail("tim54isa@gmail.com","PREGLED","Vas naredni pregled je zakazan : "+ newExamination.getTerm().getStart());
 		return true;
 	}
 
@@ -384,5 +388,14 @@ public class ExaminationServiceImpl implements ExaminationService {
 				return false;
 		}
 		return true;
+	}
+	@Override
+	public List<ExaminationForCalendarDTO> getExaminaitonForCalendar() {
+		List<ExaminationForCalendarDTO> examinationsForCalendar = new ArrayList<ExaminationForCalendarDTO>();
+		List<Examination> examinations = examinationRepository.findByEmplyeedId(getCurrentEmployedId());
+		for(Examination examination: examinations) {
+			examinationsForCalendar.add(new ExaminationForCalendarMapper().examinationForExaminationForCalendarDTO(examination));
+		}
+		return examinationsForCalendar;
 	}
 }
