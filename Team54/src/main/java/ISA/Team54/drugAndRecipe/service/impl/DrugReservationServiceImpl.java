@@ -102,7 +102,7 @@ public class DrugReservationServiceImpl implements DrugReservationService {
 		drugReservationRepository.save(drugReservation);
 	}
 
-	public List<DrugReservation> getSoldReservationsForPatient(){
+	private List<DrugReservation> getSoldReservationsForPatient(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
 

@@ -4,6 +4,7 @@ import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.exceptions.ObjectAlreadyRated;
 import ISA.Team54.rating.dto.RatingDTO;
 import ISA.Team54.rating.dto.RatingRequestDTO;
+import ISA.Team54.rating.mapper.RatingMapper;
 import ISA.Team54.rating.model.Rating;
 import ISA.Team54.rating.service.RatingService;
 import ISA.Team54.users.mapper.PatientMapper;
@@ -82,25 +83,11 @@ public class RatingController {
     private List<RatingDTO> convertRatingToRatingDTO(List<Rating> ratings) {
         List<RatingDTO> ratingDTOs = new ArrayList<RatingDTO>();
         for (Rating rating : ratings) {
-            String name = getNameFromRating(rating);
-            ratingDTOs.add(
-                    new RatingDTO(
-                            rating.getId(),
-                            getTypeFromRating(rating),
-                            getNameFromRating(rating),
-                            rating.getRating()
-                    )
-            );
+            RatingDTO ratingDTO = new RatingMapper().RatingToRatingDTO(rating);
+            ratingDTO.setObjectName(getNameFromRating(rating));
+            ratingDTOs.add(ratingDTO);
         }
         return ratingDTOs;
-    }
-
-    private String getTypeFromRating(Rating rating) {
-        if(rating.getDermatologist() != null)
-            return "Dermatolog";
-        else if(rating.getPharmacist() != null)
-            return "Farmaceut";
-        else return "Apoteka";
     }
 
     private String getNameFromRating(Rating rating) {
