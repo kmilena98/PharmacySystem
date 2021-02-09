@@ -13,21 +13,34 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import ISA.Team54.Examination.model.Examination;
+import ISA.Team54.rating.model.Rating;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Drug {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "DrugSG", sequenceName = "DrugSeq",initialValue = 6,allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DrugSG")
 	private long id;
 	@Column(unique = false,nullable = false)
 	private String name;
 	@Column(unique = false,nullable = false)
 	private String code;
+	@Column(unique = false,nullable = false)
+	private String type;
+	@Column(unique = false,nullable = false)
+	private String shape;
+	@Column(unique = false,nullable = false)
+	private String manifacturer;
+	@Column(unique = false,nullable = true)
+	private String additionalInfo;
 	@Column(unique = false,nullable = true)
 	private int loyaltyPoints;
 	
@@ -40,13 +53,17 @@ public class Drug {
 	@OneToOne(mappedBy = "drug",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private DrugSpecification drugSpecification;
 
+	@JsonManagedReference	
+	@OneToMany(mappedBy = "drug", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Rating> ratings;
+	
 	@JsonManagedReference
 	@ManyToMany
 	@JoinTable(name="substituteDrugs",
 	 joinColumns=@JoinColumn(name="mainDrugId"),
 	 inverseJoinColumns=@JoinColumn(name="substituteDrugId")
 	)
-	private List<Drug> mainDrugs;
+	private List<Drug> substituteDrugs;
 
 	@JsonBackReference
 	@ManyToMany
@@ -54,19 +71,24 @@ public class Drug {
 	 joinColumns=@JoinColumn(name="substituteDrugId"),
 	 inverseJoinColumns=@JoinColumn(name="mainDrugId")
 	)
-	private List<Drug> substituteDrugs;
+	private List<Drug> mainDrugs;
 	
 	public Drug() {
 		super();
 	}
 
-	public Drug(long id, String name, String code, int loyaltyPoints) {
+	public Drug(String name, String code, String type, String shape, String manifacturer, String additionalInfo,int loyaltyPoints) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.code = code;
+		this.type = type;
+		this.shape = shape;
+		this.manifacturer = manifacturer;
+		this.additionalInfo = additionalInfo;		
 		this.loyaltyPoints = loyaltyPoints;
+	
 	}
+	
 	public long getId() {
 		return  id;
 	}
@@ -137,6 +159,46 @@ public class Drug {
 
 	public void setSubstituteDrugs(List<Drug> substituteDrugs) {
 		this.substituteDrugs = substituteDrugs;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getShape() {
+		return shape;
+	}
+
+	public void setShape(String shape) {
+		this.shape = shape;
+	}
+
+	public String getManifacturer() {
+		return manifacturer;
+	}
+
+	public void setManifacturer(String manifacturer) {
+		this.manifacturer = manifacturer;
+	}
+
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+
+	public int getLoyaltyPoints() {
+		return loyaltyPoints;
+	}
+
+	public void setLoyaltyPoints(int loyaltyPoints) {
+		this.loyaltyPoints = loyaltyPoints;
 	}
 
 	

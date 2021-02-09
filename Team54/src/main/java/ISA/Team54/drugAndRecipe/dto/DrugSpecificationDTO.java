@@ -1,15 +1,16 @@
 package ISA.Team54.drugAndRecipe.dto;
 
 import java.util.List;
-import java.util.Set;
 
 import ISA.Team54.drugAndRecipe.model.Contraindication;
+import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.Ingredient;
 
 public class DrugSpecificationDTO {
 	private List<Contraindication> contraindication;
 	private List<Ingredient> ingredients;
 	private String suggestedDose;
+	private Drug drug;
 	public DrugSpecificationDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -21,6 +22,14 @@ public class DrugSpecificationDTO {
 		this.contraindication = contraindication;
 		this.ingredients = ingredients;
 		this.suggestedDose = suggestedDose;
+	}
+	public DrugSpecificationDTO(List<Contraindication> contraindication, List<Ingredient> ingredients,
+			String suggestedDose, Drug drug) {
+		super();
+		this.contraindication = contraindication;
+		this.ingredients = ingredients;
+		this.suggestedDose = suggestedDose;
+		this.drug = drug;
 	}
 
 	public List<Contraindication> getContraindication() {
@@ -40,6 +49,14 @@ public class DrugSpecificationDTO {
 	}
 	public void setSuggestedDose(String suggestedDose) {
 		this.suggestedDose = suggestedDose;
+	}
+
+	public Drug getDrug() {
+		return drug;
+	}
+
+	public void setDrug(Drug drug) {
+		this.drug = drug;
 	}
 	
 	

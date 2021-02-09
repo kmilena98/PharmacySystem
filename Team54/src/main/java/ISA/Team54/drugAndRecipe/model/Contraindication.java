@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -17,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Contraindication {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "ContraindicationSG", sequenceName = "ContraindicationSeq",initialValue = 5,allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ContraindicationSG")
 	private long id;
 	
 	@Column(unique = false,nullable = true)
@@ -30,6 +32,13 @@ public class Contraindication {
 	public Contraindication() {
 		super();
 	}
+	
+	public Contraindication(String name) {
+		super();
+		this.name = name;
+	}
+
+
 
 	public long getId() {
 		return id;

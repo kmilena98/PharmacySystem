@@ -11,7 +11,6 @@ import ISA.Team54.Examination.repository.ExaminationRepository;
 import ISA.Team54.drugAndRecipe.dto.IsAvalableDrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
-import ISA.Team54.drugAndRecipe.model.DrugAllergy;
 import ISA.Team54.drugAndRecipe.model.DrugInPharmacy;
 import ISA.Team54.drugAndRecipe.model.DrugInPharmacyId;
 import ISA.Team54.drugAndRecipe.model.DrugSpecification;
@@ -121,6 +120,11 @@ public class DrugServiceImpl implements DrugService {
 	@Override
 	public Drug findById(long id) {
 		return drugRepsoitory.findById(id).orElse(null);
+	}
+
+	@Override
+	public Drug addDrug(Drug drug) {
+		return drugRepsoitory.save(drug);
 	}
 	
 }

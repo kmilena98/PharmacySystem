@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -22,7 +23,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class DrugSpecification {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "DrugSpecificationSG", sequenceName = "DrugSpecificationSeq",initialValue = 6,allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DrugSpecificationSG")
 	private long id;
 	
 	@JsonManagedReference(value="clinci_movement")
@@ -54,13 +56,13 @@ public class DrugSpecification {
 	}
 
 
-	public DrugSpecification(long id, List<Contraindication> contraindications, List<Ingredient> ingredients,
-			String suggestedDose) {
+	public DrugSpecification(List<Contraindication> contraindications, List<Ingredient> ingredients,
+			String suggestedDose,Drug drug) {
 		super();
-		this.id = id;
 		this.contraindications = contraindications;
 		this.ingredients = ingredients;
 		this.suggestedDose = suggestedDose;
+		this.drug = drug;
 	}
 
 

@@ -10,7 +10,7 @@ import javax.validation.constraints.Null;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import ISA.Team54.rating.enums.RatingObject;
+import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.model.Pharmacist;
 import ISA.Team54.users.model.Pharmacy;
@@ -34,6 +34,11 @@ public class Rating {
 	@ManyToOne
 	@Null
 	private Pharmacy pharmacy;
+	
+	@JsonBackReference
+	@ManyToOne
+	@Null
+	private Drug drug;
 	
 	@Column(unique = false,nullable = false)
 	private double rating;
@@ -81,6 +86,22 @@ public class Rating {
 
 	public void setRating(double rating) {
 		this.rating = rating;
+	}
+
+	public Dermatologist getDermatologist() {
+		return dermatologist;
+	}
+
+	public void setDermatologist(Dermatologist dermatologist) {
+		this.dermatologist = dermatologist;
+	}
+
+	public Drug getDrug() {
+		return drug;
+	}
+
+	public void setDrug(Drug drug) {
+		this.drug = drug;
 	}
 	
 	

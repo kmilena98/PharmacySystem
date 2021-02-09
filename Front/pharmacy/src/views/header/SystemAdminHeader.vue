@@ -5,9 +5,9 @@
         <li class="nav-item"><a href="#" class="nav-link"><router-link to="dermatologistsPage">Dermatolozi</router-link></a></li>    
         <li class="nav-item"><a href="#" class="nav-link"><router-link to="suppliersPage">Dobavljaci</router-link></a></li>
         <li class="nav-item"><a href="#" class="nav-link"><router-link to="pharmaciesPage">Apoteke</router-link></a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><router-link to="drugsPage">Lekovi</router-link></a></li>
         <li class="nav-item"><a href="#" class="nav-link">Godisnji odmori</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Zalbe</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Sifranik lekova</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Loyalty</a></li>
         <li class="nav-item" style="align-right"><a href="#" class="nav-link" @click="logout">Odjava</a></li>
     </ul>
