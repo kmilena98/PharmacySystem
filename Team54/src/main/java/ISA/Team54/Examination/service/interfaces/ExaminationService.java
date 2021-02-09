@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.List;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+import ISA.Team54.Examination.dto.ExaminationForCalendarDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.model.Examination;
@@ -24,4 +25,5 @@ public interface ExaminationService {
 	List<DermatologistExaminationDTO> getFutureExaminations(ExaminationType type);
 	List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type);
 	int isPatientAppropriate(Long patientId);
+	List<ExaminationForCalendarDTO> getExaminaitonForCalendar();
 }

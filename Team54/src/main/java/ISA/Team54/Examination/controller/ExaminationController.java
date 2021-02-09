@@ -1,10 +1,6 @@
 package ISA.Team54.Examination.controller;
 
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
-import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
-import ISA.Team54.Examination.model.Examination;
-
 import ISA.Team54.Examination.dto.DefinedExaminationDTO;
+import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
+import ISA.Team54.Examination.dto.ExaminationForCalendarDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
+import ISA.Team54.Examination.dto.ExaminationTypeDTO;
 import ISA.Team54.Examination.dto.NewExaminationDTO;
 import ISA.Team54.Examination.dto.ScheduleExaminaitonDTO;
-import ISA.Team54.Examination.dto.ExaminationSearchDTO;
-import ISA.Team54.Examination.dto.ExaminationTypeDTO;
 import ISA.Team54.Examination.dto.StartExaminationDTO;
-import ISA.Team54.Examination.enums.ExaminationType;
+import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
 import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
@@ -40,10 +33,7 @@ import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
-import ISA.Team54.users.dto.PharmacyDTO;
-import ISA.Team54.users.mappers.PharmacyMapper;
 import ISA.Team54.users.model.Dermatologist;
-import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.DermatologistService;
 import ISA.Team54.users.service.interfaces.PatientService;
 
@@ -130,6 +120,17 @@ public class ExaminationController {
       else
     	  return new ResponseEntity<>("Nije moguce zakazati pregled u izabranom terminu!",HttpStatus.BAD_REQUEST);  
     }
+	 
+	 @GetMapping("/examinaitonForCalendar/")
+		@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+		public ResponseEntity<List<ExaminationForCalendarDTO>> getExaminaitonForCalendar() {
+			try {
+				List<ExaminationForCalendarDTO> examinationsForCalendar = examinationService.getExaminaitonForCalendar();
+				return new ResponseEntity<>(examinationsForCalendar,HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
 
 
 	@GetMapping("/cancel/{id}")
@@ -169,4 +170,5 @@ public class ExaminationController {
 		boolean success = examinationService.saveExamination(newExaminationDTO.getCurrentExaminationId(),newExaminationDTO.getNewExaminationId());
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
 	}
+	
 }

@@ -11,10 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+import ISA.Team54.Examination.dto.ExaminationForCalendarDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationStatus;
 import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
+import ISA.Team54.Examination.mapper.ExaminationForCalendarMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
 import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.model.Term;
@@ -346,5 +348,14 @@ public class ExaminationServiceImpl implements ExaminationService {
 				return false;
 		}
 		return true;
+	}
+	@Override
+	public List<ExaminationForCalendarDTO> getExaminaitonForCalendar() {
+		List<ExaminationForCalendarDTO> examinationsForCalendar = new ArrayList<ExaminationForCalendarDTO>();
+		List<Examination> examinations = examinationRepository.findByEmplyeedIdAndStatus(getCurrentEmployedId(),ExaminationStatus.Filled);
+		for(Examination examination: examinations) {
+			examinationsForCalendar.add(new ExaminationForCalendarMapper().examinationForExaminationForCalendarDTO(examination));
+		}
+		return examinationsForCalendar;
 	}
 }
