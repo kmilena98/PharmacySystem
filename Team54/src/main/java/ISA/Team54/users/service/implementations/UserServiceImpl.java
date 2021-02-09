@@ -37,7 +37,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private AuthorityService authService;
-	
+
+	@Lazy
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
