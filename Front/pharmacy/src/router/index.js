@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PatientProfile from "../views/patient/profile/Profile.vue";
 import Registration from "../views/registration/Registration.vue";
+import PharmacyAdminProfile from  "../views/pharmacyAdmin/profile/PharmacyAdminProfile.vue";
 import Examination from "../views/dermatologistAndPharmacist/dermatologist/StartExamination.vue"
 import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
 import SystemAdminsPage from "../views/systemAdmin/users/SystemAdminsPage.vue"
@@ -121,6 +122,17 @@ const routes = [
     name: "MyExaminations",
     component: () =>
       import("../views/patient/examinations/MyExaminations.vue")
+  },
+  {
+    path: "/pharmacy-admin-profile",
+    name: "Pharmacy Admin Profile",
+    component: PharmacyAdminProfile
+  },
+  {
+    path: "/mydrugs",
+    name: "MyDrugs",
+    component: () =>
+      import("../views/patient/drugs/Drugs.vue")
   },
   {
     path: "/pharmaciesPage",

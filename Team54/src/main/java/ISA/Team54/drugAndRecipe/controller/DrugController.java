@@ -20,25 +20,27 @@ import ISA.Team54.drugAndRecipe.dto.DrugSpecificationDTO;
 import ISA.Team54.drugAndRecipe.dto.IsAvalableDrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.mapper.DrugSpecificationMapper;
-import ISA.Team54.drugAndRecipe.model.Contraindication;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.model.DrugSpecification;
-import ISA.Team54.drugAndRecipe.model.Ingredient;
 import ISA.Team54.drugAndRecipe.repository.ContraindicationRepository;
 import ISA.Team54.drugAndRecipe.repository.IngredientRepository;
+import ISA.Team54.drugAndRecipe.service.interfaces.DrugInPharmacyService;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugSpecificationService;
-import ISA.Team54.users.dto.PharmacyDTO;
-import ISA.Team54.users.model.Pharmacy;
 import ISA.Team54.users.service.interfaces.PharmacyService;
 
 @RestController
 @RequestMapping(value = "/drugs", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DrugController {
+	
 	@Autowired
 	private DrugService drugService;
+
 	@Autowired
 	private PharmacyService pharmacyService;
+
+	@Autowired
+	private DrugInPharmacyService drugInPharmacyService;
 	
 	@Autowired
 	private ContraindicationRepository contraIndicationRepository;
@@ -74,7 +76,7 @@ public class DrugController {
 	@GetMapping("")
 	public List<Drug> getAll(){
 		return drugService.getAllDrugs();
-	}  
+	}
 	
 	/*	@PostMapping("/addDrug")
 	//@PreAuthorize("hasRole('SYSTEM_ADMIN')")
