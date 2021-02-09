@@ -11,8 +11,8 @@ public class UserInfoMapper {
 		} 
 	
 	public static void UserInfoDTOTOUser(UserInfoDTO userInfoDTO,User user) {
-		user.setName(userInfoDTO.getFirstName());
-		user.setSurname(userInfoDTO.getLastName());
+		user.setName(userInfoDTO.getName());
+		user.setSurname(userInfoDTO.getSurname());
 		user.setAddress(userInfoDTO.getAddress());
 		user.setCity(userInfoDTO.getCity());
 		user.setCountry(userInfoDTO.getCountry());
