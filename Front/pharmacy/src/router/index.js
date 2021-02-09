@@ -144,6 +144,12 @@ const routes = [
     name: "Pharmacies",
     component: () =>
       import("../views/systemAdmin/PharmacyPage.vue")
+  },
+  {
+    path: "/ratings",
+    name: "Rating",
+    component: () =>
+      import("../views/patient/rating/Rating.vue")
   }
 ];
 
