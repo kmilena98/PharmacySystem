@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.exceptions.InvalidTimeLeft;
 import ISA.Team54.Examination.model.Examination;
-
 import ISA.Team54.Examination.dto.DefinedExaminationDTO;
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
+import ISA.Team54.Examination.dto.ExaminationForCalendarDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.dto.ExaminationTypeDTO;
 import ISA.Team54.Examination.dto.NewExaminationDTO;
@@ -123,6 +122,17 @@ public class ExaminationController {
       else
     	  return new ResponseEntity<>("Nije moguce zakazati pregled u izabranom terminu!",HttpStatus.BAD_REQUEST);  
     }
+	 
+	 @GetMapping("/examinaitonForCalendar/")
+		@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
+		public ResponseEntity<List<ExaminationForCalendarDTO>> getExaminaitonForCalendar() {
+			try {
+				List<ExaminationForCalendarDTO> examinationsForCalendar = examinationService.getExaminaitonForCalendar();
+				return new ResponseEntity<>(examinationsForCalendar,HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
 
 
 	@GetMapping("/cancel/{id}")
@@ -162,4 +172,5 @@ public class ExaminationController {
 		boolean success = examinationService.saveExamination(newExaminationDTO.getCurrentExaminationId(),newExaminationDTO.getNewExaminationId());
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
 	}
+	
 }

@@ -8,7 +8,7 @@ import Examination from "../views/dermatologistAndPharmacist/dermatologist/Start
 import IssueDrug from "../views/dermatologistAndPharmacist/pharmacist/IssueDrug.vue"
 import SystemAdminsPage from "../views/systemAdmin/users/SystemAdminsPage.vue"
 import Vacation from "../views/dermatologistAndPharmacist/ScheduleVacation.vue"
-
+import MyCalendar from "../views/dermatologistAndPharmacist/myCalendar.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -31,6 +31,11 @@ const routes = [
     path: "/issue-drug",
     name: "Issue drug",
     component: IssueDrug
+  },
+  {
+    path: "/my-calendar",
+    name: "My Calendar",
+    component: MyCalendar
   },
   {
     path: "/about",
