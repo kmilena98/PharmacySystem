@@ -4,8 +4,8 @@
     <div class="demo-app-main">
       <FullCalendar class="demo-app-calendar" :options="calendarOptions">
         <template v-slot:eventContent="arg">
-          <b>{{ arg.timeText }}</b>
-          <i>{{ arg.event.title }}</i>
+          {{ arg.timeText }}
+          {{ arg.event.title }}
           <br />
         </template>
       </FullCalendar>
@@ -155,7 +155,7 @@ export default {
         let examinationsForCalendar = [];
         for (let i in response.data) {
           let ex = response.data[i];
-          let startDate = new Date(ex.start);
+          let startDate = new Date(ex.start)
           let endDate = new Date(startDate.getTime() + 30 * 60000);
           let newEvent = {
             id: ex.id,
@@ -214,8 +214,10 @@ export default {
       this.pharmacyName = exam[0].pharmacyName;
       this.name = exam[0].patientName;
       this.surname = exam[0].patientSurname;
-      this.startDate = new Date(exam[0].start);
+      this.startDate = new Date(exam[0].start)
       this.endDate = new Date(this.startDate.getTime() + 30 * 60000);
+      this.startDate = this.startDate.toLocaleString()
+      this.endDate = this.endDate.toLocaleString()
       this.patientId = exam[0].patientId;
       this.examinationId = exam[0].id
       this.getCurrentExamination()

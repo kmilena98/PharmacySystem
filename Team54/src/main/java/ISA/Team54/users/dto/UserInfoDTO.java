@@ -6,9 +6,9 @@ public class UserInfoDTO {
 	
 	private String email;
 
-	private String firstName;
+	private String name;
 
-	private String lastName;
+	private String surname;
 	
 	private String address;
 	
@@ -25,82 +25,115 @@ public class UserInfoDTO {
 
 	
 	
-	public UserInfoDTO(long id,String email, String firstName, String lastName, String address, String city, String country,
+	public UserInfoDTO(long id,String email, String name, String surname, String address, String city, String country,
 			String phoneNumber) {
 		super();
 		
 		this.id = id;
 		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
+		this.surname = surname;
 		this.address = address;
 		this.city = city;
 		this.country = country;
 		this.phoneNumber = phoneNumber;
 	}
+
+
 
 	public long getId() {
 		return id;
 	}
 
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getFirstName() {
-		return firstName;
+
+
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLastName() {
-		return lastName;
+
+
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
+
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+
 
 	public String getCity() {
 		return city;
 	}
 
+
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+
 
 	public String getCountry() {
 		return country;
 	}
 
+
+
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}	
+	}
+
 	
 }

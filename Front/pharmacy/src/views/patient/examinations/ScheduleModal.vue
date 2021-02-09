@@ -77,7 +77,6 @@ export default {
                     date: new Date(this.date + ' ' + this.time).getTime()
                 })
                 .then( res => {
-                    console.log(res.data)
                     if(res.status == 200){  
                         let data = []
                          res.data.forEach(element => {

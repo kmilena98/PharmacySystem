@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
+import ISA.Team54.exceptions.InvalidTimeLeft;
+import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.dto.DefinedExaminationDTO;
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.Examination.dto.ExaminationDTO;
@@ -24,15 +26,14 @@ import ISA.Team54.Examination.dto.ExaminationTypeDTO;
 import ISA.Team54.Examination.dto.NewExaminationDTO;
 import ISA.Team54.Examination.dto.ScheduleExaminaitonDTO;
 import ISA.Team54.Examination.dto.StartExaminationDTO;
-import ISA.Team54.Examination.exceptions.ExaminationInvalidTimeLeft;
 import ISA.Team54.Examination.mapper.DefinedExamiantionMapper;
 import ISA.Team54.Examination.mapper.ExaminationMapper;
-import ISA.Team54.Examination.model.Examination;
 import ISA.Team54.Examination.service.interfaces.ExaminationService;
 import ISA.Team54.drugAndRecipe.dto.DrugDTO;
 import ISA.Team54.drugAndRecipe.mapper.DrugMapper;
 import ISA.Team54.drugAndRecipe.model.Drug;
 import ISA.Team54.drugAndRecipe.service.interfaces.DrugService;
+import ISA.Team54.shared.service.interfaces.EmailService;
 import ISA.Team54.users.model.Dermatologist;
 import ISA.Team54.users.service.interfaces.DermatologistService;
 import ISA.Team54.users.service.interfaces.PatientService;
@@ -48,7 +49,8 @@ public class ExaminationController {
 	private DrugService drugService;
 	@Autowired
 	private DermatologistService dermatologistSerivce;
-
+	@Autowired
+	private EmailService emailService;
 	@GetMapping("/soonestExamination")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public StartExaminationDTO loadSoonestExamination() {
@@ -116,7 +118,7 @@ public class ExaminationController {
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
     public ResponseEntity<String> scheduleExamination(@RequestBody ScheduleExaminaitonDTO scheduleExamination) {	
       if(examinationService.scheduleExamination(scheduleExamination.getExaminationId(),scheduleExamination.getDate()))
-       return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
+    	  return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
       else
     	  return new ResponseEntity<>("Nije moguce zakazati pregled u izabranom terminu!",HttpStatus.BAD_REQUEST);  
     }
@@ -139,7 +141,7 @@ public class ExaminationController {
 		try {
 			examinationService.cancelExamination(id);
 			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (ExaminationInvalidTimeLeft e) {
+		} catch (InvalidTimeLeft e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);

@@ -24,7 +24,7 @@ export default {
             this.$axios.get("http://localhost:9001/patient/examinatedPatients/"+1)
             .then(response => {this.items = response.data
               for(let i in this.items){
-                this.items[i].term = new Date(response.data[i].term)
+                this.items[i].term = new Date(response.data[i].term).toLocaleString()
               }
             })
             .catch(error => {

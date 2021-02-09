@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import ISA.Team54.rating.model.Rating;
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
 import ISA.Team54.vacationAndWorkingTime.model.DermatologistWorkSchedule;
 import ISA.Team54.vacationAndWorkingTime.model.VacationRequest;
 
@@ -27,8 +27,8 @@ public class Pharmacist extends User{
 	@OneToMany(mappedBy = "pharmacist", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Rating> ratings;
 	
-	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Pharmacy pharmacy;
 	
 	@Embedded

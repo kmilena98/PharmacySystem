@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ISA.Team54.sharedModel.DateRange;
+import ISA.Team54.shared.model.DateRange;
 import ISA.Team54.vacationAndWorkingTime.service.interfaces.VacationRequestService;
 
 @RestController

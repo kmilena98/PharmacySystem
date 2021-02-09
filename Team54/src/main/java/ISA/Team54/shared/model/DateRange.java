@@ -1,4 +1,4 @@
-package ISA.Team54.sharedModel;
+package ISA.Team54.shared.model;
 
 import java.util.Date;
 

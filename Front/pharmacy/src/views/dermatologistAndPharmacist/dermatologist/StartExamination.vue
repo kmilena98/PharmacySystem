@@ -163,10 +163,10 @@ export default {
             .then(response => {this.examination = response.data
                                 this.name = this.examination.soonestExamination.dermatologistName
                                 this.surname = this.examination.soonestExamination.dermatologistSurname
-                                this.start = new Date(this.examination.soonestExamination.examinationStart)
+                                this.start = new Date(this.examination.soonestExamination.examinationStart).toLocaleString()
                                 this.items = this.examination.historyExaminations
                                 for(let i in this.items){
-                                  this.items[i].examinationStart = new Date(this.examination.historyExaminations[i].examinationStart)
+                                  this.items[i].examinationStart = new Date(this.examination.historyExaminations[i].examinationStart).toLocaleString()
                                 }
                                 this.examinationId = this.examination.soonestExamination.id
                                 this.allDrugs = this.examination.drugsForPatient
@@ -270,8 +270,10 @@ export default {
                 title: 'Success',
                 text: this.message,              
                 closeOnClick : true
-            })}); 
-              this.$router.push("my-calendar");
+            })
+            }); 
+
+            setTimeout(() => {  this.$router.push("my-calendar"); }, 2000);
         }
     }
 }

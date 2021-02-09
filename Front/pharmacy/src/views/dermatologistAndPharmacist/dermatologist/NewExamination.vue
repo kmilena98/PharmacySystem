@@ -84,7 +84,7 @@ export default {
       .then((response) => {
         this.definedExaminations = response.data;
         for(let i in this.definedExaminations){
-          this.definedExaminations[i].examinationStart = new Date(response.data[i].examinationStart)
+          this.definedExaminations[i].examinationStart = new Date(response.data[i].examinationStart).toLocaleString()
         }
       
       })
