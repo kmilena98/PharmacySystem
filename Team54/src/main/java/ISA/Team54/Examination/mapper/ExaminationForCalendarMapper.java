@@ -6,7 +6,12 @@ import ISA.Team54.Examination.model.Examination;
 public class ExaminationForCalendarMapper {
 
 	public ExaminationForCalendarDTO examinationForExaminationForCalendarDTO(Examination examination) {
-		return new ExaminationForCalendarDTO(examination.getId(),examination.getTerm().getStart(),
+		if(examination.getPatient()==null) {
+			return new ExaminationForCalendarDTO(examination.getId(),0L,examination.getTerm().getStart(),
+					examination.getTerm().getDuration(),examination.getPharmacy().getName(),
+					"","");
+		}
+		return new ExaminationForCalendarDTO(examination.getId(),examination.getPatient().getId(),examination.getTerm().getStart(),
 				examination.getTerm().getDuration(),examination.getPharmacy().getName(),
 				examination.getPatient().getName(),examination.getPatient().getSurname());
 	}

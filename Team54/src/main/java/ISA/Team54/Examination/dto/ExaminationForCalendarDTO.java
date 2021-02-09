@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ExaminationForCalendarDTO {
 	private Long id;
+	private Long patientId;
 	private Date start;
 	private int duration;
 	private String pharmacyName;
@@ -13,10 +14,11 @@ public class ExaminationForCalendarDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ExaminationForCalendarDTO(Long id,Date start, int duration, String pharmacyName, String patientName,
+	public ExaminationForCalendarDTO(Long id,Long patientId,Date start, int duration, String pharmacyName, String patientName,
 			String patientSurname) {
 		super();
 		this.id = id;
+		this.patientId = patientId;
 		this.start = start;
 		this.duration = duration;
 		this.pharmacyName = pharmacyName;
@@ -25,6 +27,12 @@ public class ExaminationForCalendarDTO {
 	}
 	
 	
+	public Long getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -61,7 +69,4 @@ public class ExaminationForCalendarDTO {
 	public void setPatientSurname(String patientSurname) {
 		this.patientSurname = patientSurname;
 	}
-	
-	
-	
 }

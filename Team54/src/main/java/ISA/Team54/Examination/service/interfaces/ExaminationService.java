@@ -7,14 +7,15 @@ import ISA.Team54.Examination.dto.ExaminationForCalendarDTO;
 import ISA.Team54.Examination.dto.ExaminationInformationDTO;
 import ISA.Team54.Examination.enums.ExaminationType;
 import ISA.Team54.Examination.model.Examination;
+import ISA.Team54.users.enums.UserRole;
 import ISA.Team54.users.model.Pharmacy;
 
 public interface ExaminationService {
-	public Examination getCurrentExaminationByDermatologistId();
-	public List<Examination> historyOfPatientExamination(Long id);
-	public void updateExamination(ExaminationInformationDTO examinationInformationDTO);
-	public List<Examination> getAllExaminationsForDermatologist(Long id);
-	public List<Examination> getDefinedExaminations(long examinationId);
+	Examination getCurrentExaminationByDermatologistId();
+	List<Examination> historyOfPatientExamination(Long id);
+	void updateExamination(ExaminationInformationDTO examinationInformationDTO);
+	List<Examination> getAllExaminationsForDermatologist(Long id);
+	List<Examination> getDefinedExaminations(long examinationId);
 	List<DermatologistExaminationDTO> getAllExaminationsForPharmacy(long id, ExaminationType type);
 	List<DermatologistExaminationDTO> getExaminationsForPharmacyAndDate(long id, ExaminationType type, Date date);
 	void scheduleExamination(long id);
@@ -26,4 +27,6 @@ public interface ExaminationService {
 	List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type);
 	int isPatientAppropriate(Long patientId);
 	List<ExaminationForCalendarDTO> getExaminaitonForCalendar();
+	 UserRole getCurrentRole();
+	 Long getCurrentEmployedId();
 }

@@ -60,12 +60,12 @@ public class ExaminationServiceImpl implements ExaminationService {
 	@Autowired 
 	private DermatologistWorkScheduleRepository dermatologistWorkScheduleRepository;
 
-	private Long getCurrentEmployedId() {
+	public Long getCurrentEmployedId() {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return ((User) authentication.getPrincipal()).getId();
 	} 
-	private UserRole getCurrentRole() {
+	public UserRole getCurrentRole() {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		try {
@@ -352,7 +352,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 	@Override
 	public List<ExaminationForCalendarDTO> getExaminaitonForCalendar() {
 		List<ExaminationForCalendarDTO> examinationsForCalendar = new ArrayList<ExaminationForCalendarDTO>();
-		List<Examination> examinations = examinationRepository.findByEmplyeedIdAndStatus(getCurrentEmployedId(),ExaminationStatus.Filled);
+		List<Examination> examinations = examinationRepository.findByEmplyeedId(getCurrentEmployedId());
 		for(Examination examination: examinations) {
 			examinationsForCalendar.add(new ExaminationForCalendarMapper().examinationForExaminationForCalendarDTO(examination));
 		}
