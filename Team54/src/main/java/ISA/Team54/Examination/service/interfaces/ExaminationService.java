@@ -11,11 +11,11 @@ import ISA.Team54.users.enums.UserRole;
 import ISA.Team54.users.model.Pharmacy;
 
 public interface ExaminationService {
-	Examination getCurrentExaminationByDermatologistId();
+	Examination getCurrentExaminationForEmployee();
 	List<Examination> historyOfPatientExamination(Long id);
 	void updateExamination(ExaminationInformationDTO examinationInformationDTO);
-	List<Examination> getAllExaminationsForDermatologist(Long id);
-	List<Examination> getDefinedExaminations(long examinationId);
+	List<Examination> getAllExaminatedExaminationsForEmployee();
+	List<Examination> getDefinedExaminations();
 	List<DermatologistExaminationDTO> getAllExaminationsForPharmacy(long id, ExaminationType type);
 	List<DermatologistExaminationDTO> getExaminationsForPharmacyAndDate(long id, ExaminationType type, Date date);
 	void scheduleExamination(long id);

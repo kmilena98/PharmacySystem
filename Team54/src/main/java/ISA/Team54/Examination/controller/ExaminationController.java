@@ -54,7 +54,7 @@ public class ExaminationController {
 	@GetMapping("/soonestExamination")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public StartExaminationDTO loadSoonestExamination() {
-		Examination soonestExamination = examinationService.getCurrentExaminationByDermatologistId();
+		Examination soonestExamination = examinationService.getCurrentExaminationForEmployee();
 
 		ExaminationDTO soonestExaminationDTO = new ExaminationMapper().ExaminationToExaminationDTO(soonestExamination);
 		List<ExaminationDTO> historyExaminations = new ArrayList<ExaminationDTO>();
@@ -102,7 +102,7 @@ public class ExaminationController {
 	public List<DefinedExaminationDTO> getDefinedExaminations(@PathVariable Long examinationId){
 		List<DefinedExaminationDTO> definedExaminations = new ArrayList<DefinedExaminationDTO>();
 
-		for (Examination examination : examinationService.getDefinedExaminations(examinationId)) {
+		for (Examination examination : examinationService.getDefinedExaminations()) {
 			definedExaminations.add(new DefinedExamiantionMapper().examinationToDefinedExaminationDTO(examination));
 		}
 		return definedExaminations;
