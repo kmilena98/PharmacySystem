@@ -128,16 +128,42 @@ public class ExaminationServiceImpl implements ExaminationService {
 	}
 
 	@Override
+	public List<User> getEmployeeWhoExaminedPatient(ExaminationType type) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Patient patient = patientRepository.findById(((Patient) authentication.getPrincipal()).getId());
+
+		List<Examination> examinations =  examinationRepository.findByPatientId(patient.getId());
+		List<User> employees = new ArrayList<User>();
+		examinations.forEach(
+				e -> {
+					if(e.getType() == type){
+						User employee = userRepository.findOneById(e.getEmplyeedId());
+						if(CheckIfEmployeeUnique(employee, employees))
+							employees.add(employee);
+					}
+				}
+		);
+		return employees;
+	}
+
+	private boolean CheckIfEmployeeUnique(User employee, List<User> employees) {
+		for (User user : employees) {
+			if(user.getId() == employee.getId())
+				return false;
+		}
+		return true;
+	}
+
+	@Override
 	public List<Examination> historyOfPatientExamination(Long id) {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		try {
-			Pharmacist pharmacist = pharmacistRepository
-					.findOneById(((Pharmacist) authentication.getPrincipal()).getId());
-			if (pharmacist != null)
-				examinaitonType = ExaminationType.PharmacistExamination;
-		} catch (Exception e) {
-
+			Pharmacist pharmacist = pharmacistRepository.findOneById(((Pharmacist) authentication.getPrincipal()).getId());
+		if(pharmacist != null) 
+			examinaitonType = ExaminationType.PharmacistExamination;
+		}catch(Exception e) {
+		
 		}
 
 		return examinationRepository.getHistoryExaminationsForPatient(id, examinaitonType, ExaminationStatus.Filled);

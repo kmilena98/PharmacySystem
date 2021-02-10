@@ -3,17 +3,17 @@ package ISA.Team54.Examination.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import ISA.Team54.Examination.enums.ExaminationType;
+import ISA.Team54.users.dto.UserInfoDTO;
+import ISA.Team54.users.mappers.UserInfoMapper;
+import ISA.Team54.users.mappers.UserMapper;
+import ISA.Team54.users.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ISA.Team54.Examination.dto.DermatologistExaminationDTO;
 import ISA.Team54.exceptions.InvalidTimeLeft;
 import ISA.Team54.Examination.model.Examination;
@@ -41,16 +41,22 @@ import ISA.Team54.users.service.interfaces.PatientService;
 @RestController 
 @RequestMapping(value="/examination",produces=MediaType.APPLICATION_JSON_VALUE)
 public class ExaminationController {
+
 	@Autowired
 	private ExaminationService examinationService;
+
 	@Autowired
 	private PatientService patientService;
+
 	@Autowired
 	private DrugService drugService;
+
 	@Autowired
 	private DermatologistService dermatologistSerivce;
+
 	@Autowired
 	private EmailService emailService;
+
 	@GetMapping("/soonestExamination")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	public StartExaminationDTO loadSoonestExamination() {
@@ -172,5 +178,13 @@ public class ExaminationController {
 		boolean success = examinationService.saveExamination(newExaminationDTO.getCurrentExaminationId(),newExaminationDTO.getNewExaminationId());
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/patient-employees")
+	@PreAuthorize("hasRole('PATIENT')")
+	public ResponseEntity<List<UserInfoDTO>> getPatientDermatologistFromExaminations(@RequestParam("type") ExaminationType type){
+		List<User> employees = examinationService.getEmployeeWhoExaminedPatient(type);
+		List<UserInfoDTO> employeeDTOs = new ArrayList<UserInfoDTO>();
+		employees.forEach(e -> employeeDTOs.add(new UserInfoMapper().UserTOUserInfoDTO(e)));
+		return new ResponseEntity<List<UserInfoDTO>>(employeeDTOs, HttpStatus.OK);
+	}
 }
