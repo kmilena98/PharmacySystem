@@ -11,7 +11,7 @@
       </FullCalendar>
     </div>
     <div>
-      <b-modal ref="my-modal" hide-footer title="Informacije o pregledu">
+      <b-modal ref="my-modal"  hide-footer title= "INFORMACIJE">
         <b-row text-align-center>
           <b-col sm="3"> </b-col>
           <b-col>
@@ -89,12 +89,19 @@
             >
           </b-col>
           <b-col v-if="isCurrentExamination">
-            <b-button
+            <b-button v-if="userRole == 'ROLE_DERMATOLOGIST'"
               class="mt-3"
               variant="success"
               block
               @click="startExamination"
               >Pregledaj</b-button
+            >
+             <b-button v-if="userRole == 'ROLE_PHARMACIST'"
+              class="mt-3"
+              variant="success"
+              block
+              @click="startExamination"
+              >Savetuj</b-button
             >
           </b-col>
         </b-row>
@@ -191,6 +198,8 @@ export default {
           closeOnClick: true,
         });
       });
+  }, mounted() {
+    this.userRole = localStorage.getItem("UserRole");
   },
 
   methods: {

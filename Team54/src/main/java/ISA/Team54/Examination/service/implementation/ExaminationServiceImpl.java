@@ -69,8 +69,13 @@ public class ExaminationServiceImpl implements ExaminationService {
 
 	public Long getCurrentEmployedId() {
 		ExaminationType examinaitonType = ExaminationType.DermatologistExamination;
+		if(getCurrentRole().equals(UserRole.ROLE_PHARMACIST)) {
+			examinaitonType = ExaminationType.PharmacistExamination;
+		}
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return ((User) authentication.getPrincipal()).getId();
+		long userId =  ((User) authentication.getPrincipal()).getId();
+		return userId;
 	}
 
 	public UserRole getCurrentRole() {
@@ -93,7 +98,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, -20);
 		Date twentyMinutesBack = cal.getTime();
-		cal.add(Calendar.HOUR, +225);
+		cal.add(Calendar.HOUR, +325);
 		Date fourHoursFront = cal.getTime();
 		List<Examination> employeeExaminations = examinationRepository.getSoonestDates(getCurrentEmployedId(), ExaminationStatus.Filled,twentyMinutesBack,fourHoursFront);
 		if (employeeExaminations.size() <= 0) {
@@ -165,8 +170,8 @@ public class ExaminationServiceImpl implements ExaminationService {
 		}catch(Exception e) {
 		
 		}
-
-		return examinationRepository.getHistoryExaminationsForPatient(id, examinaitonType, ExaminationStatus.Filled);
+		List<Examination> examinationHistories = examinationRepository.getHistoryExaminationsForPatient(id, examinaitonType, ExaminationStatus.Filled);
+		return examinationHistories;
 	}
 
 	@Override

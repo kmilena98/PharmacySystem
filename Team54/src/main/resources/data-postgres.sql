@@ -319,18 +319,24 @@ values(null, 4, 1750, 'Unfilled', 30, '2021-02-10 9:00', 30, 'DermatologistExami
 /*-- SCHEDULED EXAMINATIONS -PHARMACIST --*/
 
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values('Blaza upala grla', 10, 1200, 'Filled', 30, '2021-01-01 12:00', 4, 'PharmacistExamination', 5, 2);
+values('Blaza upala grla', 10, 1200, 'Filled', 30, '2021-02-01 12:00', 4, 'PharmacistExamination', 5, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values('Opis 2', 18, 1300, 'Filled', 30, '2020-05-04 08:00', 14, 'PharmacistExamination', 6, 2);
+values('Opis 2', 18, 1300, 'Filled', 30, '2020-03-04 08:00', 14, 'PharmacistExamination', 6, 2);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values('Opis 3', 9, 1300, 'Filled', 30, '2020-07-21 09:00', 14, 'PharmacistExamination', 5, 1);
- 
+values('Opis 3', 9, 1300, 'Filled', 30, '2020-02-21 09:00', 14, 'PharmacistExamination', 5, 1);
+ insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
+values('Blazi tip sorijaze ', 9, 1300, 'Filled', 30, '2021-02-21 09:00', 14, 'PharmacistExamination', 7, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 9, 1300, 'Unfilled', 30, '2021-05-1 09:00', 0, 'PharmacistExamination', null, 1);
+values('Ekcemska reakcija', 9, 1300, 'Filled', 30, '2021-02-21 09:00', 14, 'PharmacistExamination', 7, 1);
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 18, 1400, 'Unfilled', 30, '2021-05-1 09:00', 0, 'PharmacistExamination', null, 2);
+values('Suga', 9, 1300, 'Filled', 30, '2021-02-21 09:00', 14, 'PharmacistExamination', 8, 1);
+
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
-values(null, 17, 1400, 'Unfilled', 30, '2021-05-1 09:30', 0, 'PharmacistExamination', null, 1);
+values(null, 9, 1300, 'Unfilled', 30, '2021-02-12 09:00', 0, 'PharmacistExamination', null, 1);
+insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
+values(null, 18, 1400, 'Unfilled', 30, '2021-02-15 09:00', 0, 'PharmacistExamination', null, 2);
+insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
+values(null, 17, 1400, 'Unfilled', 30, '2021-02-16 09:30', 0, 'PharmacistExamination', null, 1);
  
 insert into examination(diagnose, emplyeed_id, price, status, duration, start, therapy_duration, type, patient_id, pharmacy_id)
 values(null, 10, 1100, 'Unfilled', 30, '2021-05-1 10:30', 30, 'PharmacistExamination', null, 2);

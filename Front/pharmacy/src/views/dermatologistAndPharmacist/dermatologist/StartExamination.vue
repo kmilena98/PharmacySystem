@@ -72,7 +72,7 @@
     <div class="profile-main">
       <b-card no-body>
         <b-tabs pills card align="center" lazy>
-          <b-tab title="Informacije o pacijentu i pregledu" active>
+          <b-tab v-if="userRole == 'ROLE_DERMATOLOGIST'" title="Informacije o pacijentu i pregledu" active>
             <b-card>
               <b-form-group
                 label="Ime pacijenta :"
@@ -102,10 +102,43 @@
               </b-form-group>
             </b-card>
           </b-tab>
-          <b-tab title="Istorija poseta dermatologa">
+           <b-tab v-if="userRole == 'ROLE_PHARMACIST'" title="Informacije o pacijentu i savetovanju" active>
+            <b-card>
+              <b-form-group
+                label="Ime pacijenta :"
+                label-for="nested-street"
+                label-cols-sm="3"
+                label-align-sm="right"
+              >
+                <input v-model="name" />
+              </b-form-group>
+
+              <b-form-group
+                label="Prezime pacijenta :"
+                label-for="nested-city"
+                label-cols-sm="3"
+                label-align-sm="right"
+              >
+                <input v-model="surname" />
+              </b-form-group>
+
+              <b-form-group
+                label="Vreme savetovanja :"
+                label-for="nested-state"
+                label-cols-sm="3"
+                label-align-sm="right"
+              >
+                <input v-model="start" />
+              </b-form-group>
+            </b-card>
+          </b-tab>
+          <b-tab title="Istorija poseta ">
             <b-table striped hover :items="items"></b-table>
           </b-tab>
-          <b-tab title="Zakazivanje pregleda">
+          <b-tab v-if="userRole == 'ROLE_DERMATOLOGIST'" title="Zakazivanje pregleda">
+            <NewExamination />
+          </b-tab>
+           <b-tab v-if="userRole == 'ROLE_PHARMACIST'" title="Zakazivanje savetovanja">
             <NewExamination />
           </b-tab>
           <b-tab title="Terapija">
