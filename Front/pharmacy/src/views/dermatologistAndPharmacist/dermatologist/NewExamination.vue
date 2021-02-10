@@ -100,10 +100,7 @@ export default {
     onRowSelected(items) {
       this.selected = items;
       this.$axios
-        .post("http://localhost:9001/examination/saveExamination", {
-          currentExaminationId: 4,
-          newExaminationId: items[0].examinationId,
-        })
+        .post("http://localhost:9001/examination/saveExamination/"+  items[0].examinationId)
         .then((response) => {
           this.message = response.data;
           if (response.status == 200) {
@@ -132,10 +129,7 @@ export default {
       startDate.setHours(startTime[0], startTime[1], 0, 0);
       startDate = startDate.getTime();
       this.$axios
-        .post("http://localhost:9001/examination/scheduleExamination", {
-          examinationId: 4,
-          date: startDate,
-        })
+        .post("http://localhost:9001/examination/scheduleExamination", { date: startDate })
         .then((response) => {
           this.message = response.data;
           if (response.status == 200) {

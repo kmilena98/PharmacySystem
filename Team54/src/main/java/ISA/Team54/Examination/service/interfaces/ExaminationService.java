@@ -22,9 +22,9 @@ public interface ExaminationService {
 	List<DermatologistExaminationDTO> getExaminationsForPharmacyAndDate(long id, ExaminationType type, Date date);
 	void scheduleExamination(long id);
 	boolean canExaminationBeScheduled(Examination examination, Date start,Date end);
-	boolean scheduleExamination(Long examinationId,Date start);
+	boolean scheduleExamination(Date start);
 	void cancelExamination(long id) throws Exception;
-	boolean saveExamination(Long currentExaminationId,Long newExaminationId);
+	boolean saveExamination(Long newExaminationId);
 	List<DermatologistExaminationDTO> getFutureExaminations(ExaminationType type);
 	List<Pharmacy> getFreePharmaciesForInterval(Date term, ExaminationType type);
 	int isPatientAppropriate(Long patientId);

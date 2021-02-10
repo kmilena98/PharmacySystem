@@ -348,10 +348,10 @@ public class ExaminationServiceImpl implements ExaminationService {
 		return true;
 	}
 
-	public boolean scheduleExamination(Long examinationId, Date start) {
+	public boolean scheduleExamination(Date start) {
 		long curTimeInMs = start.getTime();
 		Date end = new Date(curTimeInMs + (30 * ONE_MINUTE_IN_MILLIS));
-		Examination examination = examinationRepository.findOneById(examinationId);
+		Examination examination = examinationRepository.findOneById(getCurrentExaminationForEmployee().getId());
 		if (!canExaminationBeScheduled(examination, start, end)) {
 			return false;
 		}
@@ -370,7 +370,8 @@ public class ExaminationServiceImpl implements ExaminationService {
 		return true;
 	}
 
-	public boolean saveExamination(Long currentExaminationId, Long newExaminationId) {
+	public boolean saveExamination(Long newExaminationId) {
+		Long currentExaminationId = getCurrentExaminationForEmployee().getId();
 		Examination currentExamination = examinationRepository.findOneById(currentExaminationId);
 		Examination newExamination = examinationRepository.findOneById(newExaminationId);
 		newExamination.setStatus(ExaminationStatus.Filled);

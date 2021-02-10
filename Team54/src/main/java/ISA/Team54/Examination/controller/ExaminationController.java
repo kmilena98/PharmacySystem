@@ -134,7 +134,7 @@ public class ExaminationController {
 	 @PostMapping("/scheduleExamination")
 	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
     public ResponseEntity<String> scheduleExamination(@RequestBody ScheduleExaminaitonDTO scheduleExamination) {	
-      if(examinationService.scheduleExamination(scheduleExamination.getExaminationId(),scheduleExamination.getDate()))
+      if(examinationService.scheduleExamination(scheduleExamination.getDate()))
     	  return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!",HttpStatus.OK);
       else
     	  return new ResponseEntity<>("Nije moguce zakazati pregled u izabranom terminu!",HttpStatus.BAD_REQUEST);  
@@ -185,8 +185,8 @@ public class ExaminationController {
 	
 	@PostMapping("/saveExamination")
     @PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
-	public ResponseEntity<String> saveExamination(@RequestBody NewExaminationDTO newExaminationDTO) {
-		boolean success = examinationService.saveExamination(newExaminationDTO.getCurrentExaminationId(),newExaminationDTO.getNewExaminationId());
+	public ResponseEntity<String> saveExamination(@PathVariable Long newExaminationId) {
+		boolean success = examinationService.saveExamination(newExaminationId);
 		return new ResponseEntity<>("Uspjesno sacuvane infomracije o pregledu!", HttpStatus.OK);
 	}
 
