@@ -9,6 +9,6 @@ before_install:
   - chmod +x ./Team54/mvnw
 
 script:
-  - ./mvnw clean install -DskipTests=true -B
+  - ./Team54/mvnw clean install -DskipTests=true -B
 
 dist: trusty
