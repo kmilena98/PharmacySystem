@@ -6,7 +6,7 @@ services:
   - postgresql
 
 before_install:
-  - chmod +x ./mvnw
+  - chmod +x ./Team54/mvnw
 
 script:
   - ./Team54/mvnw clean install -DskipTests=true -B
